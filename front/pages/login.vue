@@ -1,10 +1,10 @@
 <template>
-  <ValidationObserver>
-    <v-card class="mx-auto mt-5 pa-5" widh="400px">
-      <v-card-title>
-        <h1 class="signup-title">ログイン</h1>
-      </v-card-title>
-      <v-card-text>
+  <v-card class="mx-auto mt-5 pa-5" width="400px">
+    <v-card-title>
+      <h1 class="signup-title">ログイン</h1>
+    </v-card-title>
+    <v-card-text>
+      <ValidationObserver>
         <v-form>
           <p v-if="error" class="errors">{{error}}</p>
           <TextField
@@ -29,9 +29,9 @@
             </v-btn>
           </v-row>
         </v-form>
-      </v-card-text>
-    </v-card>
-  </ValidationObserver>
+      </ValidationObserver>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
