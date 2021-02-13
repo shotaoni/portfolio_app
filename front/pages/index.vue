@@ -1,5 +1,5 @@
 <template>
- <p>hogehoge</p>
+  <p>hogehoge</p>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-require('dotenv').config();
+require('dotenv').config()
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -27,6 +27,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/vee-validate',
+    '@/plugins/auth-check'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -71,5 +73,8 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: [
+      'vee-validate/dist/rules'
+    ]
   }
 }
