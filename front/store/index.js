@@ -3,19 +3,35 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const store = () => {
-  return new Vuex.Store({
-    state: {
-      currentUser: null
-    },
-    mutations: {
-      setUser (state, payload) {
-        state.currentUser = payload
-      }
-    },
-    actions: {
-    }
-  })
+export const state = () => ({
+  currentUser: {
+    id: '',
+    name: '',
+    email: '',
+    profile: ''
+  },
+  loggedIn: false,
+  loading: false,
+  flash: {
+    status: false,
+    message: ''
+  }
+})
+
+export const mutations = {
+  setUser (state, payload) {
+    state.currentUser = payload
+  },
+  setLoggedIn (state, payload) {
+    state.loggedIn = payload
+  },
+  setLoading (state, payload) {
+    state.loading = payload
+  },
+  setFlash (state, payload) {
+    state.flash = payload
+  }
 }
 
-export default store
+export const actions = {
+}

@@ -1,5 +1,7 @@
 <template>
   <v-app style="background-color: #ECEFF1;">
+    <Flash />
+    <Loading />
     <Header />
     <v-main>
       <v-container>
@@ -13,10 +15,16 @@
 <script>
 import Header from '../components/organisms/Header.vue'
 import Footer from '../components/organisms/Footer.vue'
+import Loading from '../components/atoms/Loading.vue'
+import Flash from '../components/atoms/Flash.vue'
 export default {
+  name: 'Default',
+
   components: {
     Header,
-    Footer
+    Footer,
+    Loading,
+    Flash
   }
 }
 </script>

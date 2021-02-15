@@ -1445,7 +1445,7 @@
 
 "@nuxtjs/dotenv@^1.4.1":
   version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.4.1.tgz#dd5abb98e22cc7ae27139d3aa606151034293128"
+  resolved "https://registry.npmjs.org/@nuxtjs/dotenv/-/dotenv-1.4.1.tgz"
   integrity sha512-DpdObsvRwC8d89I9mzz6pBg6e/PEXHazDM57DOI1mmML2ZjHfQ/DvkjlSzUL7T+TnW3b/a4Ks5wQx08DqFBmeQ==
   dependencies:
     consola "^2.10.1"
@@ -5603,6 +5603,11 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
+loaders.css@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/loaders.css/-/loaders.css-0.1.2.tgz"
+  integrity sha1-Op+0NybHMzSjgUKvnQYpAZtlh0M=
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz"
@@ -8891,7 +8896,7 @@ vary@^1.1.2, vary@~1.1.2:
 
 vee-validate@^3.4.5:
   version "3.4.5"
-  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-3.4.5.tgz#96a456c309f7bdb2cce62c3b554f96d893e9f6ae"
+  resolved "https://registry.npmjs.org/vee-validate/-/vee-validate-3.4.5.tgz"
   integrity sha512-ZEcLqOAZzSkMhDvPcTx0xcwVOijFnMW9J+BA20j+rDmo24T8RCCqVQyRwwrDrcWJZV2dRYl/yYNa2GB6UCoBvg==
 
 vendors@^1.0.0:

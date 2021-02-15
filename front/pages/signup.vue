@@ -72,9 +72,7 @@ export default {
   },
   methods: {
     signUp () {
-      if (this.password !== this.passwordConfirm) {
-        this.error = '※パスワードとパスワード確認が一致していません'
-      }
+      this.$store.commit('setLoading', true)
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -84,7 +82,16 @@ export default {
             name: this.name,
             uid: res.user.uid
           }
-          axios.post('/v1/users', { user }).then(() => {
+          axios.post('/v1/users', { user }).then((res) => {
+            this.$store.commit('setLoading', false)
+            this.$store.commit('setUser', res.data)
+            this.$store.commit('setFlash', {
+              status: true,
+              message: 'ログインしました'
+            })
+            setTimeout(() => {
+              this.$store.commit('setFlash', {})
+            }, 2000)
             this.$router.push('/')
           })
         })
@@ -97,9 +104,17 @@ export default {
                 return '※パスワードが正しくありません'
               case 'auth/weak-password':
                 return '※パスワードは最低6文字以上にしてください'
+              default:
+                return '※メールアドレスとパスワードを確認してください'
             }
           })(error.code)
+          this.$store.commit('setLoading', false)
         })
+    },
+    fetch ({ redirect, store }) {
+      if (store.state.currentUser) {
+        return redirect('/')
+      }
     }
   }
 }

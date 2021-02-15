@@ -1,31 +1,36 @@
 <template>
   <v-card class="mx-auto mt-5 pa-5" width="400px">
     <v-card-title>
-      <h1 class="signup-title">ログイン</h1>
+      <h1 class="signup-title">
+        ログイン
+      </h1>
     </v-card-title>
     <v-card-text>
       <ValidationObserver>
         <v-form>
-          <p v-if="error" class="errors">{{error}}</p>
+          <p v-if="error" class="errors">
+            {{ error }}
+          </p>
           <TextField
             v-model="email"
             label="メールアドレス"
             rules="max:255|required|email"
-            />
+          />
           <TextField
             v-model="password"
             label="パスワード"
             rules="required|min:6"
             :type="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show1 = !show1"
             vid="password"
-            />
+            @click:append="show1 = !show1"
+          />
           <v-row justify="center">
             <v-btn
-            color="light-blue lighten-3"
-            class="mx-auto white--text mt-4"
-            @click="login"
-            >ログイン
+              color="light-blue lighten-3"
+              class="mx-auto white--text mt-4"
+              @click="login"
+            >
+              ログイン
             </v-btn>
           </v-row>
         </v-form>
@@ -55,6 +60,13 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'ログインしました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 2000)
           this.$router.push('/')
         })
         .catch((error) => {

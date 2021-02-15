@@ -2,31 +2,43 @@
   <v-app-bar coler="light-blue lighten-3" dark app fixed>
     <v-toolbar-title>
       <n-link to="/" style="color:white; text-decoration:none;">
-        <h2 class="app-title">Mycontents!</h2>
+        <h2 class="app-title">
+          Mycontents!
+        </h2>
       </n-link>
     </v-toolbar-title>
     <v-spacer />
     <div class="header-list">
       <v-btn
-      v-if="!currentUser"
-      to="/login"
-      text
-      color="white"
-      :outlined="true"
-      small
+        v-if="!loggedIn"
+        to="/login"
+        text
+        color="white"
+        :outlined="true"
+        small
       >
-      ログイン
+        ログイン
       </v-btn>
       <v-btn
-      v-if="currentUser"
-      to="/login"
+      v-if="!loggedIn"
+      to="/signup"
       text
       color="white"
       :outlined="true"
       small
-      @click="logOut"
       >
-      ログアウト
+      新規登録
+      </v-btn>
+      <v-btn
+        v-if="loggedIn"
+        to="/login"
+        text
+        color="white"
+        :outlined="true"
+        small
+        @click="logOut"
+      >
+        ログアウト
       </v-btn>
     </div>
   </v-app-bar>
@@ -38,6 +50,9 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.currentUser
+    },
+    loggedIn () {
+      return this.$store.state.loggedIn
     }
   },
   methods: {
