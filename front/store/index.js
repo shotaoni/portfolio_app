@@ -22,6 +22,12 @@ export const mutations = {
   setUser (state, payload) {
     state.currentUser = payload
   },
+  setUserName (state, payload) {
+    state.currentUser.name = payload
+  },
+  setUserProfile (state, payload) {
+    state.currentUser.profile = payload
+  },
   setLoggedIn (state, payload) {
     state.loggedIn = payload
   },
