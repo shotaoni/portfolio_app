@@ -9,7 +9,7 @@ export default {
     titleTemplate: '%s - app',
     title: 'app',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ja'
     },
     meta: [
       { charset: 'utf-8' },
