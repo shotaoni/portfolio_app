@@ -1,16 +1,18 @@
 <template>
   <v-card v-if="status" class="mx-auto mt-5 pa-5" width="400px">
     <v-card-title>
-      <h2 class="error-box">お探しのページは見つかりませんでした。</h2>
+      <h2 class="error-box">
+        お探しのページは見つかりませんでした。
+      </h2>
     </v-card-title>
     <v-card-text>
       <v-row justify="center">
         <v-btn
-        color="light-blue lighten-3"
-        class="white--text"
-        to="/"
+          color="light-blue lighten-3"
+          class="white--text"
+          to="/"
         >
-        ホームへ戻る
+          ホームへ戻る
         </v-btn>
       </v-row>
     </v-card-text>

@@ -1,5 +1,5 @@
 <template>
-  <div class="loader-container" v-if="loading">
+  <div v-if="loading" class="loader-container">
     <div class="loader">
       <div class="ball-scale-multiple">
         <div />

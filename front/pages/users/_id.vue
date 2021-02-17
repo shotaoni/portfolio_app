@@ -1,19 +1,32 @@
 <template>
   <v-container>
     <ErrorAnnounce :status="notFound" />
-<div class='hoge' v-if="!notFound">
-  <p>ユーザー名:{{ user.name }}</p>
-  <p>メールアドレス:{{ user.email }}</p>
-</div>
+    <div v-if="!notFound" class="my-page-box">
+      <v-row>
+        <v-col lg="4" md="4" sm="4" cols="12">
+          <UsersInfo :user="user" />
+          <UsersLinks />
+        </v-col>
+        <v-col lg="8" sm="8" cols="12">
+          <UsersContents />
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
 <script>
 import axios from '@/plugins/axios'
+import UsersInfo from '~/components/organisms/users/UsersInfo.vue'
+import UsersLinks from '~/components/organisms/users/UsersLinks.vue'
+import UsersContents from '~/components/organisms/users/UsersContents.vue'
 import ErrorAnnounce from '~/components/molecules/ErrorAnnounce.vue'
 export default {
   components: {
-    ErrorAnnounce
+    ErrorAnnounce,
+    UsersInfo,
+    UsersLinks,
+    UsersContents
   },
   data () {
     return {

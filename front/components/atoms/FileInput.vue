@@ -5,7 +5,7 @@
     :rules="rules"
     :vid="$attrs.label"
   >
-    <v-text-field
+    <v-file-input
       v-model="inputValue"
       :error-messages="errors"
       :success="valid"
