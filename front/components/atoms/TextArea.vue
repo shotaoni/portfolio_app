@@ -1,20 +1,18 @@
 <template>
   <ValidationProvider
+    v-slot="{ errors, valid }"
     :name="$attrs.label"
     :rules="rules"
-    v-slot="{ errors, valid }"
     :vid="$attrs.label"
-    >
+  >
     <v-textarea
-    :label="$attrs.label"
-    rows="10"
-    v-model="inputValue"
-    :error-message="errors"
-    :success="valid"
-    v-bind="$attrs"
-    v-on="$listeners"
-    >
-    </v-textarea>
+      v-model="inputValue"
+      rows="10"
+      :error-messages="errors"
+      :success="valid"
+      v-bind="$attrs"
+      v-on="$listeners"
+    />
   </ValidationProvider>
 </template>
 
@@ -30,7 +28,8 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+    }
   },
   computed: {
     inputValue: {

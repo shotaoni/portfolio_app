@@ -8,7 +8,8 @@ export const state = () => ({
     id: '',
     name: '',
     email: '',
-    profile: ''
+    profile: '',
+    avatar_url: ''
   },
   loggedIn: false,
   loading: false,
@@ -27,6 +28,9 @@ export const mutations = {
   },
   setUserProfile (state, payload) {
     state.currentUser.profile = payload
+  },
+  setUserAvatarUrl (state, payload) {
+    state.currentUser.avatar_url = payload
   },
   setLoggedIn (state, payload) {
     state.loggedIn = payload

@@ -1,21 +1,27 @@
 <template>
-  <div class="profile-box">
-    <h3 class="edit-h3">名前</h3>
-    <TextArea
-    v-model="name"
-    :rules="rules"
-    :label="label"
-    v-bind="$attrs"
-    />
-    <v-row justify="end">
-      <v-btn
-      color="light-blue lighten-3"
-      class="white--text profile-message-btn"
-      @click="changeUsersProfile"
-      >変更
-      </v-btn>
-    </v-row>
-  </div>
+  <ValidationObserver ref="obs" v-slot="ObserverProps">
+    <div class="profile-box">
+      <h3 class="edit-h3">
+        プロフィール文
+      </h3>
+      <TextArea
+        v-model="profile"
+        :rules="rules"
+        :label="label"
+        v-bind="$attrs"
+      />
+      <v-row justify="end">
+        <v-btn
+          color="light-blue lighten-3"
+          class="white--text profile-message-btn"
+          :disabled="ObserverProps.invalid || !ObserverProps.validated"
+          @click="changeUsersProfile"
+        >
+          変更
+        </v-btn>
+      </v-row>
+    </div>
+  </ValidationObserver>
 </template>
 
 <script>
@@ -40,12 +46,21 @@ export default {
   },
   data () {
     return {
+      name: '',
       profile: ''
     }
   },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
+    }
+  },
+  watch: {
+    profile (newProfile) {
+      this.$emit('input', newProfile)
+    },
+    value (newProfile) {
+      this.profile = newProfile
     }
   },
   methods: {
@@ -56,7 +71,7 @@ export default {
       this.$store.commit('setLoading', true)
 
       axios
-        .patch(`/v1/users/${this.currrentUser.id}`, { user })
+        .patch(`/v1/users/${this.currentUser.id}`, { user })
         .then((res) => {
           this.profile = res.data.profile
           this.$store.commit('setUserProfile', res.data.profile)
@@ -69,14 +84,6 @@ export default {
             this.$store.commit('setFlash', {})
           }, 2000)
         })
-    }
-  },
-  watch: {
-    profile (newProfile) {
-      this.$emit('input', newProfile)
-    },
-    value (newProfile) {
-      this.profile = newProfile
     }
   }
 }

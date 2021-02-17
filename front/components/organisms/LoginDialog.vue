@@ -1,36 +1,40 @@
 <template>
   <v-dialog
-  v-model="dialogStatus"
-  max-width="400px"
-  persistent
+    v-model="dialogStatus"
+    max-width="400px"
+    persistent
   >
     <v-card width="500px" class="mx-auto">
       <v-toolbar flat>
         <v-toolbar-title>再認証</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn @click="closeDialog" icon>
+        <v-spacer />
+        <v-btn icon @click="closeDialog">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
       <v-card-text>
         <v-form>
-          <p v-if="error" class="errors">{{ error }}</p>
+          <p v-if="error" class="errors">
+            {{ error }}
+          </p>
           <TextField
-          v-model="password"
-          label="現在のパスワード"
-          rules="required|min:6"
-          :type="show1 ? 'text' : 'password'"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          @click:append="show1 = !show1"
-          vid="passord"
+            v-model="password"
+            label="現在のパスワード"
+            rules="required|min:6"
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            vid="passord"
+            @click:append="show1 = !show1"
           />
           <v-card-actions>
             <v-row justify="end">
               <v-btn
-              @click="login"
-              color="light-blue lighten-3"
-              class="white--text"
-              >再認証</v-btn>
+                color="light-blue lighten-3"
+                class="white--text"
+                @click="login"
+              >
+                再認証
+              </v-btn>
             </v-row>
           </v-card-actions>
         </v-form>
