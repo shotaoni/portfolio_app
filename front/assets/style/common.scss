@@ -10,3 +10,29 @@
     }
   }
 }
+
+.url-input {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.url-input input[type=text] {
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0;
+  padding: 0.3em;
+  transition: 0.3s;
+  border: 1px solid #1b2538;
+  border-radius: 4px;
+  outline: none;
+}
+
+.url-input input[type=text]:focus {
+  border-color: #4caf50;
+}
+
+.url-input input[type=text]:focus + i {
+  color: #4caf50;
+}

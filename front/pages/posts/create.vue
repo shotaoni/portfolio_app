@@ -11,6 +11,19 @@
           label="タイトル"
           rules="max:80|required"
           />
+          <AddLink
+          rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
+          label="URL"
+          :firstUrl.sync="firstUrl"
+          :secondUrl.sync="secondUrl"
+          :thirdUrl.sync="thirdUrl"
+          />
+          <TextArea
+          v-model="point"
+          label="説明"
+          rules="max:140|required"
+          :counter="140"
+          />
           <v-row justify="center">
             <v-btn
             color="light-blue lighten-3"
@@ -28,19 +41,29 @@
 
 <script>
 import axios from '@/plugins/axios'
+import AddLink from '~/components/molecules/AddLink.vue'
 import TextField from '~/components/atoms/TextField.vue'
 export default {
   components: {
-    TextField
+    TextField,
+    AddLink
   },
   data () {
     return {
-      title: ''
+      title: '',
+      firstUrl: '',
+      secondUrl: '',
+      thirdUrl: '',
+      point: ''
     }
   },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
+    },
+    links () {
+      const links = [this.firstUrl, this.secondUrl, this.thirdUrl]
+      return links
     }
   },
   methods: {
@@ -49,7 +72,9 @@ export default {
       axios
         .post('/v1/posts', {
           title: this.title,
-          user_id: this.currentUser.id
+          user_id: this.currentUser.id,
+          links: this.links,
+          point: this.point
         })
         .then((res) => {
           this.$store.commit('setLoading', false)
@@ -63,6 +88,16 @@ export default {
           this.$router.push(`/posts/${res.data.id}`)
         })
     }
+  },
+  fetch ({ store, redirect }) {
+    store.watch(
+      state => state.currentUser,
+      (newUser, oldUser) => {
+        if (!newUser) {
+          return redirect('/login')
+        }
+      }
+    )
   }
 }
 </script>
