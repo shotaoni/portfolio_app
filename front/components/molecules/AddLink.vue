@@ -75,9 +75,9 @@ export default {
   },
   data () {
     return {
-      firstUrlForVeeValidate: '',
-      secondUrlForVeeValidate: '',
-      thirdUrlForVeeValidate: ''
+      firstUrlForVeeValidate: this.firstUrl,
+      secondUrlForVeeValidate: this.secondUrl,
+      thirdUrlForVeeValidate: this.thirdUrl
     }
   }
 }

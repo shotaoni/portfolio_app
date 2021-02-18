@@ -34,6 +34,15 @@
         </v-btn>
       </div>
       <div v-if="loggedIn" class="after-login-box">
+        <v-btn
+        to='/posts/create'
+        class='mr-2'
+        color='white'
+        :outlined='true'
+        small
+        >
+        <v-icon small>mdi-fountain-pen-tip></v-icon>投稿
+        </v-btn>
         <v-menu offset-y dense nav>
           <template #activator="{ on, attrs }">
             <v-avatar size="32">

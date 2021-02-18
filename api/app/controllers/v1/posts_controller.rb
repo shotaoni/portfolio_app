@@ -24,7 +24,10 @@ class V1::PostsController < ApplicationController
   end
 
   def update
-    if @post.update(post_params)
+    @user = User.find(params[:user_id])
+    @post.assign_attributes(post_params)
+    if @post.save
+      links = UpdateLink.new(@post).update_links(params[:links])
       render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
