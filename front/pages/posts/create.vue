@@ -1,36 +1,37 @@
 <template>
   <v-card class="mx-auto mt-5 pa-5" width="400px">
     <v-card-title>
-      <h2 class="create-post-h2">新規投稿</h2>
+      <h2 class="create-post-h2">
+        新規投稿
+      </h2>
     </v-card-title>
     <v-form>
       <ValidationObserver ref="obs" v-slot="ObserverProps">
         <div class="create-post-box">
           <TextField
-          v-model="title"
-          label="タイトル"
-          rules="max:80|required"
+            v-model="title"
+            label="タイトル"
+            rules="max:80|required"
           />
           <AddLink
-          rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
-          label="URL"
-          :firstUrl.sync="firstUrl"
-          :secondUrl.sync="secondUrl"
-          :thirdUrl.sync="thirdUrl"
+            rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
+            label="URL"
+            :first-url.sync="firstUrl"
           />
           <TextArea
-          v-model="point"
-          label="説明"
-          rules="max:140|required"
-          :counter="140"
+            v-model="point"
+            label="説明"
+            rules="max:140|required"
+            :counter="140"
           />
           <v-row justify="center">
             <v-btn
-            color="light-blue lighten-3"
-            class="white--text"
-            @click="createPost"
-            :disabled="ObserverProps.invalid || !ObserverProps.validated"
-            >投稿
+              color="light-blue lighten-3"
+              class="white--text"
+              :disabled="ObserverProps.invalid || !ObserverProps.validated"
+              @click="createPost"
+            >
+              投稿
             </v-btn>
           </v-row>
         </div>
@@ -52,17 +53,25 @@ export default {
     return {
       title: '',
       firstUrl: '',
-      secondUrl: '',
-      thirdUrl: '',
       point: ''
     }
+  },
+  fetch ({ store, redirect }) {
+    store.watch(
+      state => state.currentUser,
+      (newUser) => {
+        if (!newUser) {
+          return redirect('/login')
+        }
+      }
+    )
   },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
     },
     links () {
-      const links = [this.firstUrl, this.secondUrl, this.thirdUrl]
+      const links = [this.firstUrl]
       return links
     }
   },
@@ -88,16 +97,6 @@ export default {
           this.$router.push(`/posts/${res.data.id}`)
         })
     }
-  },
-  fetch ({ store, redirect }) {
-    store.watch(
-      state => state.currentUser,
-      (newUser, oldUser) => {
-        if (!newUser) {
-          return redirect('/login')
-        }
-      }
-    )
   }
 }
 </script>

@@ -23,7 +23,8 @@ export default {
       default: ''
     },
     value: {
-      type: null
+      type: null,
+      default: ''
     }
   },
   data () {

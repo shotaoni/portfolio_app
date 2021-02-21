@@ -26,8 +26,10 @@
             <AddLink
               rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
               label="URL"
-              v-model="viewFirstUrl"
               :first-url.sync="firstUrl"
+              :second-url.sync="secondUrl"
+              :third-url.sync="thirdUrl"
+              @input="firstUrl=$event"
             />
             <TextArea
               v-model="viewPoint"
@@ -68,35 +70,30 @@ export default {
       type: Boolean,
       required: true
     },
-    currentUser: {
+    title: {
       type: String,
+      default: ''
+    },
+    links: {
+      type: Array
+    },
+    point: {
+      type: String,
+      default: ''
+    },
+    currentUser: {
+      type: null,
       default: ''
     }
   },
   data () {
     return {
-      title: '',
-      links: [],
-      point: '',
-      firstUrl: '',
-      userid: '',
       dialogStatus: this.dialog,
       patchForTitle: '',
       patchForPoint: '',
-      patchForFirstUrl: ''
-    }
-  },
-  watch: {
-    async dialog (newVal) {
-      this.dialogStatus = newVal
-      if (this.dialogStatus) {
-        const res = await axios.get(`/v1/posts/${this.$route.params.id}`)
-        this.title = res.data.title
-        this.point = res.data.point
-        this.firstUrl = res.data.links[0].url
-        this.links[0] = res.data.links[0]
-        this.userid = res.data.user.id
-      }
+      patchForFirstUrl: '',
+      patchForSecondUrl: '',
+      patchForThirdUrl: ''
     }
   },
   /* eslint-disable vue/no-side-effects-in-computed-properties */
@@ -119,11 +116,11 @@ export default {
         this.patchForPoint = newVal
       }
     },
-    viewFirstUrl: {
+    firstUrl: {
       get () {
-        if (this.firstUrl) {
-          this.patchForFirstUrl = this.links[0].url
-          return this.links[0]
+        if (this.links) {
+          this.patchForFirstUrl = this.links[0].og_url
+          return this.links[0].og_url
         } else {
           return ''
         }
@@ -132,15 +129,43 @@ export default {
         this.patchForFirtstUrl = newVal
       }
     },
+    secondUrl: {
+      get () {
+        if (this.links) {
+          this.patchForSecondUrl = this.links[1].og_url
+          return this.links[1].og_url
+        } else {
+          return ''
+        }
+      },
+      set (newVal) {
+        this.patchForSecondUrl = newVal
+      }
+    },
+    thirdUrl: {
+      get () {
+        if (this.links) {
+          this.patchForThirdUrl = this.links[2].og_url
+          return this.links[2].og_url
+        } else {
+          return ''
+        }
+      },
+      set (newVal) {
+        this.patchForThirdUrl = newVal
+      }
+    },
     editLinks () {
-      const editLinks = [this.firstUrl]
+      const editLinks = [this.patchForFirstUrl, this.patchForSecondUrl, this.patchForThirdUrl]
       return editLinks
     }
   },
-  currentUser () {
-    return this.$store.state.currentUser
-  },
   /* eslint-enable vue/no-side-effects-in-computed-properties */
+  watch: {
+    dialog (newVal) {
+      this.dialogStatus = newVal
+    }
+  },
   methods: {
     closeDialog () {
       this.$emit('closeDialog')
@@ -150,7 +175,7 @@ export default {
       axios
         .patch(`/v1/posts/${this.$route.params.id}`, {
           title: this.patchForTitle,
-          user_id: this.userid,
+          user_id: this.currentUser.id,
           links: this.editLinks,
           point: this.patchForPoint
         })

@@ -30,7 +30,7 @@
           <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-btn
-          @click="dialog = !dialog"
+          @click="destroyPost"
           outlined
           fab
           small
@@ -69,7 +69,7 @@ export default {
       user: {},
       post: {},
       point: '',
-      links: [],
+      links: '',
       notFound: false,
       dialog: false
     }

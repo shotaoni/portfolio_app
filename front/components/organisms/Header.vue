@@ -3,7 +3,7 @@
     <v-toolbar-title>
       <n-link to="/" style="color:white; text-decoration:none;">
         <h1 class="app-title">
-          Mycontents!
+          sample!!
         </h1>
       </n-link>
     </v-toolbar-title>
@@ -11,7 +11,7 @@
     <div class="header-list">
       <div v-if="!loggedIn" class="before-login-box">
         <UsersAvatar
-          :size="62"
+          :size="36"
           :user="user"
         />
         <v-btn
@@ -35,13 +35,15 @@
       </div>
       <div v-if="loggedIn" class="after-login-box">
         <v-btn
-        to='/posts/create'
-        class='mr-2'
-        color='white'
-        :outlined='true'
-        small
+          to="/posts/create"
+          class="mr-2"
+          color="white"
+          :outlined="true"
+          small
         >
-        <v-icon small>mdi-fountain-pen-tip></v-icon>投稿
+          <v-icon small>
+            mdi-fountain-pen-tip>
+          </v-icon>投稿
         </v-btn>
         <v-menu offset-y dense nav>
           <template #activator="{ on, attrs }">

@@ -2,8 +2,11 @@ class V1::PostsController < ApplicationController
     before_action :set_post, only: [:show, :update, :destroy]
   
   def index
-    @posts = Post.all
-
+    if params[:offset]
+      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).offset(params[:offset])
+    else
+      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
+    end
     render json: @posts
   end
 
