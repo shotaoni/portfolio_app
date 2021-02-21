@@ -1,8 +1,8 @@
 <template>
   <v-avatar :size="size">
     <img
-      v-if="user.avatar_url"
-      :src="user.avatar_url"
+      v-if="currentUser.avatar_url"
+      :src="currentUser.avatar_url"
       alt="Avatar"
     >
     <img
@@ -24,12 +24,19 @@ export default {
       user: {
         type: Object,
         required: true
-      }
+      },
+      type: null,
+      default: ''
     }
   },
   data () {
     return {
       user: {}
+    }
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
     }
   }
 }

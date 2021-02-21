@@ -57,13 +57,16 @@ export default {
     rules: {
       type: [Object, String],
       default: ''
+    },
+    value: {
+      type: null,
+      default: ''
     }
   },
   data () {
     return {
       avatar: [],
-      uploadImageUrl: '',
-      value: ''
+      uploadImageUrl: ''
     }
   },
   computed: {
@@ -72,9 +75,6 @@ export default {
     }
   },
   methods: {
-    attachImg () {
-      console.log(this.avatar)
-    },
     onImagePicked (file) {
       if (file !== undefined && file !== null) {
         if (file.name.lastIndexOf('.') <= 0) {

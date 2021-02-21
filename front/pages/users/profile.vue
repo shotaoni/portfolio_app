@@ -43,14 +43,13 @@ export default {
     return {
       name: '',
       profile: '',
-      avatar: '',
       currentAvatarUrl: ''
     }
   },
   fetch ({ store, redirect }) {
     store.watch(
       state => state.currentUser,
-      (newUser, oldUser) => {
+      (newUser) => {
         if (!newUser) {
           return redirect('/login')
         }
