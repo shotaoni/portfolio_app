@@ -6,6 +6,7 @@ export const setUser = (user, store) => {
     if (user) {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       const userParams = data
+      console.log(data)
       store.commit('setUser', userParams)
       store.commit('setLoggedIn', true)
     } else {

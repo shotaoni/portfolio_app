@@ -20,7 +20,8 @@
             v-model="password"
             label="パスワード"
             rules="required|min:6"
-            :type="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             vid="password"
             @click:append="show1 = !show1"
           />
@@ -40,8 +41,9 @@
 </template>
 
 <script>
+import { setUser } from '@/plugins/auth-check.js'
 import firebase from '@/plugins/firebase'
-import TextField from '../components/atoms/TextField.vue'
+import TextField from '~/components/atoms/TextField.vue'
 export default {
   components: {
     TextField
@@ -56,10 +58,12 @@ export default {
   },
   methods: {
     login () {
+      this.$store.commit('setLoading', true)
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+        .then((res) => {
+          setUser(res.user, this.$store)
           this.$store.commit('setFlash', {
             status: true,
             message: 'ログインしました'
@@ -78,6 +82,7 @@ export default {
                 return '※パスワードが正しくありません'
             }
           })(error.code)
+          this.$store.commit('setLoading', false)
         })
     }
   }

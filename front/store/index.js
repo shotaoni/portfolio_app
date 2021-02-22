@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export const state = () => ({
   currentUser: {
     id: '',
+    id_token: '',
     name: '',
     email: '',
     profile: '',
