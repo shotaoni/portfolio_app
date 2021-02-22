@@ -15,6 +15,7 @@
         <div class="post-show-header px-2">
           <UsersLink
           :user="user"
+          :post="post"
           />
           <div
           class="post-show-change-box"
@@ -80,6 +81,10 @@ export default {
       .then((res) => {
         this.user = res.data.user
         this.post = res.data
+        console.log(this.post)
+        console.log(res)
+        console.log(res.data.user)
+        console.log(this.post.user.avatar_url)
         this.point = res.data.point
         this.links = res.data.links
       })

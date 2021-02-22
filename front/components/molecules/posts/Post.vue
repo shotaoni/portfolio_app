@@ -8,6 +8,7 @@
     <v-card-text>
       <UsersLink
         :user="user"
+        :post="post"
       />
       <div class="post-index-point mt-2">
         {{ post.point }}
