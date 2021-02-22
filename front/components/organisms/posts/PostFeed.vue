@@ -38,6 +38,7 @@ export default {
       .get('v1/posts')
       .then((res) => {
         this.posts = res.data
+        console.log(this.posts)
         this.postCount = this.posts.length
       })
   },
