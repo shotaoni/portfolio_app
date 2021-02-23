@@ -1,6 +1,12 @@
 <template>
-  <v-card class='forrowed-text'>
-    <p>followedpe-zidayo</p>
+  <v-card class="mx-auto mt-4 pa-3" width="400px">
+    <v-card-title class="py-2">
+    </v-card-title>
+    <v-card-text>
+      <div class="post-index-point mt-2">
+        {{ users }}
+      </div>
+    </v-card-text>
   </v-card>
 </template>
 

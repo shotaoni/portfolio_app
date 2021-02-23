@@ -1,6 +1,9 @@
 class V1::RelationshipsController < ApplicationController
   before_action :set_user
 
+  def index
+  end
+
   def create
     @current_user.follow(@other_user)
     render json: @other_user
@@ -16,4 +19,5 @@ class V1::RelationshipsController < ApplicationController
     def set_user
       @current_user = User.find(params[:user_id])
       @other_user = User.find(params[:follow_id])
+    end
 end

@@ -7,5 +7,6 @@ Rails.application.routes.draw do
       end
     end
     resources :posts
+    resources :relationships, only: [:create, :destroy]
   end
 end

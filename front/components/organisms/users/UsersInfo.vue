@@ -23,7 +23,7 @@
       <v-row justify="center">
         <nuxt-link
       class="nuxt-link"
-      :to="`/users/following`"
+      :to="`/users/${user.id}/following`"
       style="color:#37474F"
     >
       フォロー
@@ -31,12 +31,28 @@
     </nuxt-link>
     <nuxt-link
       class="nuxt-link"
-      :to="`/users/followed`"
+      :to="`/users/${user.id}/followed`"
       style="color:#37474F"
     >
       フォロワー
        {{ user.followed }}人
     </nuxt-link>
+        <v-col cols="12" v-if="!(currentUser.id === user.id)">
+          <v-row justify="center">
+            <v-btn
+              color="primary"
+              @click="follow"
+            >
+              フォローする
+            </v-btn>
+            <v-btn
+              color="white--text red"
+              @click="unfollow"
+            >
+              フォロー解除
+            </v-btn>
+          </v-row>
+        </v-col>
       </v-row>
       <v-row>
         <div class="user-info-box-profile">
@@ -53,6 +69,20 @@ export default {
     user: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    currentUser () {
+      console.log(this.$store.state)
+      return this.$store.state.currentUser
+    }
+  },
+  methods: {
+    follow () {
+      this.$store.commit('setLoading', true)
+    },
+    unfollow () {
+      this.$store.commit('setLoading', true)
     }
   }
 }
