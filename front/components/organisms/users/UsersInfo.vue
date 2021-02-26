@@ -2,6 +2,11 @@
   <v-card class="user-info-box">
     <v-card-text>
       <v-row justify="center">
+        <nuxt-link
+          class="nuxt-link"
+          :to="`/users/${user.id}`"
+          style="color:#37474F"
+        >
         <v-avatar size="62">
               <img
                 v-if="user.avatar_url"
@@ -14,16 +19,23 @@
                 alt="Avatar"
               >
             </v-avatar>
+            </nuxt-link>
       </v-row>
       <v-row justify="center">
-        <p class="user-info-box-name">
-          {{ user.name }}
-        </p>
+        <nuxt-link
+          class="nuxt-link"
+          :to="`/users/${user.id}`"
+          style="color:#37474F"
+        >
+          <p class="user-info-box-name">
+            {{ user.name }}
+          </p>
+        </nuxt-link>
       </v-row>
       <v-row justify="center">
         <nuxt-link
       class="nuxt-link"
-      :to="`/users/${user.id}/following`"
+      :to="`/users/${user.id}/FollowingFeed`"
       style="color:#37474F"
     >
       フォロー
@@ -31,7 +43,7 @@
     </nuxt-link>
     <nuxt-link
       class="nuxt-link"
-      :to="`/users/${user.id}/followed`"
+      :to="`/users/${user.id}/FollowerFeed`"
       style="color:#37474F"
     >
       フォロワー
