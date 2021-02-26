@@ -27,7 +27,7 @@
       style="color:#37474F"
     >
       フォロー
-      {{ user.following }}人
+      {{ this.followinglength }}人
     </nuxt-link>
     <nuxt-link
       class="nuxt-link"
@@ -35,19 +35,23 @@
       style="color:#37474F"
     >
       フォロワー
-       {{ user.followed }}人
+       {{ this.followerslength }}人
     </nuxt-link>
         <v-col cols="12" v-if="!(currentUser.id === user.id)">
           <v-row justify="center">
             <v-btn
+              v-if="!alreadyfollow"
+              outlined
               color="primary"
-              @click="follow"
+              @click="follow(user)"
             >
               フォローする
             </v-btn>
             <v-btn
+              v-else
+              outlined
               color="white--text red"
-              @click="unfollow"
+              @click="unfollow(user)"
             >
               フォロー解除
             </v-btn>
@@ -64,6 +68,7 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios'
 export default {
   props: {
     user: {
@@ -71,18 +76,107 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      followers: {},
+      alreadyfollow: Boolean,
+      followerslength: Number,
+      followinglength: Number
+    }
+  },
   computed: {
     currentUser () {
-      console.log(this.$store.state)
+      console.log(this.$store.state.currentUser)
+      console.log(this.user)
+      console.log(this.user.id)
       return this.$store.state.currentUser
     }
   },
+  mounted () {
+    this.getFollowRelationship()
+    this.getFollowingnow()
+    this.getFollowersnow()
+  },
   methods: {
-    follow () {
-      this.$store.commit('setLoading', true)
+    getFollowingnow () {
+      axios
+        .get(`/v1/users/${this.$route.params.id}/following`)
+        .then((res) => {
+          this.followinglength = res.data.length
+        })
     },
-    unfollow () {
+    getFollowersnow () {
+      axios
+        .get(`/v1/users/${this.$route.params.id}/followers`)
+        .then((res) => {
+          this.followerslength = res.data.length
+        })
+    },
+    getFollowRelationship () {
+      axios
+        .get('/v1/relationships', {
+          params: {
+            userid: this.$store.state.id,
+            followed_id: this.$route.params.id
+          }
+        })
+        .then((res) => {
+          if (!res.data.length || !res.data) {
+            this.alreadyfollow = false
+          } else {
+            this.alreadyfollow = true
+          }
+          console.log(res.data)
+          console.log(this.user.id)
+          console.log(this.currentUser.id)
+        })
+    },
+    follow (user) {
       this.$store.commit('setLoading', true)
+      console.log(this.currentUser.id)
+      console.log(this.user.id)
+      axios
+        .post('/v1/relationships', {
+          userid: this.currentUser.id,
+          followed_id: user.id
+        })
+        .then((res) => {
+          this.getFollowersnow()
+          this.alreadyfollow = true
+          this.getFollowRelationship()
+          this.$store.commit('setLoading', false)
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'フォローしました'
+          })
+          console.log(this.user)
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 3000)
+        })
+    },
+    unfollow (user) {
+      this.$store.commit('setLoading', true)
+      console.log(this.currentUser.id)
+      console.log(this.user.id)
+      axios
+        .post(`/v1/users/${this.$route.params.id}/unfollow`, {
+          userid: this.currentUser.id,
+          unfollowed_id: user.id
+        })
+        .then((res) => {
+          this.getFollowersnow()
+          this.alreadyfollow = false
+          this.getFollowRelationship()
+          this.$store.commit('setLoading', false)
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'フォローを解除しました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 3000)
+        })
     }
   }
 }

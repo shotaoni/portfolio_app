@@ -7,6 +7,7 @@ export const setUser = (user, store) => {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       const userParams = data
       console.log(data)
+      console.log(data.uid)
       store.commit('setUser', userParams)
       store.commit('setLoggedIn', true)
     } else {
@@ -17,7 +18,7 @@ export const setUser = (user, store) => {
   set(user, store)
 }
 
-const authCheck = ({ store, redirect }) => {
+const authCheck = ({ store }) => {
   firebase.auth().onAuthStateChanged(async (user) => {
     await setUser(user, store)
   })

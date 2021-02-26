@@ -34,6 +34,18 @@ class V1::UsersController < ApplicationController
     @user.destroy
   end
 
+  def following
+    @user  = User.find(params[:id])
+    @users = @user.following
+    render json: @users
+   end
+
+  def followers
+    @user  = User.find(params[:id])
+    @users = @user.followers
+    render json: @users
+  end
+
 
   def update_avatar
      @user = User.find(params[:id])
