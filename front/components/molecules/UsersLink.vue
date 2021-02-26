@@ -1,5 +1,10 @@
 <template>
   <div class="user-link-box">
+    <nuxt-link
+      class="nuxt-link"
+      :to="`/users/${user.id}`"
+      style="color:#37474F"
+    >
     <v-avatar size="32">
       <img
         v-if="user.avatar_url"
@@ -12,6 +17,7 @@
         alt="Avatar"
       >
     </v-avatar>
+    </nuxt-link>
     <nuxt-link
       class="nuxt-link"
       :to="`/users/${user.id}`"
