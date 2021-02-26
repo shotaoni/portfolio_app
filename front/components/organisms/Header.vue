@@ -9,7 +9,7 @@
     </v-toolbar-title>
     <v-spacer />
     <div class="header-list">
-      <div v-if="!loggedIn" class="before-login-box">
+      <div v-if="!currentUser" class="before-login-box">
         <UsersAvatar
           :size="36"
           :user="user"
@@ -33,7 +33,7 @@
           新規登録
         </v-btn>
       </div>
-      <div v-if="loggedIn" class="after-login-box">
+      <div v-if="currentUser" class="after-login-box">
         <v-btn
           to="/posts/create"
           class="mr-2"
@@ -95,6 +95,7 @@ export default {
   },
   data () {
     return {
+      value: false,
       user: {}
     }
   },
@@ -129,7 +130,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.store.commit('serFlash', {
+          this.$store.commit('setFlash', {
             status: true,
             message: 'ログアウトしました'
           })

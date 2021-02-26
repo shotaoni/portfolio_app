@@ -8,19 +8,35 @@
     <v-card-text>
       <UsersLink
         :user="user"
+        :post="post"
       />
       <div class="post-index-point mt-2">
         {{ post.point }}
       </div>
+      <v-col cols="12" v-if="post.links">
+        <LinkCard
+          v-for="link in links"
+          :key="link.id"
+          :link="link"
+        />
+      </v-col>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import axios from '@/plugins/axios.js'
+import LinkCard from '~/components/molecules/LinkCard.vue'
 import UsersLink from '~/components/molecules/UsersLink.vue'
 export default {
   components: {
-    UsersLink
+    UsersLink,
+    LinkCard
+  },
+  data () {
+    return {
+      links: ''
+    }
   },
   props: {
     post: {
@@ -31,6 +47,18 @@ export default {
       type: Object,
       required: true
     }
+  },
+  mounted () {
+    axios
+      .get(`/v1/posts/${this.post.id}`)
+      .then((res) => {
+        this.links = res.data.links
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          this.notFound = true
+        }
+      })
   }
 }
 </script>

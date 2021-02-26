@@ -1,10 +1,16 @@
 <template>
   <v-card>
     <v-card-title>
-      <h2>ユーザーコンテンツ</h2>
+      <p>フォロー</p>
+      <p>フォロワー</p>
     </v-card-title>
     <v-card-text>
-      <p>ここはユーザコンテンツです</p>
+      <v-btn>
+        フォロー
+      </v-btn>
+      <v-btn>
+        フォロワー
+      </v-btn>
     </v-card-text>
   </v-card>
 </template>

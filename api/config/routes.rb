@@ -3,9 +3,12 @@ Rails.application.routes.draw do
   namespace :v1 do
     resources :users do
       member do
+        get :following, :followers
         patch '/update_avatar', to: 'users#update_avatar'
+        post '/unfollow', to: 'relationships#destroy'
       end
     end
     resources :posts
+    resources :relationships
   end
 end

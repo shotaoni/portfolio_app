@@ -6,10 +6,12 @@ Vue.use(Vuex)
 export const state = () => ({
   currentUser: {
     id: '',
+    id_token: '',
     name: '',
     email: '',
     profile: '',
-    avatar_url: ''
+    avatar_url: '',
+    following: []
   },
   loggedIn: false,
   loading: false,
@@ -40,6 +42,19 @@ export const mutations = {
   },
   setFlash (state, payload) {
     state.flash = payload
+  },
+  setFollowing (state, payload) {
+    state.currentUser.following = payload.map((p) => {
+      return p.id
+    })
+  },
+  addFollowing (state, payload) {
+    state.currentUser.following.unshift(payload)
+  },
+  removeFollowing (state, payload) {
+    state.currentUser.following = state.currentUser.following.filter((l) => {
+      return l !== payload
+    })
   }
 }
 

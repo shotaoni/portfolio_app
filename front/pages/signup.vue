@@ -82,6 +82,7 @@ export default {
             name: this.name,
             uid: res.user.uid
           }
+          console.log(res.user.uid)
           axios.post('/v1/users', { user }).then((res) => {
             this.$store.commit('setLoading', false)
             this.$store.commit('setUser', res.data)

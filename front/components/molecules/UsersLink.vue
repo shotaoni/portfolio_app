@@ -1,9 +1,17 @@
 <template>
   <div class="user-link-box">
-    <UsersAvatar
-      :size="36"
-      :user="user"
-    />
+    <v-avatar size="32">
+      <img
+        v-if="user.avatar_url"
+        :src="user.avatar_url"
+        alt="Avatar"
+      >
+      <img
+        v-else
+        src="~/assets/image/default-icon.png"
+        alt="Avatar"
+      >
+    </v-avatar>
     <nuxt-link
       class="nuxt-link"
       :to="`/users/${user.id}`"
@@ -15,11 +23,7 @@
 </template>
 
 <script>
-import UsersAvatar from '~/components/atoms/UsersAvatar.vue'
 export default {
-  components: {
-    UsersAvatar
-  },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
@@ -27,6 +31,10 @@ export default {
   },
   props: {
     user: {
+      type: Object,
+      required: true
+    },
+    post: {
       type: Object,
       required: true
     }
