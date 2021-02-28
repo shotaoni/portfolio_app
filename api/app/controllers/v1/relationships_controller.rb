@@ -1,6 +1,5 @@
 class V1::RelationshipsController < ApplicationController
   before_action :set_user, only: %i[create destroy]
-  before_action :show_relationship, only: %i[show]
 
   def show
     @relationships = Relationship.all
@@ -38,10 +37,6 @@ class V1::RelationshipsController < ApplicationController
       if(!@current_user)
       @current_user = User.find(params[:userid])
       end
-    end
-
-    def show_relationship
-      @relationship = Relationship.find(params[:id])
     end
 
 end

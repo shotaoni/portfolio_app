@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship', foreign_key: "follower_id", dependent: :destroy #フォローしている人を取得（Userのfollowerからみた関係)
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy #フォローされている人を取得(Userのfollowedからみた関係)
   has_many :following, through: :active_relationships, source: :followed #自分がフォローしている人
