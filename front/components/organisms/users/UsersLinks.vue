@@ -6,6 +6,7 @@
     <v-card-text>
       <v-row justify="center">
       <v-btn
+      @click="$emit('openlikeposts')"
       >
     いいねした投稿
       </v-btn>
