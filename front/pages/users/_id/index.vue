@@ -5,10 +5,15 @@
       <v-row>
         <v-col lg="4" md="4" sm="4" cols="12">
           <UsersInfo :user="user" />
-          <UsersLinks />
+          <UsersLinks
+          @openlikeposts="openLikePosts"
+          />
         </v-col>
         <v-col lg="8" sm="8" cols="12">
-          <UsersContents />
+          <UsersContents
+          v-if="openlikeposts"
+          :user="user"
+          />
         </v-col>
       </v-row>
     </div>
@@ -31,6 +36,7 @@ export default {
   data () {
     return {
       user: {},
+      openlikeposts: false,
       notFound: false
     }
   },
@@ -51,6 +57,11 @@ export default {
           this.notFound = true
         }
       })
+  },
+  methods: {
+    openLikePosts () {
+      this.openlikeposts = true
+    }
   }
 }
 </script>
