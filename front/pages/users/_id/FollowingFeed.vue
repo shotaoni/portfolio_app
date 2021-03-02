@@ -53,7 +53,6 @@ export default {
       .then((res) => {
         this.users = res.data
         console.log(this.users)
-        console.log(this.users[0].id) // 1
       })
   },
   methods: {

@@ -6,12 +6,18 @@
         <v-col lg="4" md="4" sm="4" cols="12">
           <UsersInfo :user="user" />
           <UsersLinks
+          :user="user"
           @openlikeposts="openLikePosts"
+          @opentimeline="openTimeLine"
           />
         </v-col>
         <v-col lg="8" sm="8" cols="12">
-          <UsersContents
+          <UsersLikeContents
           v-if="openlikeposts"
+          :user="user"
+          />
+          <UsersFollowTimeline
+          v-if="!openlikeposts && currentUser.id === user.id"
           :user="user"
           />
         </v-col>
@@ -24,19 +30,22 @@
 import axios from '@/plugins/axios'
 import UsersInfo from '~/components/organisms/users/UsersInfo.vue'
 import UsersLinks from '~/components/organisms/users/UsersLinks.vue'
-import UsersContents from '~/components/organisms/users/UsersContents.vue'
+import UsersLikeContents from '~/components/organisms/users/UsersLikeContents.vue'
+import UsersFollowTimeline from '~/components/organisms/users/UsersFollowTimeLine.vue'
 import ErrorAnnounce from '~/components/molecules/ErrorAnnounce.vue'
 export default {
   components: {
     ErrorAnnounce,
     UsersInfo,
     UsersLinks,
-    UsersContents
+    UsersLikeContents,
+    UsersFollowTimeline
   },
   data () {
     return {
       user: {},
       openlikeposts: false,
+      opentimeline: false,
       notFound: false
     }
   },
@@ -61,6 +70,9 @@ export default {
   methods: {
     openLikePosts () {
       this.openlikeposts = true
+    },
+    openTimeLine () {
+      this.openlikeposts = false
     }
   }
 }

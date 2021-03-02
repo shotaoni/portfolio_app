@@ -7,6 +7,19 @@ class V1::PostsController < ApplicationController
     elsif params[:user_like_posts]
       user = User.find(params[:user_like_posts])
       @posts = user.liked_posts
+    elsif params[:following_post]
+      user = User.find(params[:following_post])
+      following = user.following
+      @posts = []
+      following.each do |f|
+        f.posts.each do |p|
+          @posts.push(p)
+        end
+      end
+      @posts.uniq!
+      @posts.sort! do |a, b|
+        b[:created_at] <=> a[:created_at]
+      end
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
     end

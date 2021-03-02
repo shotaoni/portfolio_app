@@ -124,8 +124,8 @@ export default {
           this.followerslength = res.data.length
         })
     },
-    getFollowRelationship () {
-      axios
+    async getFollowRelationship () {
+      await axios
         .get('/v1/relationships', {
           params: {
             userid: this.$store.state.id,
