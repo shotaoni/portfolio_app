@@ -1,11 +1,31 @@
 <template>
   <v-card class="user-links-box">
     <v-card-title>
-      <h2>リンク</h2>
+      <h2>メニュー</h2>
     </v-card-title>
     <v-card-text>
-      <p>ここはリンクです</p>
-      <p>もしかしたら違うコンテンツはいるかもー</p>
+      <v-row justify="center">
+      <v-btn
+      >
+    いいねした投稿
+      </v-btn>
+      </v-row>
+    </v-card-text>
+    <v-card-text>
+      <v-row justify="center">
+      <v-btn
+      >
+    タイムライン
+      </v-btn>
+      </v-row>
+    </v-card-text>
+    <v-card-text>
+      <v-row justify="center">
+      <v-btn
+      >
+    通知一覧
+      </v-btn>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>

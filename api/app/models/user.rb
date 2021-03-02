@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: "followed_id", dependent: :destroy #フォローされている人を取得(Userのfollowedからみた関係)
   has_many :following, through: :active_relationships, source: :followed #自分がフォローしている人
   has_many :followers, through: :passive_relationships, source: :follower #自分をフォローしている人（自分がフォローされている人)
+  has_many :liked_posts, through: :likes, source: :post
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze

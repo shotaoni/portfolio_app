@@ -4,6 +4,9 @@ class V1::PostsController < ApplicationController
   def index
     if params[:offset]
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).offset(params[:offset])
+    elsif params[:user_like_posts]
+      user = User.find(params[:user_like_posts])
+      @posts = user.liked_posts
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
     end

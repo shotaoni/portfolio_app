@@ -6,6 +6,8 @@ class V1::LikesController < ApplicationController
               Like.find_by(user_id: params[:userid], post_id: params[:post_id])
            elsif params[:post_id]
               Like.where(post_id: params[:post_id])
+           elsif params[:user_id]
+              Like.where(user_id: params[:user_id])
            else
             []
            end

@@ -8,7 +8,9 @@
           <UsersLinks />
         </v-col>
         <v-col lg="8" sm="8" cols="12">
-          <UsersContents />
+          <UsersContents
+          :user="user"
+          />
         </v-col>
       </v-row>
     </div>
