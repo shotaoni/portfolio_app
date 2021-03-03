@@ -12,5 +12,6 @@ Rails.application.routes.draw do
     resources :relationships
     resources :likes
       post 'likes/likenone', to: 'likes#destroy'
+    resources :comments
   end
 end

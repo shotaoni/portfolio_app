@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed #自分がフォローしている人
   has_many :followers, through: :passive_relationships, source: :follower #自分をフォローしている人（自分がフォローされている人)
   has_many :liked_posts, through: :likes, source: :post
+  has_many :comments, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze

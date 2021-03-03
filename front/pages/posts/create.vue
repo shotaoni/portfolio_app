@@ -6,7 +6,7 @@
       </h2>
     </v-card-title>
     <v-form>
-      <ValidationObserver ref="obs" v-slot="ObserverProps">
+      <ValidationProvider ref="obs" v-slot="ObserverProps">
         <div class="create-post-box">
           <TextField
             v-model="title"
@@ -35,7 +35,7 @@
             </v-btn>
           </v-row>
         </div>
-      </ValidationObserver>
+      </ValidationProvider>
     </v-form>
   </v-card>
 </template>

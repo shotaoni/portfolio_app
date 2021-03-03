@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar color="light-blue lighten-3" dark app fixed>
+  <v-app-bar color="brown lighten-1" dark app fixed>
     <v-toolbar-title>
       <n-link to="/" style="color:white; text-decoration:none;">
         <h1 class="app-title">
-          sample!!
+          Tante.
         </h1>
       </n-link>
     </v-toolbar-title>
