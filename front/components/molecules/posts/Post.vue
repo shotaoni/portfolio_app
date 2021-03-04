@@ -64,6 +64,7 @@
       </ValidationObserver>
       <div v-if="openCommentslog">
       <Comment
+      @getcount="getcreatepost"
       v-for="comment in comments"
       :key="comment.id"
       :user="user"

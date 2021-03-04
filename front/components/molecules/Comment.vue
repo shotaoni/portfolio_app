@@ -61,6 +61,7 @@ export default {
         .delete(`v1/comments/${this.comment.id}`)
         .then(() => {
           this.commentview = false
+          this.$emit('getcount')
           this.$store.commit('setFlash', {
             status: true,
             message: 'コメントを削除しました'
