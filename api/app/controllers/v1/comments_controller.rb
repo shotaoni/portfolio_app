@@ -1,8 +1,9 @@
 class V1::CommentsController < ApplicationController
   before_action :set_user, only: %i[create]
+  before_action :set_comment, only: %i[destroy]
 
   def index
-    comments = Comment.all
+    comments = Comment.where(post_id: params[:post_id]).order(created_at: :desc)
     render json: comments
   end
 

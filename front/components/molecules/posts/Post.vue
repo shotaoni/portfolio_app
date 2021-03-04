@@ -36,13 +36,20 @@
         type="mdi-message-text"
         @tap="openComments = !openComments"
         />
+        <Button
+        large
+        color="blue darken-2"
+        type="mdi-comment-eye-outline"
+        @click="openCommentslog = !openCommentslog"
+        />
+        {{ comments.length }}
       </v-row>
       <ValidationObserver ref="obs" v-slot="ObserverProps" v-if="openComments">
       <TextArea
       rules="max:200|required"
       :counter="200"
       label="コメント"
-      v-model="comment"
+      v-model="content"
       />
       <v-row>
         <v-spacer />
@@ -55,6 +62,15 @@
         >コメントする</v-btn>
       </v-row>
       </ValidationObserver>
+      <div v-if="openCommentslog">
+      <Comment
+      v-for="comment in comments"
+      :key="comment.id"
+      :user="user"
+      :post="post"
+      :comment="comment"
+      />
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -75,10 +91,12 @@ export default {
   data () {
     return {
       links: '',
-      comment: '',
+      content: '',
+      comments: [],
       alreadylike: Boolean,
       likeCount: Number,
-      openComments: false
+      openComments: false,
+      openCommentslog: false
     }
   },
   props: {
@@ -98,6 +116,7 @@ export default {
   },
   mounted () {
     this.likepostcount()
+    this.getcreatepost()
     axios
       .get(`/v1/posts/${this.post.id}`)
       .then((res) => {
@@ -164,14 +183,26 @@ export default {
           console.log(res.data)
         })
     },
+    getcreatepost () {
+      axios
+        .get(`v1/posts/${this.post.id}/comments`)
+        .then((res) => {
+          console.log(res.data)
+          console.log(res)
+          this.comments = res.data
+        })
+    },
     createComment () {
+      this.openComments = false
       axios
         .post('v1/comments', {
-          content: this.comment,
+          content: this.content,
           post_id: this.post.id,
           user_id: this.currentUser.id
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res.data)
+          this.getcreatepost()
           this.$store.commit('setFlash', {
             status: true,
             message: 'コメントを投稿しました'
@@ -180,6 +211,7 @@ export default {
             this.$store.commit('setFlash', {})
           }, 1000)
         })
+      this.content = ''
     }
   }
 }
