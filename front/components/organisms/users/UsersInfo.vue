@@ -128,12 +128,12 @@ export default {
       await axios
         .get('/v1/relationships', {
           params: {
-            userid: this.$store.state.id,
+            userid: this.$store.state.currentUser.id,
             followed_id: this.$route.params.id
           }
         })
         .then((res) => {
-          if (!res.data.length || !res.data) {
+          if (!res.data) {
             this.alreadyfollow = false
           } else {
             this.alreadyfollow = true

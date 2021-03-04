@@ -1,7 +1,7 @@
 <template>
   <v-card>
-    <v-card-title>
-      <p>フォローしているユーザの投稿！TL！</p>
+    <v-card-title justify="center">
+      <p>タイムライン</p>
     </v-card-title>
     <v-card-text>
       <Post

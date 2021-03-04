@@ -8,9 +8,12 @@ Rails.application.routes.draw do
         post '/unfollow', to: 'relationships#destroy'
       end
     end
-    resources :posts
+    resources :posts do
+      resources :comments, only: [:index]
+    end
     resources :relationships
     resources :likes
       post 'likes/likenone', to: 'likes#destroy'
+    resources :comments, only: [:create, :destroy]
   end
 end

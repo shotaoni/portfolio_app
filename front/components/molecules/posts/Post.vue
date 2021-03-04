@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-4 pa-3" width="400px">
+  <v-card class="mx-auto mt-4 pa-3" width="400px" elevation="7">
     <v-card-title class="py-2">
       <nuxt-link :to="`/posts/${post.id}`" style="color:#263238; text-decoration:none;">
         <p>{{ post.title }}</p>
@@ -19,6 +19,8 @@
           :key="link.id"
           :link="link"
         />
+      </v-col>
+      <v-row>
         <LikeButton
         :alreadylike="alreadylike"
         :user="user"
@@ -27,13 +29,56 @@
         @likepost="likepost"
         />
         {{ this.likeCount }}
-      </v-col>
+        <v-spacer />
+        <Button
+        large
+        color="blue darken-2"
+        type="mdi-message-text"
+        @tap="openComments = !openComments"
+        />
+        <Button
+        large
+        color="blue darken-2"
+        type="mdi-comment-eye-outline"
+        @click="openCommentslog = !openCommentslog"
+        />
+        {{ comments.length }}
+      </v-row>
+      <ValidationObserver ref="obs" v-slot="ObserverProps" v-if="openComments">
+      <TextArea
+      rules="max:200|required"
+      :counter="200"
+      label="コメント"
+      v-model="content"
+      />
+      <v-row>
+        <v-spacer />
+        <v-btn
+        color="blue darken-1"
+        text
+        @click="createComment"
+        style="margin-top: 10px;"
+        :disabled="ObserverProps.invalid || !ObserverProps.validated"
+        >コメントする</v-btn>
+      </v-row>
+      </ValidationObserver>
+      <div v-if="openCommentslog">
+      <Comment
+      @getcount="getcreatepost"
+      v-for="comment in comments"
+      :key="comment.id"
+      :user="user"
+      :post="post"
+      :comment="comment"
+      />
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import axios from '@/plugins/axios.js'
+import Button from '~/components/atoms/Button.vue'
 import LinkCard from '~/components/molecules/LinkCard.vue'
 import UsersLink from '~/components/molecules/UsersLink.vue'
 import LikeButton from '~/components/atoms/LikeButton.vue'
@@ -41,13 +86,18 @@ export default {
   components: {
     UsersLink,
     LinkCard,
-    LikeButton
+    LikeButton,
+    Button
   },
   data () {
     return {
       links: '',
+      content: '',
+      comments: [],
       alreadylike: Boolean,
-      likeCount: Number
+      likeCount: Number,
+      openComments: false,
+      openCommentslog: false
     }
   },
   props: {
@@ -67,6 +117,7 @@ export default {
   },
   mounted () {
     this.likepostcount()
+    this.getcreatepost()
     axios
       .get(`/v1/posts/${this.post.id}`)
       .then((res) => {
@@ -132,6 +183,36 @@ export default {
           console.log(postLikes)
           console.log(res.data)
         })
+    },
+    getcreatepost () {
+      axios
+        .get(`v1/posts/${this.post.id}/comments`)
+        .then((res) => {
+          console.log(res.data)
+          console.log(res)
+          this.comments = res.data
+        })
+    },
+    createComment () {
+      this.openComments = false
+      axios
+        .post('v1/comments', {
+          content: this.content,
+          post_id: this.post.id,
+          user_id: this.currentUser.id
+        })
+        .then((res) => {
+          console.log(res.data)
+          this.getcreatepost()
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'コメントを投稿しました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 1000)
+        })
+      this.content = ''
     }
   }
 }
