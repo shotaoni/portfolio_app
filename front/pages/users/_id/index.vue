@@ -6,19 +6,19 @@
         <v-col lg="4" md="4" sm="4" cols="12">
           <UsersInfo :user="user" />
           <UsersLinks
-          :user="user"
-          @openlikeposts="openLikePosts"
-          @opentimeline="openTimeLine"
+            :user="user"
+            @openlikeposts="openLikePosts"
+            @opentimeline="openTimeLine"
           />
         </v-col>
         <v-col lg="8" sm="8" cols="12">
           <UsersLikeContents
-          v-if="openlikeposts"
-          :user="user"
+            v-if="openlikeposts"
+            :user="user"
           />
           <UsersFollowTimeline
-          v-if="!openlikeposts && currentUser.id === user.id"
-          :user="user"
+            v-if="!openlikeposts && currentUser.id === user.id"
+            :user="user"
           />
         </v-col>
       </v-row>

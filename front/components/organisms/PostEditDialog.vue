@@ -24,9 +24,9 @@
               rules="max:50|required"
             />
             <AddLink
+              v-model="viewFirstUrl"
               rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
               label="URL"
-              v-model="viewFirstUrl"
               :first-url.sync="firstUrl"
             />
             <TextArea
@@ -86,19 +86,6 @@ export default {
       patchForFirstUrl: ''
     }
   },
-  watch: {
-    async dialog (newVal) {
-      this.dialogStatus = newVal
-      if (this.dialogStatus) {
-        const res = await axios.get(`/v1/posts/${this.$route.params.id}`)
-        this.title = res.data.title
-        this.point = res.data.point
-        this.firstUrl = res.data.links[0].url
-        this.links[0] = res.data.links[0]
-        this.userid = res.data.user.id
-      }
-    }
-  },
   /* eslint-disable vue/no-side-effects-in-computed-properties */
   computed: {
     viewTitle: {
@@ -135,6 +122,19 @@ export default {
     editLinks () {
       const editLinks = [this.firstUrl]
       return editLinks
+    }
+  },
+  watch: {
+    async dialog (newVal) {
+      this.dialogStatus = newVal
+      if (this.dialogStatus) {
+        const res = await axios.get(`/v1/posts/${this.$route.params.id}`)
+        this.title = res.data.title
+        this.point = res.data.point
+        this.firstUrl = res.data.links[0].url
+        this.links[0] = res.data.links[0]
+        this.userid = res.data.user.id
+      }
     }
   },
   currentUser () {

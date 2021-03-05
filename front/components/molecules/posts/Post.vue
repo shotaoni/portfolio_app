@@ -13,7 +13,7 @@
       <div class="post-index-point mt-2">
         {{ post.point }}
       </div>
-      <v-col cols="12" v-if="post.links">
+      <v-col v-if="post.links" cols="12">
         <LinkCard
           v-for="link in links"
           :key="link.id"
@@ -22,55 +22,57 @@
       </v-col>
       <v-row>
         <LikeButton
-        :alreadylike="alreadylike"
-        :user="user"
-        :post="post"
-        @likepostnone="likepostnone"
-        @likepost="likepost"
+          :alreadylike="alreadylike"
+          :user="user"
+          :post="post"
+          @likepostnone="likepostnone"
+          @likepost="likepost"
         />
         {{ this.likeCount }}
         <v-spacer />
         <Button
-        large
-        color="blue darken-2"
-        type="mdi-message-text"
-        @tap="openComments = !openComments"
+          large
+          color="blue darken-2"
+          type="mdi-message-text"
+          @tap="openComments = !openComments"
         />
         <Button
-        large
-        color="blue darken-2"
-        type="mdi-comment-eye-outline"
-        @click="openCommentslog = !openCommentslog"
+          large
+          color="blue darken-2"
+          type="mdi-comment-eye-outline"
+          @click="openCommentslog = !openCommentslog"
         />
         {{ comments.length }}
       </v-row>
-      <ValidationObserver ref="obs" v-slot="ObserverProps" v-if="openComments">
-      <TextArea
-      rules="max:200|required"
-      :counter="200"
-      label="コメント"
-      v-model="content"
-      />
-      <v-row>
-        <v-spacer />
-        <v-btn
-        color="blue darken-1"
-        text
-        @click="createComment"
-        style="margin-top: 10px;"
-        :disabled="ObserverProps.invalid || !ObserverProps.validated"
-        >コメントする</v-btn>
-      </v-row>
+      <ValidationObserver v-if="openComments" ref="obs" v-slot="ObserverProps">
+        <TextArea
+          v-model="content"
+          rules="max:200|required"
+          :counter="200"
+          label="コメント"
+        />
+        <v-row>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            text
+            style="margin-top: 10px;"
+            :disabled="ObserverProps.invalid || !ObserverProps.validated"
+            @click="createComment"
+          >
+            コメントする
+          </v-btn>
+        </v-row>
       </ValidationObserver>
       <div v-if="openCommentslog">
-      <Comment
-      @getcount="getcreatepost"
-      v-for="comment in comments"
-      :key="comment.id"
-      :user="user"
-      :post="post"
-      :comment="comment"
-      />
+        <Comment
+          v-for="comment in comments"
+          :key="comment.id"
+          :user="user"
+          :post="post"
+          :comment="comment"
+          @getcount="getcreatepost"
+        />
       </div>
     </v-card-text>
   </v-card>
@@ -89,6 +91,16 @@ export default {
     LikeButton,
     Button
   },
+  props: {
+    post: {
+      type: Object,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       links: '',
@@ -98,16 +110,6 @@ export default {
       likeCount: Number,
       openComments: false,
       openCommentslog: false
-    }
-  },
-  props: {
-    post: {
-      type: Object,
-      required: true
-    },
-    user: {
-      type: Object,
-      required: true
     }
   },
   computed: {
