@@ -1,52 +1,56 @@
 <template>
   <v-container>
     <ErrorAnnounce
-    :status="notFound"
+      :status="notFound"
     />
     <PostEditDialog
-    :dialog="dialog"
-    @closeDialog="dialog = false"
+      :dialog="dialog"
+      @closeDialog="dialog = false"
     />
-    <div class="posts-show-box" v-if="!notFound">
+    <div v-if="!notFound" class="posts-show-box">
       <v-card class="mx-auto mt-4 pa-3" width="400px">
         <v-card-title>
-          <h2 class="post-show-title">{{post.title}}</h2>
-          </v-card-title>
+          <h2 class="post-show-title">
+            {{ post.title }}
+          </h2>
+        </v-card-title>
         <div class="post-show-header px-2">
           <UsersLink
-          :user="user"
-          :post="post"
+            :user="user"
+            :post="post"
           />
           <div
-          class="post-show-change-box"
-          v-if="currentUser && currentUser.id === user.id"
+            v-if="currentUser && currentUser.id === user.id"
+            class="post-show-change-box"
           >
-          <v-btn
-          @click="dialog = !dialog"
-          outlined
-          fab
-          small
-          color="light-blue lighten-3"
-          >
-          <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-          <v-btn
-          @click="destroyPost"
-          outlined
-          fab
-          small
-          color="red lighten-3"
-          >
-          <v-icon>mdi-delete-forever</v-icon>
-          </v-btn>
+            <v-btn
+              outlined
+              fab
+              small
+              color="light-blue lighten-3"
+              @click="dialog = !dialog"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+              outlined
+              fab
+              small
+              color="red lighten-3"
+              @click="destroyPost"
+            >
+              <v-icon>mdi-delete-forever</v-icon>
+            </v-btn>
           </div>
         </div>
-         <div class="posts-point" style="white-space: pre-line">{{ point }}</div>
-      <LinkCard
-      v-for="link in links"
-      :key="link.id"
-      :link="link"
-      />
+        <div class="posts-point" style="white-space: pre-line">
+          {{ point }}
+        </div>
+        <LinkCard
+          v-for="link in links"
+          :key="link.id"
+          :link="link"
+        />
       </v-card>
     </div>
   </v-container>
@@ -75,6 +79,11 @@ export default {
       dialog: false
     }
   },
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
+    }
+  },
   mounted () {
     axios
       .get(`/v1/posts/${this.$route.params.id}`)
@@ -93,11 +102,6 @@ export default {
           this.notFound = true
         }
       })
-  },
-  computed: {
-    currentUser () {
-      return this.$store.state.currentUser
-    }
   },
   methods: {
     openDialog () {

@@ -1,23 +1,24 @@
 <template>
-   <v-container class="comment-container" v-if="commentview">
+  <v-container v-if="commentview" class="comment-container">
     <v-card class="comment-card mx-auto" width="600px">
       <v-card-title>
         <UsersLink
-        :user="user"
-        :post="post"
+          :user="user"
+          :post="post"
         />
         <v-spacer />
         <div
+          v-if="user.id === currentUser.id"
           class="comment-show-change-box"
-          v-if="user.id === currentUser.id">
+        >
           <v-btn
-          @click="deletecomment"
-          outlined
-          fab
-          x-small
-          color="red lighten-3"
+            outlined
+            fab
+            x-small
+            color="red lighten-3"
+            @click="deletecomment"
           >
-          <v-icon>mdi-delete-forever</v-icon>
+            <v-icon>mdi-delete-forever</v-icon>
           </v-btn>
         </div>
         <v-spacer />

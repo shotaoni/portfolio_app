@@ -20,6 +20,8 @@ class V1::PostsController < ApplicationController
       @posts.sort! do |a, b|
         b[:created_at] <=> a[:created_at]
       end
+    elsif params[:title]
+      @posts = Post.where('title LIKE ?', "%#{params[:title]}%").distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").distinct
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
     end

@@ -1,15 +1,17 @@
 <template>
   <v-card>
     <v-card-title>
+      <v-row justify="center">
       <p>いいね！したやつ</p>
+      </v-row>
     </v-card-title>
     <v-card-text>
       <Post
-      v-for="(post, $index) in posts"
-      :key="$index"
-      :user="post.user"
-      :post="post"
-    />
+        v-for="(post, $index) in posts"
+        :key="$index"
+        :user="post.user"
+        :post="post"
+      />
     </v-card-text>
   </v-card>
 </template>

@@ -34,6 +34,18 @@
         </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
+        <nuxt-link to="/search">
+          <v-btn
+            small
+            class="mr-2"
+            :outlined="true"
+          >
+            <v-icon small>
+              mdi-magnify
+            </v-icon>
+            検索
+          </v-btn>
+        </nuxt-link>
         <v-btn
           to="/posts/create"
           class="mr-2"
@@ -42,7 +54,7 @@
           small
         >
           <v-icon small>
-            mdi-fountain-pen-tip>
+            mdi-fountain-pen-tip
           </v-icon>投稿
         </v-btn>
         <v-menu offset-y dense nav>

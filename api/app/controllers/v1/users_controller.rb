@@ -5,6 +5,9 @@ class V1::UsersController < ApplicationController
     if params[:uid]
       @current_user = User.find_by(uid: params[:uid])
       render json: @current_user
+    elsif params[:name]
+      @user = User.where('name LIKE ?', "%#{params[:name]}%").distinct
+      render json: @user
     else
       @users = User.all
       render json: @users

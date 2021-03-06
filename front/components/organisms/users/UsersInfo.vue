@@ -7,19 +7,19 @@
           :to="`/users/${user.id}`"
           style="color:#37474F"
         >
-        <v-avatar size="62">
-              <img
-                v-if="user.avatar_url"
-                :src="user.avatar_url"
-                alt="Avatar"
-              >
-              <img
-                v-else
-                src="~/assets/image/default-icon.png"
-                alt="Avatar"
-              >
-            </v-avatar>
-            </nuxt-link>
+          <v-avatar size="62">
+            <img
+              v-if="user.avatar_url"
+              :src="user.avatar_url"
+              alt="Avatar"
+            >
+            <img
+              v-else
+              src="~/assets/image/default-icon.png"
+              alt="Avatar"
+            >
+          </v-avatar>
+        </nuxt-link>
       </v-row>
       <v-row justify="center">
         <nuxt-link
@@ -34,22 +34,22 @@
       </v-row>
       <v-row justify="center">
         <nuxt-link
-      class="nuxt-link"
-      :to="`/users/${user.id}/FollowingFeed`"
-      style="color:#37474F"
-    >
-      フォロー
-      {{ this.followinglength }}人
-    </nuxt-link>
-    <nuxt-link
-      class="nuxt-link"
-      :to="`/users/${user.id}/FollowerFeed`"
-      style="color:#37474F"
-    >
-      フォロワー
-       {{ this.followerslength }}人
-    </nuxt-link>
-        <v-col cols="12" v-if="!(currentUser.id === user.id)">
+          class="nuxt-link"
+          :to="`/users/${user.id}/FollowingFeed`"
+          style="color:#37474F"
+        >
+          フォロー
+          {{ this.followinglength }}人
+        </nuxt-link>
+        <nuxt-link
+          class="nuxt-link"
+          :to="`/users/${user.id}/FollowerFeed`"
+          style="color:#37474F"
+        >
+          フォロワー
+          {{ this.followerslength }}人
+        </nuxt-link>
+        <v-col v-if="!(currentUser.id === user.id)" cols="12">
           <v-row justify="center">
             <v-btn
               v-if="!alreadyfollow"
@@ -70,10 +70,8 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row>
-        <div class="user-info-box-profile">
+      <v-row justify="center">
           {{ user.profile }}
-        </div>
       </v-row>
     </v-card-text>
   </v-card>

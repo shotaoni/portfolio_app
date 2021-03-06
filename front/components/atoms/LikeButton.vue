@@ -1,26 +1,26 @@
 <template>
   <div>
     <v-btn
-    v-if="this.alreadylike"
-    icon
-    outlined
-    color="red"
-    @click="$emit('likepostnone'); alreadylike = false"
+      v-if="this.alreadylike"
+      icon
+      outlined
+      color="red"
+      @click="$emit('likepostnone'); alreadylike = false"
     >
-    <v-icon>
-      mdi-heart
-    </v-icon>
+      <v-icon>
+        mdi-heart
+      </v-icon>
     </v-btn>
     <v-btn
-    v-else
-    icon
-    outlined
-    color="gray"
-    @click="$emit('likepost'); alreadylike = true"
+      v-else
+      icon
+      outlined
+      color="gray"
+      @click="$emit('likepost'); alreadylike = true"
     >
-    <v-icon>
-      mdi-heart
-    </v-icon>
+      <v-icon>
+        mdi-heart
+      </v-icon>
     </v-btn>
   </div>
 </template>
