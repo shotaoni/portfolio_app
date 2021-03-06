@@ -58,9 +58,11 @@
 
 <script>
 import SearchUsers from '~/components/molecules/SearchUsers.vue'
+import SearchPosts from '~/components/molecules/SearchPosts.vue'
 export default {
   components: {
-    SearchUsers
+    SearchUsers,
+    SearchPosts
   },
   data () {
     return {

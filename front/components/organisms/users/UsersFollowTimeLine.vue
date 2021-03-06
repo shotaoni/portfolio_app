@@ -1,7 +1,9 @@
 <template>
   <v-card>
-    <v-card-title justify="center">
-      <p>タイムライン</p>
+    <v-card-title>
+      <v-row justify="center">
+      タイムライン
+      </v-row>
     </v-card-title>
     <v-card-text>
       <Post

@@ -70,10 +70,8 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row>
-        <div class="user-info-box-profile">
+      <v-row justify="center">
           {{ user.profile }}
-        </div>
       </v-row>
     </v-card-text>
   </v-card>

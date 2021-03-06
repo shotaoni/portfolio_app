@@ -1,14 +1,21 @@
 <template>
   <v-card class="user-links-box">
     <v-card-title>
-      <h2>メニュー</h2>
+      <v-row justify="center">
+      メニュー
+      </v-row>
     </v-card-title>
     <div>
       <v-card-text>
         <v-row justify="center">
           <v-btn
+            outlined
+            block
             @click="$emit('openlikeposts')"
           >
+          <v-icon>
+              mdi-table-heart
+            </v-icon>
             いいねした投稿
           </v-btn>
         </v-row>
@@ -18,8 +25,13 @@
       <v-card-text>
         <v-row justify="center">
           <v-btn
+            outlined
+            block
             @click="$emit('opentimeline')"
           >
+          <v-icon>
+              mdi-clock-time-three-outline
+            </v-icon>
             タイムライン
           </v-btn>
         </v-row>
@@ -27,7 +39,13 @@
     </div>
     <v-card-text>
       <v-row justify="center">
-        <v-btn>
+        <v-btn
+          outlined
+          block
+        >
+        <v-icon>
+              mdi-bell-outline
+            </v-icon>
           通知一覧
         </v-btn>
       </v-row>

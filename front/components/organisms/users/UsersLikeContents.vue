@@ -1,7 +1,9 @@
 <template>
   <v-card>
     <v-card-title>
+      <v-row justify="center">
       <p>いいね！したやつ</p>
+      </v-row>
     </v-card-title>
     <v-card-text>
       <Post
