@@ -34,18 +34,7 @@
         </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
-        <nuxt-link to="/notification">
-          <v-btn
-            small
-            class="mr-2"
-            :outlined="true"
-          >
-            <v-icon small>
-              mdi-bell-outline
-            </v-icon>
-            通知
-          </v-btn>
-        </nuxt-link>
+        <NoticeField />
         <nuxt-link to="/search">
           <v-btn
             small
@@ -112,10 +101,12 @@
 
 <script>
 import firebase from '@/plugins/firebase'
+import NoticeField from '~/components/molecules/NoticeField.vue'
 import UsersAvatar from '~/components/atoms/UsersAvatar.vue'
 export default {
   components: {
-    UsersAvatar
+    UsersAvatar,
+    NoticeField
   },
   data () {
     return {
