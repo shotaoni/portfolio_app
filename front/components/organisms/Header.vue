@@ -34,6 +34,18 @@
         </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
+        <nuxt-link to="/notification">
+          <v-btn
+            small
+            class="mr-2"
+            :outlined="true"
+          >
+            <v-icon small>
+              mdi-bell-outline
+            </v-icon>
+            通知
+          </v-btn>
+        </nuxt-link>
         <nuxt-link to="/search">
           <v-btn
             small
