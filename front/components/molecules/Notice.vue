@@ -48,22 +48,22 @@
 <script>
 export default {
   props: {
-    notice: {
+    notices: {
       type: Object,
       required: true
     }
   },
   computed: {
     noticeLink () {
-      if (this.notice.post_id) {
-        return `/posts/${this.notice.post_id}`
-      } else if (this.notice.notificeable_type === 'Relationship') {
-        return `/users/${this.notice.action_user_id}`
+      if (this.notices.post_id) {
+        return `/posts/${this.notices.post_id}`
+      } else if (this.notices.notificeable_type === 'Relationship') {
+        return `/users/${this.notices.action_user_id}`
       }
       return ''
     },
     noticeUserLink () {
-      return `/users/${this.notice.action_user_id}`
+      return `/users/${this.notices.action_user_id}`
     }
   }
 }

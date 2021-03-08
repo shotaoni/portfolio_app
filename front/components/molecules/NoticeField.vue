@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-badge
-    color="primary"
-    :value="nonChecked"
-    :content="nonChecked"
+    color="orange"
+    :value="count"
+    :content="count"
     overlap
     >
       <v-icon
-      @click="openField"
+      @click="noticeField = !noticeField"
       style="color: white"
       >
       mdi-bell-outline
@@ -46,49 +46,35 @@ export default {
   components: {
     Notice
   },
+  props: {
+    value: {
+      user: Object
+    }
+  },
   data () {
     return {
+      count: 0,
       noticeField: false,
-      notice: []
+      notices: []
     }
   },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
-    },
-    nonChecked () {
-      const nonChecked = this.notices.filter((n) => {
-        return !n.checked
-      })
-      return nonChecked.length
     }
   },
   mounted () {
     this.getNotice()
   },
   methods: {
-    openField () {
-      if (this.noticeField) {
-        return
-      }
-      this.noticeField = true
-      if (this.nonChecked) {
-        axios
-          .get(`/v1/users/${this.currentUser.id}/notices/check`)
-          .then((res) => {
-            this.notices = res.data
-            console.log(res.data)
-          })
-      }
-    },
     closeField () {
       this.noticeField = false
     },
     getNotice () {
       axios
-        .get(`v1/users/${this.currentUser.id}/notices`, {
+        .get('v1/notifications', {
           params: {
-            limit: true
+            user_id: this.$store.state.currentUser.id
           }
         })
         .then((res) => {

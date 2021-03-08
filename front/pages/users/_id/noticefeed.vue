@@ -26,7 +26,8 @@
                 <v-col cols="12">
                   <v-col cols="2">
                     <nuxt-link
-                    :to="`users/${notice.visitor.id}`"
+                    :to="notice.noticeLink"
+                    class="no-link-style"
                     >
                       <v-avatar size="30">
                         <img
@@ -42,44 +43,28 @@
                     </nuxt-link>
                   </v-col>
                   <v-col cols="10">
+                    <nuxt-link
+                    :to="noticeLink"
+                    class="no-link-style"
+                    >
                     <v-row>
                       <template
-                      v-if="notice.action === 'comment'"
+                      v-if="notice.action === 'Comment'"
                       >
-                      <nuxt-link
-                      :to="`/posts/${notice.post_id}`"
-                      >
-                      あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
-                      </nuxt-link>
+                      あなたの投稿に{{ notice.noticeVisitor }}さんがコメントしました。
                       </template>
                       <template
-                      v-if="notice.action === 'comments'"
+                      v-if="notice.action === 'post'"
                       >
-                      <nuxt-link
-                      :to="`/posts/${notice.post_id}`"
-                      >
-                      投稿に{{ notice.visitor.name }}さんがコメントしました。
-                      </nuxt-link>
-                      </template>
-                      <template
-                      v-if="notice.action === 'like'"
-                      >
-                      <nuxt-link
-                      :to="`/posts/${notice.post_id}`"
-                      >
-                      あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
-                      </nuxt-link>
+                      あなたの投稿に{{ notice.noticeVisitor }}さんがいいねしました。
                       </template>
                       <template
                       v-if="notice.action === 'follow'"
                       >
-                      <nuxt-link
-                      :to="`/users/${notice.visitor.id}`"
-                      >
-                      あなたを{{ notice.visitor.name }}さんがフォローしました。
-                      </nuxt-link>
+                      あなたを{{ notice.noticeVisitor }}さんがフォローしました。
                       </template>
                     </v-row>
+                    </nuxt-link>
                   </v-col>
                 </v-col>
                 </v-row>
@@ -103,26 +88,20 @@ export default {
   computed: {
     currentUser () {
       return this.$store.state.currentUser
-    },
-    noticeLink () {
-      if (this.notices.post_id) {
-        return `/posts/${this.notices.post_id}`
-      }
-      return ''
     }
   },
   async mounted () {
-    await axios
-      .get('v1/notifications', {
-        params: {
-          user_id: this.$store.state.currentUser.id
-        }
-      })
-      .then((res) => {
-        this.notices = res.data
-        console.log(res.data)
-        console.log(this.notices)
-      })
+    await this.getnotifications()
+  },
+  methods: {
+    async getnotifications () {
+      await axios
+        .get('v1/notifications', {
+          params: {
+            user_id: this.$store.state.currentUser.id
+          }
+        })
+    }
   }
 }
 </script>

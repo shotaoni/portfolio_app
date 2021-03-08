@@ -34,7 +34,7 @@
         </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
-        <NoticeField />
+        <v-row>
         <nuxt-link to="/search">
           <v-btn
             small
@@ -58,6 +58,19 @@
             mdi-fountain-pen-tip
           </v-icon>投稿
         </v-btn>
+        <v-btn
+          to="/noticefeed"
+          class="mr-2"
+          color="white"
+          :outlined="true"
+          small
+        >
+          <v-icon small>
+            mdi-fountain-pen-tip
+          </v-icon>通知一覧
+        </v-btn>
+
+        <NoticeField />
         <v-menu offset-y dense nav>
           <template #activator="{ on, attrs }">
             <v-avatar size="32">
@@ -94,6 +107,7 @@
             </v-list-item>
           </v-list>
         </v-menu>
+        </v-row>
       </div>
     </div>
   </v-app-bar>

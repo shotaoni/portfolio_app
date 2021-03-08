@@ -8,10 +8,10 @@ class V1::CommentsController < ApplicationController
   end
 
   def create
-    comment = @user.comments.create!(comment_params)
-    comment.save!
-    comment.create_notification_comment!(current_user, comment.id)
-    render json: comment
+    @comment = @user.comments.create!(comment_params)
+    @comment.save!
+    @comment.notification_comment!(@comment.user_id, @comment.post_id)
+    render json: @comment
   end
 
   def destroy

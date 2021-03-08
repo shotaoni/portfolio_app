@@ -17,10 +17,11 @@ class Post < ApplicationRecord
         visited_id: user_id,
         action: like
       )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
+      if notification.visitor_id == notification.visited_id
+        notification.checked = true
+      end
     notification.save if notification.valid?
+  end
   end
 
   def create_notification_comment!(current_user, comment_id)

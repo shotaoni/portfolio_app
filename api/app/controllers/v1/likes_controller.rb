@@ -21,7 +21,7 @@ class V1::LikesController < ApplicationController
 
   def create
     like = @current_user.likes.create!(like_params)
-    like.create_notification_like!(current_user)
+    like.notification_post_like!(like.user_id, like.post_id)
     render json: like
   end
 
