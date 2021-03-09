@@ -1,16 +1,16 @@
 <template>
   <div>
     <v-badge
-    color="orange"
-    :value="count"
-    :content="count"
-    overlap
+      color="orange"
+      :value="count"
+      :content="count"
+      overlap
     >
       <v-icon
-      @click="noticeField = !noticeField"
-      style="color: white"
+        style="color: white"
+        @click="noticeField = !noticeField"
       >
-      mdi-bell-outline
+        mdi-bell-outline
       </v-icon>
     </v-badge>
     <v-card v-if="noticeField" id="notice-field">
@@ -19,19 +19,19 @@
         <v-spacer />
         <span @click="closeField">
           <nuxt-link
-          to="/noticefeed"
-          id="to-notices"
+            id="to-notices"
+            to="/noticefeed"
           >
-          通知一覧
+            通知一覧
           </nuxt-link>
         </span>
       </v-card-title>
       <v-card-text>
         <Notice
-        v-for="notice in notices"
-        :key="notice.id"
-        :notice="notice"
-        @closeField="closeField"
+          v-for="notice in notices"
+          :key="notice.id"
+          :notice="notice"
+          @closeField="closeField"
         />
         <span v-if="!notices.length">通知はありません。</span>
       </v-card-text>

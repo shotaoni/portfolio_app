@@ -3,42 +3,42 @@
     <v-row class="notice-item">
       <v-col cols="2">
         <nuxt-link
-        :to="noticeUserLink"
-        class="no-link-style"
+          :to="noticeUserLink"
+          class="no-link-style"
         >
           <v-avatar size="30">
             <img
-            v-if="notice.action_user.avatar_url"
-            :src="notice.action_user.avatar_url"
+              v-if="notice.action_user.avatar_url"
+              :src="notice.action_user.avatar_url"
             >
             <v-else
-            src="~/assets/image/default_icon.png"
+              src="~/assets/image/default_icon.png"
             />
           </v-avatar>
         </nuxt-link>
       </v-col>
       <v-col cols="10">
         <nuxt-link
-        :to="noticeLink"
-        class="no-link-style"
+          :to="noticeLink"
+          class="no-link-style"
         >
-        <v-row>
-          <template
-          v-if="notice.noticeable_type === 'Comment'"
-          >
-          あなたの投稿に{{ notice.action_user.screen_name }}さんがコメントしました。
-          </template>
-          <template
-          v-if="notice.like_type === 'post'"
-          >
-          あなたの投稿に{{ notice.action_user.screen_name }}さんがいいねしました。
-          </template>
-          <template
-          v-if="notice.noticeable_type === 'Relationship'"
-          >
-          あなたを{{ notice.action_user.screen_name }}さんがフォローしました。
-          </template>
-        </v-row>
+          <v-row>
+            <template
+              v-if="notice.noticeable_type === 'Comment'"
+            >
+              あなたの投稿に{{ notice.action_user.screen_name }}さんがコメントしました。
+            </template>
+            <template
+              v-if="notice.like_type === 'post'"
+            >
+              あなたの投稿に{{ notice.action_user.screen_name }}さんがいいねしました。
+            </template>
+            <template
+              v-if="notice.noticeable_type === 'Relationship'"
+            >
+              あなたを{{ notice.action_user.screen_name }}さんがフォローしました。
+            </template>
+          </v-row>
         </nuxt-link>
       </v-col>
     </v-row>

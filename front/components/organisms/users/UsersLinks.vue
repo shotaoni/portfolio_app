@@ -2,7 +2,7 @@
   <v-card class="user-links-box">
     <v-card-title>
       <v-row justify="center">
-      メニュー
+        メニュー
       </v-row>
     </v-card-title>
     <div>
@@ -13,7 +13,7 @@
             block
             @click="$emit('openlikeposts')"
           >
-          <v-icon>
+            <v-icon>
               mdi-table-heart
             </v-icon>
             いいねした投稿
@@ -29,7 +29,7 @@
             block
             @click="$emit('opentimeline')"
           >
-          <v-icon>
+            <v-icon>
               mdi-clock-time-three-outline
             </v-icon>
             タイムライン
@@ -43,9 +43,9 @@
           outlined
           block
         >
-        <v-icon>
-              mdi-bell-outline
-            </v-icon>
+          <v-icon>
+            mdi-bell-outline
+          </v-icon>
           通知一覧
         </v-btn>
       </v-row>
