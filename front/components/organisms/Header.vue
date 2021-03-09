@@ -64,6 +64,7 @@
             color="white"
             :outlined="true"
             small
+            @click="$emit('checked')"
           >
             <v-icon small>
               mdi-bell-outline

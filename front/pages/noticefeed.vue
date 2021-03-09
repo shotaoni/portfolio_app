@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="currentUser.id">
+  <v-container v-if="currentUser.id" @checked="checkedNotice">
     <v-row justify="center">
       <v-col xl="4" lg="6" sm="8" cols="12">
         <v-card>
@@ -123,6 +123,11 @@ export default {
         console.log(res.data)
         console.log(this.notices)
       })
+  },
+  methods: {
+    checkedNotice () {
+
+    }
   }
 }
 </script>
