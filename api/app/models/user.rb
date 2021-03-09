@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower #自分をフォローしている人（自分がフォローされている人)
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments, dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
@@ -35,6 +37,28 @@ class User < ApplicationRecord
 
     def followers?(other_user)
       followers.include?(other_user)
+    end
+
+    def create_notification_follow!(current_user)
+      temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ?', current_user.id, id, 'follow'])
+      if temp.blank?
+        notification = current_user.active_notifications.new(
+          visited_id: id,
+          action: 'follow'
+        )
+        notification.save if notification.valid?
+      end
+    end
+
+    def notification_follow!(visitor_id, visited_id)
+      visited = User.find(visited_id)
+      visitor = User.find(visitor_id)
+      follow_notice = visitor.active_notifications.new(
+        visitor_id: visitor.id,
+        visited_id: visited.id,
+        action: 'follow'
+      )
+      follow_notice.save
     end
 
 end

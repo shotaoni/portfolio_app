@@ -22,6 +22,7 @@ class V1::RelationshipsController < ApplicationController
   def create
     @user = User.find(params[:followed_id])
     @current_user.follow(@user)
+    @current_user.notification_follow!(@current_user.id, @user.id)
     render json: @user
   end
 

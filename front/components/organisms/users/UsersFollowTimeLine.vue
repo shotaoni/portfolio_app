@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-row justify="center">
-      タイムライン
+        タイムライン
       </v-row>
     </v-card-title>
     <v-card-text>

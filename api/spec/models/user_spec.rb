@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it '正常テスト' do
+    @user = User.new(
+      name: 'test',
+      email: 'test1@sample.com'
+    )
+    expect(@user).to be_valid
+  end
 end

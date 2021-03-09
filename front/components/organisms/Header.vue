@@ -34,65 +34,79 @@
         </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
-        <nuxt-link to="/search">
+        <v-row>
+          <nuxt-link to="/search">
+            <v-btn
+              small
+              class="mr-2"
+              :outlined="true"
+            >
+              <v-icon small>
+                mdi-magnify
+              </v-icon>
+              検索
+            </v-btn>
+          </nuxt-link>
           <v-btn
-            small
+            to="/posts/create"
             class="mr-2"
+            color="white"
             :outlined="true"
+            small
           >
             <v-icon small>
-              mdi-magnify
-            </v-icon>
-            検索
+              mdi-fountain-pen-tip
+            </v-icon>投稿
           </v-btn>
-        </nuxt-link>
-        <v-btn
-          to="/posts/create"
-          class="mr-2"
-          color="white"
-          :outlined="true"
-          small
-        >
-          <v-icon small>
-            mdi-fountain-pen-tip
-          </v-icon>投稿
-        </v-btn>
-        <v-menu offset-y dense nav>
-          <template #activator="{ on, attrs }">
-            <v-avatar size="32">
-              <img
-                v-if="currentUser.avatar_url"
-                :src="currentUser.avatar_url"
-                alt="Avatar"
-                v-bind="attrs"
-                v-on="on"
+          <v-btn
+            to="/noticefeed"
+            class="mr-2"
+            color="white"
+            :outlined="true"
+            small
+            @click="$emit('checked')"
+          >
+            <v-icon small>
+              mdi-bell-outline
+            </v-icon>通知一覧
+          </v-btn>
+          <v-menu offset-y dense nav>
+            <template #activator="{ on, attrs }">
+              <v-avatar size="32">
+                <img
+                  v-if="currentUser.avatar_url"
+                  :src="currentUser.avatar_url"
+                  alt="Avatar"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                <img
+                  v-else
+                  src="~/assets/image/default-icon.png"
+                  alt="Avatar"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+              </v-avatar>
+            </template>
+            <v-list dense>
+              <v-list-item
+                v-for="(link, l) in links"
+                :key="l"
+                :to="link.to"
+                exact
               >
-              <img
-                v-else
-                src="~/assets/image/default-icon.png"
-                alt="Avatar"
-                v-bind="attrs"
-                v-on="on"
-              >
-            </v-avatar>
-          </template>
-          <v-list dense>
-            <v-list-item
-              v-for="(link, l) in links"
-              :key="l"
-              :to="link.to"
-              exact
-            >
-              <v-list-item-title>{{ link.name }}</v-list-item-title>
-            </v-list-item>
-          </v-list>
-          <v-divider />
-          <v-list dense>
-            <v-list-item key="logout" @click="logOut">
-              <v-list-item-title>ログアウト</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
+                <v-list-item-title>{{ link.name }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+            <v-divider />
+            <v-list dense>
+              <v-list-item key="logout" @click="logOut">
+                <v-list-item-title>ログアウト</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-row>
       </div>
     </div>
   </v-app-bar>

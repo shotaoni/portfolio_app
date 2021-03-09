@@ -71,7 +71,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-          {{ user.profile }}
+        {{ user.profile }}
       </v-row>
     </v-card-text>
   </v-card>
