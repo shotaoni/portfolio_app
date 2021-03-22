@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn
-      v-if="this.alreadylike"
+      v-if="this.alreadylike && currentUser"
       icon
       outlined
       color="red"
