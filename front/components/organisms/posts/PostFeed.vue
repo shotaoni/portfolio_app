@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div
+  v-if="posts.length">
     <Post
       v-for="(post, $index) in posts"
       :key="$index"
@@ -17,6 +18,9 @@
       </v-btn>
     </v-row>
   </div>
+  <v-row justify="center" v-else>
+    投稿はまだありません
+  </v-row>
 </template>
 
 <script>
@@ -30,7 +34,7 @@ export default {
     return {
       postCount: 0,
       posts: [],
-      morePost: true
+      morePost: false
     }
   },
   mounted () {
@@ -53,8 +57,8 @@ export default {
           const addPosts = res.data
           this.posts = this.posts.concat(addPosts)
           this.postCount = this.posts.length
-          if (addPosts.length < 20) {
-            this.morePost = false
+          if (addPosts.length > 20) {
+            this.morePost = true
           }
         })
     }

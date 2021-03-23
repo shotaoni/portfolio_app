@@ -63,6 +63,9 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then((res) => {
+          console.log(res)
+          console.log(res.user)
+          console.log(this.$store)
           setUser(res.user, this.$store)
           this.$store.commit('setFlash', {
             status: true,
