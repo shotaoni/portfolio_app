@@ -38,7 +38,7 @@ export default {
   },
   data () {
     return {
-      alreadylike: Boolean
+      alreadylike: false
     }
   },
   computed: {
@@ -47,9 +47,9 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
+    if (this.$store.currentUser) {
       this.isLiked()
-    }, 200)
+    }
   },
   methods: {
     async isLiked () {
@@ -58,22 +58,24 @@ export default {
       console.log(this.post.id)
       console.log(this.$store.state)
       console.log('likebutton', this.$store.state.currentUser)
-      await axios
-        .get('v1/likes', {
-          params: {
-            post_id: this.post.id,
-            userid: this.$store.state.currentUser.id
-          }
-        })
-        .then((res) => {
-          console.log(res)
-          if (!res.data) {
-            this.alreadylike = false
-          } else {
-            this.alreadylike = true
-          }
-          console.log(res.data)
-        })
+      if (this.$store.state.currentUser.id) {
+        await axios
+          .get('v1/likes', {
+            params: {
+              post_id: this.post.id,
+              userid: this.$store.state.currentUser.id
+            }
+          })
+          .then((res) => {
+            console.log(res)
+            if (!res.data) {
+              this.alreadylike = false
+            } else {
+              this.alreadylike = true
+            }
+            console.log(res.data)
+          })
+      }
     }
   }
 }

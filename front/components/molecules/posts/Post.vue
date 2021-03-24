@@ -107,7 +107,7 @@ export default {
       content: '',
       comments: [],
       alreadylike: Boolean,
-      likeCount: Number,
+      likeCount: 0,
       openComments: false,
       openCommentslog: false
     }
@@ -118,22 +118,23 @@ export default {
     }
   },
   mounted () {
-    this.likepostcount()
-    this.getcreatepost()
-    axios
-      .get(`/v1/posts/${this.post.id}`)
-      .then((res) => {
-        this.links = res.data.links
-      })
-      .catch((error) => {
-        if (error.response.status === 404) {
-          this.notFound = true
-        }
-      })
+    if (this.$store.state.currentUser) {
+      this.likepostcount()
+      this.getcreatepost()
+      axios
+        .get(`/v1/posts/${this.post.id}`)
+        .then((res) => {
+          this.links = res.data.links
+        })
+        .catch((error) => {
+          if (error.response.status === 404) {
+            this.notFound = true
+          }
+        })
+    }
   },
   methods: {
     likepost () {
-      this.$store.commit('setLoading', true)
       axios
         .post('/v1/likes', {
           userid: this.currentUser.id,
@@ -142,7 +143,6 @@ export default {
         .then(() => {
           this.alreadylike = true
           this.likeCount++
-          this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,
             message: 'いいねしました'
@@ -153,7 +153,6 @@ export default {
         })
     },
     likepostnone () {
-      this.$store.commit('setLoading', true)
       axios
         .post('/v1/likes/likenone', {
           user_id: this.currentUser.id,
@@ -162,7 +161,6 @@ export default {
         .then(() => {
           this.alreadylike = false
           this.likeCount--
-          this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,
             message: 'いいねを取り消しました'

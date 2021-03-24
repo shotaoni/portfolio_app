@@ -9,7 +9,7 @@ const authCheck = ({ store }) => {
 
 export const setUser = (user, store) => {
   async function set (user, store) {
-    if (user.id) {
+    if (user) {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       const userParams = data
       console.log('ログインしているユーザー:', data)
@@ -18,9 +18,11 @@ export const setUser = (user, store) => {
       console.log(data.uid)
       store.commit('setUser', userParams)
       store.commit('setLoggedIn', true)
+      store.commit('setLoading', false)
     } else {
       store.commit('setUser', null)
       store.commit('setLoggedIn', false)
+      store.commit('setLoading', false)
     }
   }
   set(user, store)

@@ -38,15 +38,20 @@ export default {
     }
   },
   mounted () {
-    axios
-      .get('v1/posts')
-      .then((res) => {
-        this.posts = res.data
-        console.log(this.posts)
-        this.postCount = this.posts.length
-      })
+    setTimeout(() => {
+      this.postsGet()
+    }, 200)
   },
   methods: {
+    postsGet () {
+      axios
+        .get('v1/posts')
+        .then((res) => {
+          this.posts = res.data
+          console.log(this.posts)
+          this.postCount = this.posts.length
+        })
+    },
     moreLoading () {
       const params = {
         offset: this.postCount
