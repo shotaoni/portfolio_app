@@ -9,9 +9,10 @@ const authCheck = ({ store }) => {
 
 export const setUser = (user, store) => {
   async function set (user, store) {
-    if (user) {
+    if (user.id) {
       const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       const userParams = data
+      console.log('ログインしているユーザー:', data)
       console.log(data)
       console.log(userParams)
       console.log(data.uid)

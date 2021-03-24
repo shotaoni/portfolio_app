@@ -47,7 +47,9 @@ export default {
     }
   },
   mounted () {
-    this.isLiked()
+    setTimeout(() => {
+      this.isLiked()
+    }, 200)
   },
   methods: {
     async isLiked () {
@@ -55,7 +57,7 @@ export default {
       console.log(this.user)
       console.log(this.post.id)
       console.log(this.$store.state)
-      console.log(this.$store.state.currentUser)
+      console.log('likebutton', this.$store.state.currentUser)
       await axios
         .get('v1/likes', {
           params: {

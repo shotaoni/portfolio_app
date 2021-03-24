@@ -13,63 +13,60 @@
         </h2>
       </v-card-title>
       <v-card-text>
-        <v-form>
-          <div class="email-box">
-            <h3 class="edit-h3">
-              メールアドレス
-            </h3>
-            <TextField
-              v-model="email"
-              label="メールアドレス"
-              rules="max:255|required|email"
-            />
-            <v-row justify="end">
-              <v-btn
-                color="light-blue lighten-3"
-                class="white--text"
-                @click="openDialogForEmail"
-              >
-                変更
-              </v-btn>
-            </v-row>
-          </div>
-          <ValidationObserver>
-            <div class="password-box">
+        <ValidationObserver>
+          <v-form>
+            <div class="email-box">
               <h3 class="edit-h3">
-                パスワード
+                メールアドレス
               </h3>
               <TextField
-                v-model="password"
-                label="変更後のパスワード"
-                rules="required|min:6"
-                :type="show1 ? 'text' : 'password'"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                vid="password"
-                @click:append="show1 = !show1"
-              />
-              <TextField
-                v-model="passwordConfirm"
-                label="変更後のパスワード(再入力)"
-                rules="required|min:6|confirmed:パスワード"
-                :type="show2 ? 'text' : 'password'"
-                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show2 = !show2"
+                v-model="email"
+                label="メールアドレス"
+                rules="max:255|required|email"
               />
               <v-row justify="end">
                 <v-btn
                   color="light-blue lighten-3"
                   class="white--text"
-                  @click="openDialogForPassword"
+                  @click="openDialogForEmail"
                 >
                   変更
                 </v-btn>
               </v-row>
             </div>
-          </ValidationObserver>
-          <p v-if="error" class="errors">
-            {{ error }}
-          </p>
-        </v-form>
+              <div class="password-box">
+                <h3 class="edit-h3">
+                  パスワード
+                </h3>
+                <TextField
+            v-model="password"
+            label="パスワード"
+            rules="required|min:6"
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            vid="password"
+            @click:append="show1 = !show1"
+          />
+          <TextField
+            v-model="passwordConfirm"
+            label="パスワード（再入力)"
+            rules="required|min:6|confirmed:パスワード"
+            :type="show2 ? 'text' : 'password'"
+            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show2 = !show2"
+          />
+                <v-row justify="end">
+                  <v-btn
+                    color="light-blue lighten-3"
+                    class="white--text"
+                    @click="openDialogForPassword"
+                  >
+                    変更
+                  </v-btn>
+                </v-row>
+              </div>
+          </v-form>
+        </ValidationObserver>
         <h3 class="edit-h3">
           アカウントを削除する
         </h3>
