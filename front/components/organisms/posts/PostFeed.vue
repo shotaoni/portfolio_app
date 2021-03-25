@@ -19,7 +19,7 @@
     </v-row>
   </div>
   <v-row justify="center" v-else>
-    投稿はまだありません
+    投稿はまだありません。
   </v-row>
 </template>
 
