@@ -2,7 +2,7 @@
   <div
   v-if="posts.length">
     <Post
-      v-for="post in posts"
+      v-for="post in posts[0]"
       :key="post.id"
       :user="post.user"
       :post="post"
@@ -35,9 +35,6 @@ export default {
       posts: [],
       morePost: false
     }
-  },
-  mounted () {
-    this.postsGet()
   },
   methods: {
     postsGet () {
