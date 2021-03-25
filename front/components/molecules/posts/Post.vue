@@ -118,20 +118,18 @@ export default {
     }
   },
   mounted () {
-    if (this.$store.state.currentUser) {
-      this.likepostcount()
-      this.getcreatepost()
-      axios
-        .get(`/v1/posts/${this.post.id}`)
-        .then((res) => {
-          this.links = res.data.links
-        })
-        .catch((error) => {
-          if (error.response.status === 404) {
-            this.notFound = true
-          }
-        })
-    }
+    this.likepostcount()
+    this.getcreatepost()
+    axios
+      .get(`/v1/posts/${this.post.id}`)
+      .then((res) => {
+        this.links = res.data.links
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          this.notFound = true
+        }
+      })
   },
   methods: {
     likepost () {
