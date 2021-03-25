@@ -19,6 +19,7 @@ variable "DB_PASSWORD" {}
 variable "S3_REGION" {}
 variable "S3_BUCKET" {}
 variable "RAILS_MASTER_KEY" {}
+variable "API_ENDPOINT" {}
 
 variable "GITHUB_TOKEN" {}
 variable "GITHUB_USER" {}
@@ -45,6 +46,13 @@ resource "aws_ssm_parameter" "secret-access-key" {
   value       = var.AWS_SECRET_ACCESS_KEY
   type        = "SecureString"
   description = "AWS_SECRET_ACCESS_KEY"
+}
+
+resource "aws_ssm_parameter" "api-endpoint" {
+  name        = "api-endpoint"
+  value       = var.API_ENDPOINT
+  type        = "SecureString"
+  description = "API_ENDPOINT"
 }
 
 resource "aws_ssm_parameter" "workdir" {

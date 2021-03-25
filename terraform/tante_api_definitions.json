@@ -41,6 +41,10 @@
     ],
       "secrets": [
         {
+          "name": "API_ENDPOINT",
+          "valueFrom": "api-endpoint"
+        },
+        {
           "name": "RAILS_MASTER_KEY",
           "valueFrom": "rails-master-key"
         },

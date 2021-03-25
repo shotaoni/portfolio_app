@@ -28,6 +28,7 @@ ENV DB_PASSWORD           $DB_PASSWORD
 ENV S3_REGION             $S3_REGION
 ENV S3_BUCKET             $S3_BUCKET
 ENV RAILS_MASTER_KEY      $RAILS_MASTER_KEY
+ENV API_ENDPOINT          $API_ENDPOINT
 
 WORKDIR ${WORKDIR}
 
@@ -35,8 +36,8 @@ COPY Gemfile* ./
 
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache ${RUNTIME_PACKAGES} && \
-    apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
+    apk add --update --no-cache ${RUNTIME_PACKAGES} && \
+    apk add --update --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
     bundle install -j4 && \
     apk del build-dependencies
 
