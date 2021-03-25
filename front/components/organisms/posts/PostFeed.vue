@@ -2,8 +2,8 @@
   <div
   v-if="posts.length">
     <Post
-      v-for="(post, $index) in posts"
-      :key="$index"
+      v-for="post in posts"
+      :key="post.id"
       :user="post.user"
       :post="post"
     />
@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 import Post from '~/components/molecules/posts/Post.vue'
 export default {
   components: {
@@ -38,13 +37,11 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.postsGet()
-    }, 200)
+    this.postsGet()
   },
   methods: {
     postsGet () {
-      axios
+      this.$axios
         .get('v1/posts')
         .then((res) => {
           this.posts = res.data
@@ -56,7 +53,7 @@ export default {
       const params = {
         offset: this.postCount
       }
-      axios
+      this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
           const addPosts = res.data

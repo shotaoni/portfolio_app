@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import { setUser } from '@/plugins/auth-check.js'
 import firebase from '@/plugins/firebase'
 import TextField from '~/components/atoms/TextField.vue'
 export default {
@@ -63,10 +62,6 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then((res) => {
-          console.log(res)
-          console.log(res.user)
-          console.log(this.$store)
-          setUser(res.user, this.$store)
           this.$store.commit('setFlash', {
             status: true,
             message: 'ログインしました'

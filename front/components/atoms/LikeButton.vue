@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 export default {
   props: {
     post: {
@@ -47,9 +46,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$store.currentUser) {
-      this.isLiked()
-    }
+    this.isLiked()
   },
   methods: {
     async isLiked () {
@@ -58,24 +55,22 @@ export default {
       console.log(this.post.id)
       console.log(this.$store.state)
       console.log('likebutton', this.$store.state.currentUser)
-      if (this.$store.state.currentUser.id) {
-        await axios
-          .get('v1/likes', {
-            params: {
-              post_id: this.post.id,
-              userid: this.$store.state.currentUser.id
-            }
-          })
-          .then((res) => {
-            console.log(res)
-            if (!res.data) {
-              this.alreadylike = false
-            } else {
-              this.alreadylike = true
-            }
-            console.log(res.data)
-          })
-      }
+      await this.$axios
+        .$get('v1/likes', {
+          params: {
+            post_id: this.post.id,
+            userid: this.currentUser.id
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          if (!res) {
+            this.alreadylike = false
+          } else {
+            this.alreadylike = true
+          }
+          console.log(res)
+        })
     }
   }
 }
