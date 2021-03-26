@@ -98,8 +98,8 @@ resource "aws_lb_target_group" "tante-lb-api-tg" {
   deregistration_delay = 300
 
   health_check {
-    path                = "/v1/users"
-    healthy_threshold   = 2
+    path                = "/v1/tasks"
+    healthy_threshold   = 5
     unhealthy_threshold = 2
     timeout             = 120
     interval            = 150

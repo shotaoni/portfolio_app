@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :likes
       post 'likes/likenone', to: 'likes#destroy'
     resources :comments, only: [:create, :destroy]
+    resources :tasks, only: :index
     resources :notifications, only: [:index, :show] do
       get :unchecked, on: :collection
       get :checked, on: :collection
