@@ -30,11 +30,17 @@ resource "aws_db_instance" "tante-db" {
   backup_retention_period    = 30
   maintenance_window         = "mon:10:10-mon:10:40"
   auto_minor_version_upgrade = false
-  deletion_protection        = true
+  deletion_protection        = false
   skip_final_snapshot        = true
   port                       = 3306
   apply_immediately          = false
   vpc_security_group_ids     = [module.mysql_sg.security_group_id]
   parameter_group_name       = aws_db_parameter_group.tante-db-parameter-group.name
   db_subnet_group_name       = aws_db_subnet_group.tante-rds-subnet-group.name
+  enabled_cloudwatch_logs_exports = [
+    "audit",
+    "error",
+    "general",
+    "slowquery",
+  ]
 }

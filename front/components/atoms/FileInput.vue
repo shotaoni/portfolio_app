@@ -21,10 +21,6 @@ export default {
     rules: {
       type: [Object, String],
       default: ''
-    },
-    value: {
-      type: null,
-      default: ''
     }
   },
   data () {

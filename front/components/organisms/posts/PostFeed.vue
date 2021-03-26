@@ -2,7 +2,11 @@
   <div
   v-if="posts.length">
     <Post
-      v-for="post in posts[0]"
+      :user="posts[0].user"
+      :post="posts[0]"
+    />
+    <Post
+      v-for="post in posts"
       :key="post.id"
       :user="post.user"
       :post="post"
@@ -19,7 +23,7 @@
     </v-row>
   </div>
   <v-row justify="center" v-else>
-    投稿はまだありません。
+    投稿はまだありません
   </v-row>
 </template>
 
@@ -35,6 +39,9 @@ export default {
       posts: [],
       morePost: false
     }
+  },
+  mounted () {
+    this.postsGet()
   },
   methods: {
     postsGet () {

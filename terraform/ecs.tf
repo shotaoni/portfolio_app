@@ -82,6 +82,18 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
   }
 }
 
+resource "aws_ecs_task_definition" "db-migrate" {
+  family                   = "tante-db-migrate"
+  container_definitions    = file("./tante_db_migrate_definitions.json")
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
+}
+
+
+
 data "aws_iam_policy" "ecs_task_execution_role_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }

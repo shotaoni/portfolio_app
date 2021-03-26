@@ -18,6 +18,13 @@
             label="URL"
             :first-url.sync="firstUrl"
           />
+          <FileInput
+          v-model="image"
+          label="画像"
+          accept="image/*"
+          rules="size:5000"
+          @change="onImagePicked"
+      />
           <TextArea
             v-model="point"
             label="説明"
@@ -41,19 +48,22 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 import AddLink from '~/components/molecules/AddLink.vue'
 import TextField from '~/components/atoms/TextField.vue'
+import FileInput from '~/components/atoms/FileInput.vue'
 export default {
   components: {
     TextField,
-    AddLink
+    AddLink,
+    FileInput
   },
   data () {
     return {
       title: '',
       firstUrl: '',
-      point: ''
+      point: '',
+      image: [],
+      uploadImageUrl: ''
     }
   },
   fetch ({ store, redirect }) {
@@ -76,16 +86,42 @@ export default {
     }
   },
   methods: {
+    onImagePicked (file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = ''
+      }
+    },
     createPost () {
       this.$store.commit('setLoading', true)
-      axios
-        .post('/v1/posts', {
+      const formData = new FormData()
+      console.log(formData)
+      formData.append('image', this.image)
+      console.log(formData)
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
+      this.$axios
+        .$post('/v1/posts', {
           title: this.title,
           user_id: this.currentUser.id,
           links: this.links,
-          point: this.point
+          point: this.point,
+          formData,
+          config
         })
         .then((res) => {
+          console.log(res)
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,
@@ -94,7 +130,7 @@ export default {
           setTimeout(() => {
             this.$store.commit('setFlash', {})
           }, 2000)
-          this.$router.push(`/posts/${res.data.id}`)
+          this.$router.push(`/posts/${res.id}`)
         })
     }
   }
