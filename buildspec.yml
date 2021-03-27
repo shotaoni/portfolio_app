@@ -30,5 +30,6 @@ phases:
     - printf '[{"name":"api-container","imageUri":"%s"}]' $API_IMAGE > api_imagedefinitions.json
     - printf '[{"name":"front-container","imageUri":"%s"}]' $FRONT_IMAGE > front_imagedefinitions.json
 artifacts:
-  files: api_imagedefinitions.json
-  files: front_imagedefinitions.json
+  files:
+    - api_imagedefinitions.json
+    - front_imagedefinitions.json
