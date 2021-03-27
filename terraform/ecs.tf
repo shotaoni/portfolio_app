@@ -23,7 +23,7 @@ resource "aws_ecs_service" "tante-front-ecs-service" {
 
   network_configuration {
     assign_public_ip = true
-    security_groups  = [module.tante_sg.security_group_id]
+    security_groups  = [aws_security_group.tante-ecs-sg.id]
 
     subnets = [
       aws_subnet.public_0.id,
@@ -63,7 +63,7 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
 
   network_configuration {
     assign_public_ip = true
-    security_groups  = [module.tante_sg.security_group_id]
+    security_groups  = [aws_security_group.tante-ecs-sg.id]
 
     subnets = [
       aws_subnet.public_0.id,
@@ -80,6 +80,16 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
   lifecycle {
     ignore_changes = [task_definition]
   }
+}
+
+resource "aws_ecs_task_definition" "db-create" {
+  family                   = "tante-db-create"
+  container_definitions    = file("./tante_db_create_definitions.json")
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
 }
 
 resource "aws_ecs_task_definition" "db-migrate" {

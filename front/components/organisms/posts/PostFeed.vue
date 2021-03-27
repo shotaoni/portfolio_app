@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios'
 import Post from '~/components/molecules/posts/Post.vue'
 export default {
   components: {
@@ -45,7 +46,7 @@ export default {
   },
   methods: {
     postsGet () {
-      this.$axios
+      axios
         .get('v1/posts')
         .then((res) => {
           this.posts = res.data
@@ -57,7 +58,7 @@ export default {
       const params = {
         offset: this.postCount
       }
-      this.$axios
+      axios
         .get('/v1/posts', { params })
         .then((res) => {
           const addPosts = res.data

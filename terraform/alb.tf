@@ -11,18 +11,12 @@ resource "aws_lb" "tante-lb" {
   ]
 
   security_groups = [
-    module.http_sg.security_group_id,
-    module.https_sg.security_group_id,
-    module.http_redirect_sg.security_group_id
+    aws_security_group.tante-alb-sg.id
   ]
 
   tags = {
     Name = "tante-lb"
   }
-}
-
-output "alb_dns_name" {
-  value = aws_lb.tante-lb.dns_name
 }
 
 resource "aws_lb_listener" "tante-http-listener" {
@@ -67,6 +61,7 @@ resource "aws_lb_listener" "tante-api-listener" {
   }
 }
 
+
 resource "aws_lb_target_group" "tante-lb-front-tg" {
   name                 = "tante-lb-front-tg"
   target_type          = "ip"
@@ -85,8 +80,6 @@ resource "aws_lb_target_group" "tante-lb-front-tg" {
     port                = 80
     protocol            = "HTTP"
   }
-
-  depends_on = [aws_lb.tante-lb]
 }
 
 resource "aws_lb_target_group" "tante-lb-api-tg" {
@@ -98,15 +91,13 @@ resource "aws_lb_target_group" "tante-lb-api-tg" {
   deregistration_delay = 300
 
   health_check {
-    path                = "/v1/users"
-    healthy_threshold   = 2
+    path                = "/v1/tasks"
+    healthy_threshold   = 5
     unhealthy_threshold = 2
-    timeout             = 120
+    timeout             = 50
     interval            = 150
     matcher             = 200
     port                = 3000
     protocol            = "HTTP"
   }
-
-  depends_on = [aws_lb.tante-lb]
 }

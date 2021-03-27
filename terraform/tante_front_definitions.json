@@ -40,6 +40,10 @@
     ],
     "secrets": [
       {
+        "name": "API_ENDPOINT",
+        "valueFrom": "api-endpoint"
+      },
+      {
         "name": "API_KEY",
         "valueFrom": "api-key"
       },

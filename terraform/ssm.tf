@@ -10,6 +10,7 @@ variable "DATABASE_URL" {}
 variable "PROJECT_ID" {}
 variable "STORAGE_BUCKET" {}
 variable "MESSAGE_SENDER_ID" {}
+variable "API_ENDPOINT" {}
 
 variable "API_PORT" {}
 variable "DB_HOST" {}
@@ -19,7 +20,6 @@ variable "DB_PASSWORD" {}
 variable "S3_REGION" {}
 variable "S3_BUCKET" {}
 variable "RAILS_MASTER_KEY" {}
-variable "API_ENDPOINT" {}
 
 variable "GITHUB_TOKEN" {}
 variable "GITHUB_USER" {}

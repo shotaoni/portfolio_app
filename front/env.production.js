@@ -1,7 +1,5 @@
 module.exports = {
-  ////////////////////////////////////////////////
-  // Firebase Authentication
-  ////////////////////////////////////////////////
+  API_ENDPOINT: procces.env.API_ENDPOINT,
   API_KEY: process.env.API_KEY,
   AUTH_DOMAIN: process.env.AUTH_DOMAIN,
   DATABASE_URL: process.env.DATABASE_URL,

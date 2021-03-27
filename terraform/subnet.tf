@@ -23,7 +23,7 @@ resource "aws_subnet" "public_1" {
 resource "aws_subnet" "private_0" {
   vpc_id                  = aws_vpc.tante-vpc.id
   cidr_block              = "10.0.65.0/24"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1a"
 
   tags = {
@@ -34,7 +34,7 @@ resource "aws_subnet" "private_0" {
 resource "aws_subnet" "private_1" {
   vpc_id                  = aws_vpc.tante-vpc.id
   cidr_block              = "10.0.66.0/24"
-  map_public_ip_on_launch = false
+  map_public_ip_on_launch = true
   availability_zone       = "ap-northeast-1c"
 
   tags = {

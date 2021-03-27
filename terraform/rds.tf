@@ -21,11 +21,10 @@ resource "aws_db_instance" "tante-db" {
   allocated_storage          = 20
   max_allocated_storage      = 100
   storage_type               = "gp2"
-  storage_encrypted          = true
   username                   = var.DB_USERNAME
   password                   = var.DB_PASSWORD
   multi_az                   = true
-  publicly_accessible        = false
+  publicly_accessible        = true
   backup_window              = "09:10-09:40"
   backup_retention_period    = 30
   maintenance_window         = "mon:10:10-mon:10:40"
@@ -34,7 +33,7 @@ resource "aws_db_instance" "tante-db" {
   skip_final_snapshot        = true
   port                       = 3306
   apply_immediately          = false
-  vpc_security_group_ids     = [module.mysql_sg.security_group_id]
+  vpc_security_group_ids     = [aws_security_group.tante-rds-sg.id]
   parameter_group_name       = aws_db_parameter_group.tante-db-parameter-group.name
   db_subnet_group_name       = aws_db_subnet_group.tante-rds-subnet-group.name
   enabled_cloudwatch_logs_exports = [
