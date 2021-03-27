@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios'
 import AddLink from '~/components/molecules/AddLink.vue'
 import TextField from '~/components/atoms/TextField.vue'
 import FileInput from '~/components/atoms/FileInput.vue'
@@ -111,8 +112,8 @@ export default {
           'content-type': 'multipart/form-data'
         }
       }
-      this.$axios
-        .$post('/v1/posts', {
+      axios
+        .post('/v1/posts', {
           title: this.title,
           user_id: this.currentUser.id,
           links: this.links,
@@ -130,7 +131,7 @@ export default {
           setTimeout(() => {
             this.$store.commit('setFlash', {})
           }, 2000)
-          this.$router.push(`/posts/${res.id}`)
+          this.$router.push(`/posts/${res.data.id}`)
         })
     }
   }
