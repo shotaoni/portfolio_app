@@ -83,7 +83,6 @@ export default {
             name: this.name,
             uid: res.user.uid
           }
-          console.log(res.user.uid)
           axios.post('/v1/users', { user }).then((res) => {
             this.$store.commit('setLoading', false)
             setUser(res.data, this.$store)
@@ -91,7 +90,6 @@ export default {
               status: true,
               message: 'ログインしました'
             })
-            console.log(res.data)
             setTimeout(() => {
               this.$store.commit('setFlash', {})
             }, 2000)

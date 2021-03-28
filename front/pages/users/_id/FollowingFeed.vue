@@ -52,8 +52,6 @@ export default {
       .get(`v1/users/${this.$route.params.id}/following`)
       .then((res) => {
         this.users = res.data
-        console.log(this.users)
-        console.log(this.users[0].id) // 1
       })
   },
   methods: {

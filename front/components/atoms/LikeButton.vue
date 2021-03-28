@@ -50,11 +50,6 @@ export default {
   },
   methods: {
     async isLiked () {
-      console.log(this)
-      console.log(this.user)
-      console.log(this.post.id)
-      console.log(this.$store.state)
-      console.log('likebutton', this.$store.state.currentUser)
       await this.$axios
         .$get('v1/likes', {
           params: {
@@ -63,13 +58,11 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res)
           if (!res) {
             this.alreadylike = false
           } else {
             this.alreadylike = true
           }
-          console.log(res)
         })
     }
   }

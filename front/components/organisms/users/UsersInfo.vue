@@ -96,9 +96,6 @@ export default {
   },
   computed: {
     currentUser () {
-      console.log(this.$store.state.currentUser)
-      console.log(this.user)
-      console.log(this.user.id)
       return this.$store.state.currentUser
     }
   },
@@ -136,15 +133,10 @@ export default {
           } else {
             this.alreadyfollow = true
           }
-          console.log(res.data)
-          console.log(this.user.id)
-          console.log(this.currentUser.id)
         })
     },
     follow (user) {
       this.$store.commit('setLoading', true)
-      console.log(this.currentUser.id)
-      console.log(this.user.id)
       axios
         .post('/v1/relationships', {
           userid: this.currentUser.id,
@@ -159,7 +151,6 @@ export default {
             status: true,
             message: 'フォローしました'
           })
-          console.log(this.user)
           setTimeout(() => {
             this.$store.commit('setFlash', {})
           }, 3000)
@@ -167,8 +158,6 @@ export default {
     },
     unfollow (user) {
       this.$store.commit('setLoading', true)
-      console.log(this.currentUser.id)
-      console.log(this.user.id)
       axios
         .post(`/v1/users/${this.$route.params.id}/unfollow`, {
           userid: this.currentUser.id,

@@ -120,8 +120,6 @@ export default {
       })
       .then((res) => {
         this.notices = res.data
-        console.log(res.data)
-        console.log(this.notices)
       })
   },
   methods: {

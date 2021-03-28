@@ -76,8 +76,6 @@ export default {
       axios
         .get(`v1/users/${this.comment.user_id}`)
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           this.user = res.data
         })
     }

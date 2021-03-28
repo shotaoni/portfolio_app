@@ -46,11 +46,11 @@ export default {
   },
   methods: {
     postsGet () {
+      console.log('hogehoge')
       axios
         .get('v1/posts')
         .then((res) => {
           this.posts = res.data
-          console.log(this.posts)
           this.postCount = this.posts.length
         })
     },

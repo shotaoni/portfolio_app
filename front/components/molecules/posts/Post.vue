@@ -28,7 +28,7 @@
           @likepostnone="likepostnone"
           @likepost="likepost"
         />
-        {{ this.likeCount }}
+        {{ likeCount }}
         <v-spacer />
         <Button
           large
@@ -178,16 +178,12 @@ export default {
         .then((res) => {
           const postLikes = res.data
           this.likeCount = postLikes.length
-          console.log(postLikes)
-          console.log(res.data)
         })
     },
     getcreatepost () {
       axios
         .get(`v1/posts/${this.post.id}/comments`)
         .then((res) => {
-          console.log(res.data)
-          console.log(res)
           this.comments = res.data
         })
     },
@@ -200,7 +196,6 @@ export default {
           user_id: this.currentUser.id
         })
         .then((res) => {
-          console.log(res.data)
           this.getcreatepost()
           this.$store.commit('setFlash', {
             status: true,

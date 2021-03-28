@@ -92,9 +92,7 @@ export default {
     changeUsersAvatar () {
       this.$store.commit('setLoading', true)
       const formData = new FormData()
-      console.log(formData)
       formData.append('avatar', this.avatar)
-      console.log(formData)
       const config = {
         headers: {
           'content-type': 'multipart/form-data'

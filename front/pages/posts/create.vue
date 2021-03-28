@@ -104,9 +104,7 @@ export default {
     createPost () {
       this.$store.commit('setLoading', true)
       const formData = new FormData()
-      console.log(formData)
       formData.append('image', this.image)
-      console.log(formData)
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -122,7 +120,6 @@ export default {
           config
         })
         .then((res) => {
-          console.log(res)
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,

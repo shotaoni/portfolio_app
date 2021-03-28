@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     async getlikeposts () {
-      await console.log(this.user.id)
       await axios
         .get('v1/posts', {
           params: {
@@ -43,10 +42,6 @@ export default {
         })
         .then((res) => {
           this.posts = res.data
-          console.log(res)
-          console.log(res.data)
-          console.log(res.data.post)
-          console.log(this.posts)
         })
     }
   }

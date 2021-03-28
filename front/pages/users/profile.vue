@@ -70,7 +70,6 @@ export default {
           this.name = res.data.name
           this.profile = res.data.profile
           this.currentAvatarUrl = res.data.avatar_url
-          console.log(res.data)
         })
     }
     if (this.currentUser.id) {
