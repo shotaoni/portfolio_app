@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import axios from '@/plugins/axios'
 export default {
   props: {
     post: {
@@ -50,8 +51,9 @@ export default {
   },
   methods: {
     async isLiked () {
-      await this.$axios
-        .$get('v1/likes', {
+      console.log('hoge')
+      await axios
+        .get('v1/likes', {
           params: {
             post_id: this.post.id,
             userid: this.currentUser.id

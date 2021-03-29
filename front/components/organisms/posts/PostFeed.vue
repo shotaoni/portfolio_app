@@ -1,6 +1,6 @@
 <template>
   <div
-  v-if="posts.length">
+  v-if="showPost">
     <Post
       :user="posts[0].user"
       :post="posts[0]"
@@ -38,7 +38,8 @@ export default {
     return {
       postCount: 0,
       posts: [],
-      morePost: false
+      morePost: false,
+      showPost: false
     }
   },
   mounted () {
@@ -52,6 +53,7 @@ export default {
         .then((res) => {
           this.posts = res.data
           this.postCount = this.posts.length
+          this.showPost = true
         })
     },
     moreLoading () {
