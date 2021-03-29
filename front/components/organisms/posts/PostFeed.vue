@@ -46,12 +46,13 @@ export default {
     this.postsGet()
   },
   methods: {
-    postsGet () {
+    async postsGet () {
       console.log('postfeed')
-      axios
-        .get('v1/posts')
+      await this.$axios
+        .$get('v1/posts')
         .then((res) => {
-          this.posts = res.data
+          console.log(res)
+          this.posts = res
           this.postCount = this.posts.length
           this.showPost = true
         })

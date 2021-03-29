@@ -132,9 +132,9 @@ export default {
       })
   },
   methods: {
-    likepost () {
+    async likepost () {
       console.log('post.vue.likepost')
-      axios
+      await axios
         .post('/v1/likes', {
           userid: this.currentUser.id,
           post_id: this.post.id

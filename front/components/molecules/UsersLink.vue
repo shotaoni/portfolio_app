@@ -1,11 +1,15 @@
 <template>
   <div class="user-link-box">
-    テスト
   </div>
 </template>
 
 <script>
 export default {
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
+    }
+  },
   props: {
     user: {
       type: Object,
@@ -14,11 +18,6 @@ export default {
     post: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    currentUser () {
-      return this.$store.state.currentUser
     }
   }
 }
