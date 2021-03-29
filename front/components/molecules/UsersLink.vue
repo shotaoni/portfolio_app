@@ -1,17 +1,6 @@
 <template>
   <div class="user-link-box">
-      <v-avatar size="32">
-        <img
-          v-if="user.avatar_url"
-          :src="user.avatar_url"
-          alt="Avatar"
-        >
-        <img
-          v-else
-          src="~/assets/image/default-icon.png"
-          alt="Avatar"
-        >
-      </v-avatar>
+    テスト
   </div>
 </template>
 
@@ -19,10 +8,12 @@
 export default {
   props: {
     user: {
-      type: Object
+      type: Object,
+      required: true
     },
     post: {
-      type: Object
+      type: Object,
+      required: true
     }
   },
   computed: {
