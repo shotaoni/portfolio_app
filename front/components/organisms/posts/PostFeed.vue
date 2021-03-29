@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     postsGet () {
-      console.log('hogehoge')
+      console.log('postfeed')
       axios
         .get('v1/posts')
         .then((res) => {

@@ -123,7 +123,7 @@ export default {
       await axios
         .get('/v1/relationships', {
           params: {
-            userid: this.$store.state.currentUser.id,
+            userid: this.currentUser.id,
             followed_id: this.$route.params.id
           }
         })

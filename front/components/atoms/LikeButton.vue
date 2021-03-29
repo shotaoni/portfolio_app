@@ -46,12 +46,9 @@ export default {
       return this.$store.state.currentUser
     }
   },
-  mounted () {
-    this.isLiked()
-  },
   methods: {
     async isLiked () {
-      console.log('hoge')
+      console.log('likebutton')
       await axios
         .get('v1/likes', {
           params: {
@@ -60,7 +57,8 @@ export default {
           }
         })
         .then((res) => {
-          if (!res) {
+          console.log(res.data)
+          if (!res.data) {
             this.alreadylike = false
           } else {
             this.alreadylike = true

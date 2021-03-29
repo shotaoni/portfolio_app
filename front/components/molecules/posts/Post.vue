@@ -126,13 +126,14 @@ export default {
         this.links = res.data.links
       })
       .catch((error) => {
-        if (error.response.status === 404) {
+        if (error.response === 404) {
           this.notFound = true
         }
       })
   },
   methods: {
     likepost () {
+      console.log('post.vue.likepost')
       axios
         .post('/v1/likes', {
           userid: this.currentUser.id,
