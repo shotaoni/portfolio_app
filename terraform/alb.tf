@@ -21,7 +21,7 @@ resource "aws_lb" "tante-lb" {
 
 resource "aws_lb_listener" "tante-http-listener" {
   load_balancer_arn = aws_lb.tante-lb.arn
-  port              = "80"
+  port              = "8080"
   protocol          = "HTTP"
 
   default_action {
@@ -66,7 +66,7 @@ resource "aws_lb_target_group" "tante-lb-front-tg" {
   name                 = "tante-lb-front-tg"
   target_type          = "ip"
   vpc_id               = aws_vpc.tante-vpc.id
-  port                 = 80
+  port                 = 8080
   protocol             = "HTTP"
   deregistration_delay = 300
 

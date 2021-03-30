@@ -34,7 +34,7 @@ resource "aws_ecs_service" "tante-front-ecs-service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.tante-lb-front-tg.arn
     container_name   = "front-container"
-    container_port   = 80
+    container_port   = 8080
   }
 
   lifecycle {
