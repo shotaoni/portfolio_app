@@ -1,5 +1,5 @@
 module.exports = {
-  API_URL: "https://hellotante.com",
+  API_URL: "https://hellotante.com:3000",
   API_KEY: process.env.API_KEY,
   AUTH_DOMAIN: process.env.AUTH_DOMAIN,
   DATABASE_URL: process.env.DATABASE_URL,

@@ -5,12 +5,6 @@
       :user="posts[0].user"
       :post="posts[0]"
     />
-    <Post
-      v-for="post in posts"
-      :key="post.id"
-      :user="post.user"
-      :post="post"
-    />
     <v-row justify="center">
       <v-btn
         v-if="morePost"
@@ -28,7 +22,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 import Post from '~/components/molecules/posts/Post.vue'
 export default {
   components: {
@@ -57,11 +50,11 @@ export default {
           this.showPost = true
         })
     },
-    moreLoading () {
+    async moreLoading () {
       const params = {
         offset: this.postCount
       }
-      axios
+      await this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
           const addPosts = res.data
