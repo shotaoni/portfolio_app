@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 import { setUser } from '@/plugins/auth-check'
 import firebase from '@/plugins/firebase'
 import TextField from '~/components/atoms/TextField.vue'
@@ -72,9 +71,9 @@ export default {
     }
   },
   methods: {
-    signUp () {
+    async signUp () {
       this.$store.commit('setLoading', true)
-      firebase
+      await firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((res) => {
@@ -83,7 +82,7 @@ export default {
             name: this.name,
             uid: res.user.uid
           }
-          axios.post('/v1/users', { user }).then((res) => {
+          this.$axios.post('/v1/users', { user }).then((res) => {
             this.$store.commit('setLoading', false)
             setUser(res.data, this.$store)
             this.$store.commit('setFlash', {

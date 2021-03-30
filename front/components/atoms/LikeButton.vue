@@ -46,6 +46,9 @@ export default {
       return this.$store.state.currentUser
     }
   },
+  mounted () {
+    this.isLiked()
+  },
   methods: {
     async isLiked () {
       console.log('likebutton')

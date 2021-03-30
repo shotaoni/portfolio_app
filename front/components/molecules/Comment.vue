@@ -37,7 +37,11 @@
 
 <script>
 import axios from '@/plugins/axios'
+import UsersLink from '~/components/molecules/UsersLink.vue'
 export default {
+  components: {
+    UsersLink
+  },
   props: {
     post: Object,
     comment: Object

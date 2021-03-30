@@ -52,11 +52,13 @@ import axios from '@/plugins/axios'
 import AddLink from '~/components/molecules/AddLink.vue'
 import TextField from '~/components/atoms/TextField.vue'
 import FileInput from '~/components/atoms/FileInput.vue'
+import TextArea from '~/components/atoms/TextArea.vue'
 export default {
   components: {
     TextField,
     AddLink,
-    FileInput
+    FileInput,
+    TextArea
   },
   data () {
     return {

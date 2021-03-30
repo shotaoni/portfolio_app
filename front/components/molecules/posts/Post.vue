@@ -84,12 +84,16 @@ import Button from '~/components/atoms/Button.vue'
 import LinkCard from '~/components/molecules/LinkCard.vue'
 import UsersLink from '~/components/molecules/UsersLink.vue'
 import LikeButton from '~/components/atoms/LikeButton.vue'
+import Comment from '~/components/molecules/Comment.vue'
+import TextArea from '~/components/atoms/TextArea.vue'
 export default {
   components: {
     UsersLink,
     LinkCard,
     LikeButton,
-    Button
+    Button,
+    Comment,
+    TextArea
   },
   props: {
     post: {
@@ -181,11 +185,11 @@ export default {
           this.likeCount = postLikes.length
         })
     },
-    getcreatepost () {
-      axios
-        .get(`v1/posts/${this.post.id}/comments`)
+    async getcreatepost () {
+      await this.$axios
+        .$get(`v1/posts/${this.post.id}/comments`)
         .then((res) => {
-          this.comments = res.data
+          this.comments = res
         })
     },
     createComment () {
