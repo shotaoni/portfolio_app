@@ -57,6 +57,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://hellotante.com' : 'http://localhost:3000'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
