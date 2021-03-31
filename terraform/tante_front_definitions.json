@@ -14,7 +14,7 @@
     "portMappings": [
       {
         "protocol": "tcp",
-        "containerPort": 8080
+        "containerPort": 80
       }
     ],
     "command": [
@@ -35,7 +35,7 @@
       },
       {
         "name": "PORT",
-        "value": "8080"
+        "value": "80"
       }
     ],
     "secrets": [

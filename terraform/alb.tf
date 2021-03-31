@@ -19,9 +19,30 @@ resource "aws_lb" "tante-lb" {
   }
 }
 
+resource "aws_lb" "tante-api-lb" {
+  name                       = "tante-api-lb"
+  load_balancer_type         = "application"
+  internal                   = false
+  idle_timeout               = 60
+  enable_deletion_protection = false
+
+  subnets = [
+    aws_subnet.private_0.id,
+    aws_subnet.private_1.id
+  ]
+
+  security_groups = [
+    aws_security_group.tante-alb-sg.id
+  ]
+
+  tags = {
+    Name = "tante-api-lb"
+  }
+}
+
 resource "aws_lb_listener" "tante-http-listener" {
   load_balancer_arn = aws_lb.tante-lb.arn
-  port              = "8080"
+  port              = "80"
   protocol          = "HTTP"
 
   default_action {
@@ -48,12 +69,27 @@ resource "aws_lb_listener" "tante-https-listener" {
   }
 }
 
-resource "aws_lb_listener" "tante-api-listener" {
-  load_balancer_arn = aws_lb.tante-lb.arn
-  port              = "3000"
+resource "aws_lb_listener" "tante-api-http-listener" {
+  load_balancer_arn = aws_lb.tante-api-lb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "tante-api-https-listener" {
+  load_balancer_arn = aws_lb.tante-api-lb.arn
+  port              = "443"
   protocol          = "HTTPS"
-  certificate_arn   = aws_acm_certificate.tante-acm-certificate.arn
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = aws_acm_certificate.tante-api-acm-certificate.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.tante-lb-api-tg.arn
@@ -61,12 +97,11 @@ resource "aws_lb_listener" "tante-api-listener" {
   }
 }
 
-
 resource "aws_lb_target_group" "tante-lb-front-tg" {
   name                 = "tante-lb-front-tg"
   target_type          = "ip"
   vpc_id               = aws_vpc.tante-vpc.id
-  port                 = 8080
+  port                 = 80
   protocol             = "HTTP"
   deregistration_delay = 300
 
@@ -86,7 +121,7 @@ resource "aws_lb_target_group" "tante-lb-api-tg" {
   name                 = "tante-lb-api-tg"
   target_type          = "ip"
   vpc_id               = aws_vpc.tante-vpc.id
-  port                 = 3000
+  port                 = 80
   protocol             = "HTTP"
   deregistration_delay = 300
 
