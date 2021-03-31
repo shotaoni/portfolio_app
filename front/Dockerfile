@@ -37,3 +37,4 @@ RUN apk update && \
 COPY . .
 
 EXPOSE ${FRONT_PORT}
+EXPOSE 3000
