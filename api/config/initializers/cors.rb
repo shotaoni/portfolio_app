@@ -8,7 +8,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     if Rails.env.production?
-      origins 'https://hellotante.com'
+      origins 'https://hellotante.com', 'http://localhost:8080'
     else
       origins 'http://localhost:8080'
     end

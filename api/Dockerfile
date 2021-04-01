@@ -13,6 +13,7 @@ ARG S3_REGION
 ARG S3_BUCKET
 ARG RAILS_MASTER_KEY
 ARG API_ENDPOINT
+ARG CONTAINER_PORT
 
 ENV RUNTIME_PACKAGES      "linux-headers libxml2-dev make gcc libc-dev nodejs tzdata mysql-dev mysql-client yarn"
 ENV DEV_PACKAGES          "build-base curl-dev"
