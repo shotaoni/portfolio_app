@@ -35,7 +35,7 @@
       },
       {
         "name": "PORT",
-        "value": "80"
+        "value": "3000"
       }
     ],
     "secrets": [
