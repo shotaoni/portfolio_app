@@ -46,6 +46,6 @@ RUN apk update && \
 
 COPY . .
 
-EXPOSE 80
+EXPOSE 3000 80 8080 443
 
 CMD ["rails", "server", "-b", "0.0.0.0"]

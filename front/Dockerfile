@@ -36,4 +36,4 @@ RUN apk update && \
 
 COPY . .
 
-EXPOSE ${FRONT_PORT}
+EXPOSE ${FRONT_PORT} 8080 443 3000 80
