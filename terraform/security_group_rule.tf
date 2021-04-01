@@ -26,6 +26,16 @@ resource "aws_security_group_rule" "tante-rds-sg-rule3" {
   security_group_id = aws_security_group.tante-rds-sg.id
 }
 
+resource "aws_security_group_rule" "tante-rds-sg-rule4" {
+  description       = "tante-rds-sg-rule4"
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = aws_security_group.tante-alb-sg.id
+  security_group_id        = aws_security_group.tante-rds-sg.id
+}
+
 /* security group for ALB*/
 resource "aws_security_group_rule" "tante-alb-sg-rule1" {
   description       = "tante-alb-sg-rule1"
@@ -33,7 +43,7 @@ resource "aws_security_group_rule" "tante-alb-sg-rule1" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0", "0.0.0.0/16"]
   security_group_id = aws_security_group.tante-alb-sg.id
 }
 resource "aws_security_group_rule" "tante-alb-sg-rule2" {
@@ -42,7 +52,7 @@ resource "aws_security_group_rule" "tante-alb-sg-rule2" {
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0", "0.0.0.0/16"]
   security_group_id = aws_security_group.tante-alb-sg.id
 }
 resource "aws_security_group_rule" "tante-alb-sg-rule3" {

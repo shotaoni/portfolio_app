@@ -34,6 +34,8 @@ ENV API_ENDPOINT          $API_ENDPOINT
 
 WORKDIR ${WORKDIR}
 
+
+
 COPY Gemfile* ./
 
 RUN apk update && \
@@ -45,6 +47,12 @@ RUN apk update && \
     apk del build-dependencies
 
 COPY . .
+
+RUN echo ${API_ENDPOINT}
+RUN echo ${API_PORT}
+RUN echo ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${CONTAINER_PORT} \
+${DB_HOST} ${DB_NAME} ${DB_PASSWORD} ${DB_USERNAME} ${HOST} ${PORT} ${WORKDIR} \
+${RAILS_MASTER_KEY} $
 
 EXPOSE 3000 80 8080 443
 

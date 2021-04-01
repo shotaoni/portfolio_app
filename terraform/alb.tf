@@ -116,6 +116,8 @@ resource "aws_lb_target_group" "tante-lb-front-tg" {
     port                = 80
     protocol            = "HTTP"
   }
+
+  depends_on = [aws_lb.tante-lb]
 }
 
 resource "aws_lb_target_group" "tante-lb-api-tg" {
@@ -136,4 +138,6 @@ resource "aws_lb_target_group" "tante-lb-api-tg" {
     port                = 3000
     protocol            = "HTTP"
   }
+
+  depends_on = [aws_lb.tante-api-lb]
 }
