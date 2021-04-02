@@ -30,7 +30,6 @@ resource "aws_db_instance" "tante-db" {
   auto_minor_version_upgrade = false
   deletion_protection        = false
   skip_final_snapshot        = true
-  port                       = 3306
   apply_immediately          = false
   vpc_security_group_ids     = [aws_security_group.tante-rds-sg.id]
   parameter_group_name       = aws_db_parameter_group.tante-db-parameter-group.name

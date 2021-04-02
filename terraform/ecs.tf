@@ -34,11 +34,7 @@ resource "aws_ecs_service" "tante-front-ecs-service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.tante-lb-front-tg.arn
     container_name   = "front-container"
-    container_port   = 80
-  }
-
-  lifecycle {
-    ignore_changes = [task_definition]
+    container_port   = "80"
   }
 }
 
@@ -66,19 +62,15 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
     security_groups  = [aws_security_group.tante-ecs-sg.id]
 
     subnets = [
-      aws_subnet.private_0.id,
-      aws_subnet.private_1.id
+      aws_subnet.public_0.id,
+      aws_subnet.public_1.id
     ]
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.tante-lb-api-tg.arn
     container_name   = "api-container"
-    container_port   = 3000
-  }
-
-  lifecycle {
-    ignore_changes = [task_definition]
+    container_port   = "3000"
   }
 }
 

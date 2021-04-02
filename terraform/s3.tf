@@ -1,17 +1,12 @@
 resource "aws_s3_bucket" "tante-s3-bucket" {
   bucket        = "tante-s3-bucket"
   force_destroy = true
+  acl = "public-read"
 
-  versioning {
-    enabled = true
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
+  cors_rule {
+    allowed_origins = ["*"]
+    allowed_methods = ["GET"]
+    allowed_headers = ["*"]
   }
 
   tags = {
