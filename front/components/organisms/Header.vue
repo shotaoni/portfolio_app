@@ -10,10 +10,6 @@
     <v-spacer />
     <div class="header-list">
       <div v-if="!currentUser" class="before-login-box">
-        <UsersAvatar
-          :size="36"
-          :user="user"
-        />
         <v-btn
           to="/login"
           text
@@ -114,11 +110,7 @@
 
 <script>
 import firebase from '@/plugins/firebase'
-import UsersAvatar from '~/components/atoms/UsersAvatar.vue'
 export default {
-  components: {
-    UsersAvatar
-  },
   data () {
     return {
       value: false,

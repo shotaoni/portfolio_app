@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios.js'
 import Button from '~/components/atoms/Button.vue'
 import LinkCard from '~/components/molecules/LinkCard.vue'
 import UsersLink from '~/components/molecules/UsersLink.vue'
@@ -110,7 +109,7 @@ export default {
       links: '',
       content: '',
       comments: [],
-      alreadylike: Boolean,
+      alreadylike: false,
       likeCount: 0,
       openComments: false,
       openCommentslog: false
@@ -124,7 +123,8 @@ export default {
   mounted () {
     this.likepostcount()
     this.getcreatepost()
-    axios
+    this.isLiked()
+    this.$axios
       .get(`/v1/posts/${this.post.id}`)
       .then((res) => {
         this.links = res.data.links
@@ -136,9 +136,27 @@ export default {
       })
   },
   methods: {
+    async isLiked () {
+      console.log('likebutton')
+      await this.$axios
+        .$get('v1/likes', {
+          params: {
+            post_id: this.post.id,
+            userid: this.currentUser.id
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          if (!res) {
+            this.alreadylike = false
+          } else {
+            this.alreadylike = true
+          }
+        })
+    },
     async likepost () {
       console.log('post.vue.likepost')
-      await axios
+      await this.$axios
         .post('/v1/likes', {
           userid: this.currentUser.id,
           post_id: this.post.id
@@ -156,7 +174,7 @@ export default {
         })
     },
     likepostnone () {
-      axios
+      this.$axios
         .post('/v1/likes/likenone', {
           user_id: this.currentUser.id,
           post_id: this.post.id
@@ -174,7 +192,7 @@ export default {
         })
     },
     likepostcount () {
-      axios
+      this.$axios
         .get('v1/likes', {
           params: {
             post_id: this.post.id
@@ -194,13 +212,13 @@ export default {
     },
     createComment () {
       this.openComments = false
-      axios
+      this.$axios
         .post('v1/comments', {
           content: this.content,
           post_id: this.post.id,
           user_id: this.currentUser.id
         })
-        .then((res) => {
+        .then(() => {
           this.getcreatepost()
           this.$store.commit('setFlash', {
             status: true,

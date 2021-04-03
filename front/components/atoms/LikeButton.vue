@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-btn
-      v-if="this.alreadylike && currentUser"
+      v-if="alreadylike && currentUser"
       icon
       outlined
       color="red"
-      @click="$emit('likepostnone'); alreadylike = false"
+      @click="$emit('likepostnone')"
     >
       <v-icon>
         mdi-heart
@@ -16,7 +16,7 @@
       icon
       outlined
       color="gray"
-      @click="$emit('likepost'); alreadylike = true"
+      @click="$emit('likepost')"
     >
       <v-icon>
         mdi-heart
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from '@/plugins/axios'
 export default {
   props: {
     post: {
@@ -34,39 +33,14 @@ export default {
     },
     user: {
       type: Object
-    }
-  },
-  data () {
-    return {
-      alreadylike: false
+    },
+    alreadylike: {
+      type: Boolean
     }
   },
   computed: {
     currentUser () {
       return this.$store.state.currentUser
-    }
-  },
-  mounted () {
-    this.isLiked()
-  },
-  methods: {
-    async isLiked () {
-      console.log('likebutton')
-      await axios
-        .get('v1/likes', {
-          params: {
-            post_id: this.post.id,
-            userid: this.currentUser.id
-          }
-        })
-        .then((res) => {
-          console.log(res.data)
-          if (!res.data) {
-            this.alreadylike = false
-          } else {
-            this.alreadylike = true
-          }
-        })
     }
   }
 }
