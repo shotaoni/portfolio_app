@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { setUser } from '@/plugins/auth-check'
+import { mapActions } from 'vuex'
 import firebase from '@/plugins/firebase'
 import TextField from '~/components/atoms/TextField.vue'
 export default {
@@ -71,6 +71,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+    }),
     async signUp () {
       this.$store.commit('setLoading', true)
       await firebase
@@ -85,7 +87,6 @@ export default {
             uid: res.user.uid
           }
           this.$axios.post('/v1/users', { user }).then((res) => {
-            setUser(res.data, this.$store)
             this.$store.commit('setFlash', {
               status: true,
               message: 'ログインしました'

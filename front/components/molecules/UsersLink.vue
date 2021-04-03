@@ -42,7 +42,7 @@ export default {
     },
     post: {
       type: Object,
-      required: true
+      required: false
     }
   }
 }

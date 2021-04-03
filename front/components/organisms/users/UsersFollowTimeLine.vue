@@ -18,7 +18,11 @@
 
 <script>
 import axios from '@/plugins/axios'
+import Post from '~/components/molecules/posts/Post.vue'
 export default {
+  components: {
+    Post
+  },
   props: {
     user: {
       type: Object
@@ -34,7 +38,6 @@ export default {
   },
   methods: {
     async getfollowingposts () {
-      await console.log(this.user.id)
       await axios
         .get('v1/posts', {
           params: {
@@ -43,10 +46,6 @@ export default {
         })
         .then((res) => {
           this.posts = res.data
-          console.log(res)
-          console.log(res.data)
-          console.log(res.data.post)
-          console.log(this.posts)
         })
     }
   }

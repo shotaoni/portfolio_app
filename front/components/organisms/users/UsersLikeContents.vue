@@ -18,7 +18,11 @@
 
 <script>
 import axios from '@/plugins/axios'
+import Post from '~/components/molecules/posts/Post.vue'
 export default {
+  components: {
+    Post
+  },
   props: {
     user: {
       type: Object

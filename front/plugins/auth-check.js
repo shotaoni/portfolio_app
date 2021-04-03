@@ -1,4 +1,5 @@
 import firebase from '@/plugins/firebase'
+import axios from '@/plugins/axios'
 
 const authCheck = ({ store }) => {
   firebase.auth().onAuthStateChanged((user) => {
@@ -9,7 +10,7 @@ const authCheck = ({ store }) => {
 export const setUser = (user, store) => {
   async function set (user, store) {
     if (user) {
-      const { data } = await this.$axios.get(`/v1/users?uid=${user.uid}`)
+      const { data } = await axios.get(`/v1/users?uid=${user.uid}`)
       const userParams = data
       store.commit('setUser', userParams)
       store.commit('setLoggedIn', true)
