@@ -35,10 +35,11 @@
                             :src="notice.visitor.avatar_url"
                             alt="Avatar"
                           >
-                          <v-else
-                            src="~/assets/image/default_icon.png"
+                          <img
+                            v-else
+                            src="@/assets/image/default-icon.png"
                             alt="Avatar"
-                          />
+                          >
                         </v-avatar>
                       </nuxt-link>
                     </v-col>

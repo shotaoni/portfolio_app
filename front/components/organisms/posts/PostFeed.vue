@@ -5,6 +5,12 @@
       :user="posts[0].user"
       :post="posts[0]"
     />
+    <Post
+      v-for="post in posts"
+      :key="post.id"
+      :user="post.user"
+      :post="post"
+    />
     <v-row justify="center">
       <v-btn
         v-if="morePost"

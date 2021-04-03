@@ -77,18 +77,20 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((res) => {
+          console.log(res)
+          console.log('name:', this.name)
           const user = {
             email: res.user.email,
             name: this.name,
             uid: res.user.uid
           }
           this.$axios.post('/v1/users', { user }).then((res) => {
-            this.$store.commit('setLoading', false)
             setUser(res.data, this.$store)
             this.$store.commit('setFlash', {
               status: true,
               message: 'ログインしました'
             })
+            this.$store.commit('setLoading', false)
             setTimeout(() => {
               this.$store.commit('setFlash', {})
             }, 2000)
@@ -109,7 +111,6 @@ export default {
                 return '※メールアドレスとパスワードを確認してください'
             }
           })(error.code)
-          this.$store.commit('setLoading', false)
         })
     },
     fetch ({ redirect, store }) {
