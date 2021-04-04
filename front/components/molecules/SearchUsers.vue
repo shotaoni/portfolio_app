@@ -37,7 +37,11 @@ export default {
   },
   watch: {
     userword () {
-      this.delayFunc()
+      if (this.userword) {
+        this.delayFunc()
+      } else {
+        this.users = []
+      }
     }
   },
   created () {
