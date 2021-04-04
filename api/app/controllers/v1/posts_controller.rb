@@ -3,10 +3,10 @@ class V1::PostsController < ApplicationController
   
   def index
     if params[:offset]
-      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).offset(params[:offset])
+      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).offset(params[:offset]).order(created_at: :desc)
     elsif params[:user_like_posts]
       user = User.find(params[:user_like_posts])
-      @posts = user.liked_posts
+      @posts = user.liked_posts.order(created_at: :desc)
     elsif params[:following_post]
       user = User.find(params[:following_post])
       following = user.following
@@ -21,9 +21,9 @@ class V1::PostsController < ApplicationController
         b[:created_at] <=> a[:created_at]
       end
     elsif params[:title]
-      @posts = Post.where('title LIKE ?', "%#{params[:title]}%").distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").distinct
+      @posts = Post.where('title LIKE ?', "%#{params[:title]}%").distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").distinct.order(created_at: :desc)
     else
-      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
+      @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).order(created_at: :desc)
     end
     render json: @posts
   end

@@ -10,6 +10,12 @@
         :user="user"
         :post="post"
       />
+      <v-img
+      v-if="post.image_url"
+      :src="post.image_url"
+      alt="Image"
+      >
+      </v-img>
       <div class="post-index-point mt-2">
         {{ post.point }}
       </div>
@@ -137,6 +143,8 @@ export default {
   },
   methods: {
     async isLiked () {
+      console.log(this.post.image_url)
+      console.log(this.post)
       console.log('likebutton')
       await this.$axios
         .$get('v1/likes', {
