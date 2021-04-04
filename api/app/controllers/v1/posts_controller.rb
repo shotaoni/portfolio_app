@@ -25,7 +25,7 @@ class V1::PostsController < ApplicationController
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
     end
-    render json: @posts, methods: [:image_url]
+    render json: @posts
   end
 
   def show
@@ -49,7 +49,10 @@ class V1::PostsController < ApplicationController
   def update
     @user = User.find(params[:user_id])
     @post.assign_attributes(post_params)
-    if @post.save
+    if (params[:image]).present?
+      @post.image.attach(params[:image])
+    end
+    if @post.save!
       links = UpdateLink.new(@post).update_links(params[:links])
       render json: @post
     else
