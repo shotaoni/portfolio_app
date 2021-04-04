@@ -35,10 +35,12 @@ class V1::PostsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @post = @user.posts.build(post_params)
-    @post.image.attach(params[:image])
+    if (params[:image]).present?
+      @post.image.attach(params[:image])
+    end
     if @post.save!
       links = CreateLink.new(@post).create_links(params[:links])
-      render json: @post, methods: [:image_url], status: :created
+      render json: @post, status: :created
     else
       render json: @post.errors, status: :unprocessable_entity
     end

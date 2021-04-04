@@ -5,8 +5,8 @@
         新規投稿
       </h2>
     </v-card-title>
+    <ValidationProvider ref="obs" v-slot="ObserverProps">
     <v-form>
-      <ValidationProvider ref="obs" v-slot="ObserverProps">
         <div class="create-post-box">
           <TextField
             v-model="title"
@@ -24,7 +24,7 @@
           accept="image/*"
           rules="size:5000"
           @change="onImagePicked"
-      />
+          />
           <TextArea
             v-model="point"
             label="説明"
@@ -42,8 +42,8 @@
             </v-btn>
           </v-row>
         </div>
-      </ValidationProvider>
     </v-form>
+    </ValidationProvider>
   </v-card>
 </template>
 

@@ -47,7 +47,7 @@
           {{ point }}
         </div>
           <v-img
-            v-if="this.image_url"
+            v-if="image_url"
             :src="image_url"
             alt="Image"
           >

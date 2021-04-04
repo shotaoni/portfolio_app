@@ -37,7 +37,7 @@ export default {
     return {
       postCount: 0,
       posts: [],
-      morePost: false,
+      morePost: true,
       showPost: false
     }
   },
@@ -63,6 +63,8 @@ export default {
       await this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
+          console.log(res)
+          console.log(res.data)
           const addPosts = res.data
           this.posts = this.posts.concat(addPosts)
           this.postCount = this.posts.length
