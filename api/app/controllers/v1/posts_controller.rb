@@ -25,7 +25,7 @@ class V1::PostsController < ApplicationController
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20)
     end
-    render json: @posts
+    render json: @posts, methods: [:image_url]
   end
 
   def show
@@ -35,10 +35,10 @@ class V1::PostsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @post = @user.posts.build(post_params)
-
+    @post.image.attach(params[:image])
     if @post.save!
       links = CreateLink.new(@post).create_links(params[:links])
-      render json: @post, status: :created
+      render json: @post, methods: [:image_url], status: :created
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -67,6 +67,6 @@ class V1::PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :user_id, :point, :image)
+      params.permit(:title, :user_id, :point)
     end
 end

@@ -107,21 +107,23 @@ export default {
       this.$store.commit('setLoading', true)
       const formData = new FormData()
       formData.append('image', this.image)
+      formData.append('title', this.title)
+      formData.append('user_id', this.currentUser.id)
+      formData.append('links' + '[]', this.links)
+      formData.append('point', this.point)
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
         }
       }
+      console.log(this.image)
+      console.log(formData)
+      console.log(config)
       axios
-        .post('/v1/posts', {
-          title: this.title,
-          user_id: this.currentUser.id,
-          links: this.links,
-          point: this.point,
-          formData,
-          config
-        })
+        .post('/v1/posts', formData, config)
         .then((res) => {
+          console.log(res)
+          console.log(res.data)
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,

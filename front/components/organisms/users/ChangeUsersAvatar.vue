@@ -92,7 +92,10 @@ export default {
     changeUsersAvatar () {
       this.$store.commit('setLoading', true)
       const formData = new FormData()
+      console.log(formData)
       formData.append('avatar', this.avatar)
+      console.log(this.avatar)
+      console.log(formData)
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
@@ -101,6 +104,7 @@ export default {
       axios
         .patch(`/v1/users/${this.currentUser.id}/update_avatar`, formData, config)
         .then((res) => {
+          console.log(res)
           this.avatar = res.data.avatar
           this.$store.commit('setUserAvatarUrl', res.data.avatar_url)
           this.$store.commit('setLoading', false)
