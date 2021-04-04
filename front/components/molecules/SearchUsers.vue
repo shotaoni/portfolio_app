@@ -45,7 +45,7 @@ export default {
     }
   },
   created () {
-    this.delayFunc = _.debounce(this.search, 500)
+    this.delayFunc = _.debounce(this.search, 50)
   },
   methods: {
     search () {
