@@ -203,9 +203,6 @@ export default {
         })
     },
     async isLiked () {
-      console.log('likebutton')
-      console.log(this.post.id)
-      console.log(this.currentUser.id)
       await this.$axios
         .$get('v1/likes', {
           params: {
@@ -273,7 +270,7 @@ export default {
     },
     async getcreatepost () {
       await this.$axios
-        .$get(`v1/posts/${this.post.id}/comments`)
+        .$get(`v1/posts/${this.$route.params.id}/comments`)
         .then((res) => {
           console.log(res)
           this.comments = res
