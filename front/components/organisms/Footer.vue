@@ -1,7 +1,7 @@
 <template>
   <v-footer color="brown lighten-1" dark app>
     <v-col class="text-center" cols="12">
-      Tantei.お問い合わせとか
+      © 2021 Tante.
     </v-col>
   </v-footer>
 </template>
