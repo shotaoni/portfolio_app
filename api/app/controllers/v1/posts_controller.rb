@@ -35,7 +35,9 @@ class V1::PostsController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     @post = @user.posts.build(post_params)
-
+    if (params[:image]).present?
+      @post.image.attach(params[:image])
+    end
     if @post.save!
       links = CreateLink.new(@post).create_links(params[:links])
       render json: @post, status: :created
@@ -47,7 +49,10 @@ class V1::PostsController < ApplicationController
   def update
     @user = User.find(params[:user_id])
     @post.assign_attributes(post_params)
-    if @post.save
+    if (params[:image]).present?
+      @post.image.attach(params[:image])
+    end
+    if @post.save!
       links = UpdateLink.new(@post).update_links(params[:links])
       render json: @post
     else
@@ -67,6 +72,6 @@ class V1::PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :user_id, :point, :image)
+      params.permit(:title, :user_id, :point)
     end
 end

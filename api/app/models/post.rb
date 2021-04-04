@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  has_one_attached :image
   belongs_to :user
   has_many :links, dependent: :destroy
   has_many :likes, dependent: :destroy
@@ -7,6 +9,10 @@ class Post < ApplicationRecord
 
   def like_by(user)
     likes.find{|f| f.user_id == user.id}
+  end
+
+  def image_url
+    image.attached? ? url_for(image) : nil
   end
 
   def create_notification_like!(current_user)

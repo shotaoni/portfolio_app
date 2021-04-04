@@ -46,6 +46,12 @@
         <div class="posts-point" style="white-space: pre-line">
           {{ point }}
         </div>
+          <v-img
+            v-if="image_url"
+            :src="image_url"
+            alt="Image"
+          >
+          </v-img>
         <LinkCard
           v-for="link in links"
           :key="link.id"
@@ -76,7 +82,8 @@ export default {
       point: '',
       links: '',
       notFound: false,
-      dialog: false
+      dialog: false,
+      image_url: ''
     }
   },
   computed: {
@@ -88,10 +95,13 @@ export default {
     axios
       .get(`/v1/posts/${this.$route.params.id}`)
       .then((res) => {
+        console.log(res)
+        console.log(res.data)
         this.user = res.data.user
         this.post = res.data
         this.point = res.data.point
         this.links = res.data.links
+        this.image_url = res.data.image_url
       })
       .catch((error) => {
         if (error.response.status === 404) {

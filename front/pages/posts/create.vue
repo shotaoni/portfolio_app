@@ -5,8 +5,8 @@
         新規投稿
       </h2>
     </v-card-title>
+    <ValidationProvider ref="obs" v-slot="ObserverProps">
     <v-form>
-      <ValidationProvider ref="obs" v-slot="ObserverProps">
         <div class="create-post-box">
           <TextField
             v-model="title"
@@ -24,7 +24,7 @@
           accept="image/*"
           rules="size:5000"
           @change="onImagePicked"
-      />
+          />
           <TextArea
             v-model="point"
             label="説明"
@@ -42,8 +42,8 @@
             </v-btn>
           </v-row>
         </div>
-      </ValidationProvider>
     </v-form>
+    </ValidationProvider>
   </v-card>
 </template>
 
@@ -107,21 +107,23 @@ export default {
       this.$store.commit('setLoading', true)
       const formData = new FormData()
       formData.append('image', this.image)
+      formData.append('title', this.title)
+      formData.append('user_id', this.currentUser.id)
+      formData.append('links' + '[]', this.links)
+      formData.append('point', this.point)
       const config = {
         headers: {
           'content-type': 'multipart/form-data'
         }
       }
+      console.log(this.image)
+      console.log(formData)
+      console.log(config)
       axios
-        .post('/v1/posts', {
-          title: this.title,
-          user_id: this.currentUser.id,
-          links: this.links,
-          point: this.point,
-          formData,
-          config
-        })
+        .post('/v1/posts', formData, config)
         .then((res) => {
+          console.log(res)
+          console.log(res.data)
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,

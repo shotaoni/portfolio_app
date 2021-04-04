@@ -15,8 +15,8 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
+      <ValidationObserver ref="obs" v-slot="{ invalid }">
       <v-form>
-        <ValidationObserver ref="obs" v-slot="{ invalid }">
           <div class="post-edit-box mt-2 pa-3">
             <TextField
               v-model="viewTitle"
@@ -28,6 +28,13 @@
               rules="regex:https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?"
               label="URL"
               :first-url.sync="firstUrl"
+            />
+            <FileInput
+            v-model="image"
+            label="画像"
+            accept="image/*"
+            rules="size:5000"
+            @change="onImagePicked"
             />
             <TextArea
               v-model="viewPoint"
@@ -46,14 +53,15 @@
               </v-btn>
             </v-row>
           </div>
-        </ValidationObserver>
       </v-form>
+      </ValidationObserver>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import axios from '@/plugins/axios'
+import FileInput from '~/components/atoms/FileInput.vue'
 import TextField from '~/components/atoms/TextField.vue'
 import TextArea from '~/components/atoms/TextArea.vue'
 import AddLink from '~/components/molecules/AddLink.vue'
@@ -61,7 +69,8 @@ export default {
   components: {
     TextField,
     TextArea,
-    AddLink
+    AddLink,
+    FileInput
   },
   props: {
     dialog: {
@@ -78,6 +87,7 @@ export default {
       title: '',
       links: [],
       point: '',
+      image: '',
       firstUrl: '',
       userid: '',
       dialogStatus: this.dialog,
@@ -108,7 +118,7 @@ export default {
     },
     viewFirstUrl: {
       get () {
-        if (this.firstUrl) {
+        if (this.firstUrl && this.links[0]) {
           this.patchForFirstUrl = this.links[0].url
           return this.links[0]
         } else {
@@ -121,6 +131,7 @@ export default {
     },
     editLinks () {
       const editLinks = [this.firstUrl]
+      console.log(editLinks)
       return editLinks
     }
   },
@@ -131,7 +142,9 @@ export default {
         const res = await axios.get(`/v1/posts/${this.$route.params.id}`)
         this.title = res.data.title
         this.point = res.data.point
-        this.firstUrl = res.data.links[0].url
+        if (res.data.links[0]) {
+          this.firstUrl = res.data.links[0].url
+        }
         this.links[0] = res.data.links[0]
         this.userid = res.data.user.id
       }
@@ -142,19 +155,39 @@ export default {
   },
   /* eslint-enable vue/no-side-effects-in-computed-properties */
   methods: {
+    onImagePicked (file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = ''
+      }
+    },
     closeDialog () {
       this.$emit('closeDialog')
     },
     updatePost () {
       this.$store.commit('setLoading', true)
+      const formData = new FormData()
+      formData.append('image', this.image)
+      formData.append('title', this.patchForTitle)
+      formData.append('user_id', this.userid)
+      formData.append('links' + '[]', this.editLinks)
+      formData.append('point', this.patchForPoint)
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }
       axios
-        .patch(`/v1/posts/${this.$route.params.id}`, {
-          title: this.patchForTitle,
-          user_id: this.userid,
-          links: this.editLinks,
-          point: this.patchForPoint
-        })
-        .then((res) => {
+        .patch(`/v1/posts/${this.$route.params.id}`, formData, config)
+        .then(() => {
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,
