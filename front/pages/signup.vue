@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import firebase from '@/plugins/firebase'
 import TextField from '~/components/atoms/TextField.vue'
 export default {
@@ -71,8 +70,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-    }),
     async signUp () {
       this.$store.commit('setLoading', true)
       await firebase

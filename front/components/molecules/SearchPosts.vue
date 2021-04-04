@@ -38,7 +38,11 @@ export default {
   },
   watch: {
     postword () {
-      this.delayFunc()
+      if (this.postword) {
+        this.delayFunc()
+      } else {
+        this.posts = []
+      }
     }
   },
   created () {

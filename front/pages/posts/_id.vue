@@ -52,11 +52,67 @@
             alt="Image"
           >
           </v-img>
+          <div class="link-card">
         <LinkCard
           v-for="link in links"
           :key="link.id"
           :link="link"
         />
+          </div>
+        <v-row>
+        <LikeButton
+          :alreadylike="alreadylike"
+          :user="user"
+          :post="post"
+          @likepostnone="likepostnone"
+          @likepost="likepost"
+        />
+        {{ likeCount }}
+        <v-spacer />
+        <Button
+          large
+          color="blue darken-2"
+          type="mdi-message-text"
+          @tap="openComments = !openComments"
+        />
+        <Button
+          large
+          color="blue darken-2"
+          type="mdi-comment-eye-outline"
+          @click="openCommentslog = !openCommentslog"
+        />
+        {{ comments.length }}
+      </v-row>
+      <ValidationObserver v-if="openComments" ref="obs" v-slot="ObserverProps">
+        <TextArea
+          v-model="content"
+          rules="max:200|required"
+          :counter="200"
+          label="コメント"
+        />
+        <v-row>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            text
+            style="margin-top: 10px;"
+            :disabled="ObserverProps.invalid || !ObserverProps.validated"
+            @click="createComment"
+          >
+            コメントする
+          </v-btn>
+        </v-row>
+      </ValidationObserver>
+      <div v-if="openCommentslog">
+        <Comment
+          v-for="comment in comments"
+          :key="comment.id"
+          :user="user"
+          :post="post"
+          :comment="comment"
+          @getcount="getcreatepost"
+        />
+      </div>
       </v-card>
     </div>
   </v-container>
@@ -68,22 +124,36 @@ import PostEditDialog from '~/components/organisms/PostEditDialog.vue'
 import LinkCard from '~/components/molecules/LinkCard.vue'
 import UsersLink from '~/components/molecules/UsersLink.vue'
 import ErrorAnnounce from '~/components/molecules/ErrorAnnounce.vue'
+import Comment from '~/components/molecules/Comment.vue'
+import TextArea from '~/components/atoms/TextArea.vue'
+import Button from '~/components/atoms/Button.vue'
+import LikeButton from '~/components/atoms/LikeButton.vue'
 export default {
   components: {
     ErrorAnnounce,
     UsersLink,
     LinkCard,
-    PostEditDialog
+    PostEditDialog,
+    Comment,
+    TextArea,
+    Button,
+    LikeButton
   },
   data () {
     return {
       user: {},
       post: {},
+      comments: [],
+      content: '',
       point: '',
       links: '',
       notFound: false,
       dialog: false,
-      image_url: ''
+      image_url: '',
+      alreadylike: false,
+      likeCount: 0,
+      openComments: false,
+      openCommentslog: false
     }
   },
   computed: {
@@ -92,6 +162,9 @@ export default {
     }
   },
   mounted () {
+    this.likepostcount()
+    this.getcreatepost()
+    this.isLiked()
     axios
       .get(`/v1/posts/${this.$route.params.id}`)
       .then((res) => {
@@ -128,12 +201,110 @@ export default {
           }, 2000)
           this.$router.push('/')
         })
+    },
+    async isLiked () {
+      await this.$axios
+        .$get('v1/likes', {
+          params: {
+            post_id: this.$route.params.id,
+            userid: this.currentUser.id
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          if (!res) {
+            this.alreadylike = false
+          } else {
+            this.alreadylike = true
+          }
+        })
+    },
+    async likepost () {
+      console.log('post.vue.likepost')
+      await this.$axios
+        .post('/v1/likes', {
+          userid: this.currentUser.id,
+          post_id: this.$route.params.id
+        })
+        .then(() => {
+          this.alreadylike = true
+          this.likeCount++
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'いいねしました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 1000)
+        })
+    },
+    likepostnone () {
+      this.$axios
+        .post('/v1/likes/likenone', {
+          user_id: this.currentUser.id,
+          post_id: this.$route.params.id
+        })
+        .then(() => {
+          this.alreadylike = false
+          this.likeCount--
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'いいねを取り消しました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 1000)
+        })
+    },
+    likepostcount () {
+      this.$axios
+        .get('v1/likes', {
+          params: {
+            post_id: this.$route.params.id
+          }
+        })
+        .then((res) => {
+          const postLikes = res.data
+          this.likeCount = postLikes.length
+        })
+    },
+    async getcreatepost () {
+      await this.$axios
+        .$get(`v1/posts/${this.$route.params.id}/comments`)
+        .then((res) => {
+          console.log(res)
+          this.comments = res
+        })
+    },
+    createComment () {
+      this.openComments = false
+      this.$axios
+        .post('v1/comments', {
+          content: this.content,
+          post_id: this.$route.params.id,
+          user_id: this.currentUser.id
+        })
+        .then(() => {
+          this.getcreatepost()
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'コメントを投稿しました'
+          })
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 1000)
+        })
+      this.content = ''
     }
   }
 }
 </script>
 
 <style>
+.link-card {
+  margin-bottom: 24px
+}
+
 .posts-point {
   margin-top: 24px
 }
