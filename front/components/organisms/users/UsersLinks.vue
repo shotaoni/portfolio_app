@@ -42,11 +42,12 @@
         <v-btn
           outlined
           block
+          @click="$emit('openusertimeline')"
         >
           <v-icon>
-            mdi-bell-outline
+            mdi-comment-account-outline
           </v-icon>
-          通知一覧
+          自分のタイムライン
         </v-btn>
       </v-row>
     </v-card-text>
