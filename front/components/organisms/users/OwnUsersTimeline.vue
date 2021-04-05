@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-row justify="center">
-        フォローしているユーザのタイムライン
+      {{ user.name }}さんの投稿
       </v-row>
     </v-card-title>
     <v-card-text>
@@ -34,17 +34,18 @@ export default {
     }
   },
   mounted () {
-    this.getfollowingposts()
+    this.getmyposts()
   },
   methods: {
-    async getfollowingposts () {
+    async getmyposts () {
       await axios
         .get('v1/posts', {
           params: {
-            following_post: this.$route.params.id
+            my_post: this.$route.params.id
           }
         })
         .then((res) => {
+          console.log(res)
           this.posts = res.data
         })
     }

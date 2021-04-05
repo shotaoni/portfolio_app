@@ -32,7 +32,7 @@ export default {
   width: 100%;
   height: 100vh;
   background: black;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .loader {

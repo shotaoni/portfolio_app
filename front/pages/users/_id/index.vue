@@ -9,6 +9,7 @@
             :user="user"
             @openlikeposts="openLikePosts"
             @opentimeline="openTimeLine"
+            @openusertimeline="openUserTimeLine"
           />
         </v-col>
         <v-col lg="8" sm="8" cols="12">
@@ -17,8 +18,12 @@
             :user="user"
           />
           <UsersFollowTimeline
-            v-if="!openlikeposts && currentUser.id === user.id"
+            v-if="!openlikeposts && openfollowtimeline && currentUser.id === user.id"
             :user="user"
+          />
+          <OwnUsersTimeline
+          v-if="openusertimeline && !openlikeposts && !openfollowtimeline"
+          :user="user"
           />
         </v-col>
       </v-row>
@@ -32,6 +37,7 @@ import UsersInfo from '~/components/organisms/users/UsersInfo.vue'
 import UsersLinks from '~/components/organisms/users/UsersLinks.vue'
 import UsersLikeContents from '~/components/organisms/users/UsersLikeContents.vue'
 import UsersFollowTimeline from '~/components/organisms/users/UsersFollowTimeLine.vue'
+import OwnUsersTimeline from '~/components/organisms/users/OwnUsersTimeline.vue'
 import ErrorAnnounce from '~/components/molecules/ErrorAnnounce.vue'
 export default {
   components: {
@@ -39,14 +45,16 @@ export default {
     UsersInfo,
     UsersLinks,
     UsersLikeContents,
-    UsersFollowTimeline
+    UsersFollowTimeline,
+    OwnUsersTimeline
   },
   data () {
     return {
       user: {},
       openlikeposts: false,
-      opentimeline: false,
-      notFound: false
+      notFound: false,
+      openusertimeline: false,
+      openfollowtimeline: true
     }
   },
   computed: {
@@ -60,6 +68,7 @@ export default {
       .then((res) => {
         const user = res.data
         this.user = user
+        console.log(this.user)
       })
       .catch((error) => {
         if (error.response.status === 404) {
@@ -70,9 +79,18 @@ export default {
   methods: {
     openLikePosts () {
       this.openlikeposts = true
+      this.openusertimeline = false
+      this.openfollowtimeline = false
     },
     openTimeLine () {
       this.openlikeposts = false
+      this.openusertimeline = false
+      this.openfollowtimeline = true
+    },
+    openUserTimeLine () {
+      this.openusertimeline = true
+      this.openlikeposts = false
+      this.openfollowtimeline = false
     }
   }
 }

@@ -1,6 +1,9 @@
 <template>
   <div
   v-if="showPost">
+  <v-card class="mx-auto mt-4 pa-3" width="400px" elevation="7">
+  <v-row justify="center">全ユーザの投稿一覧</v-row>
+  </v-card>
     <Post
       :user="posts[0].user"
       :post="posts[0]"
@@ -47,6 +50,7 @@ export default {
   methods: {
     async postsGet () {
       console.log('postfeed')
+      this.$store.commit('setLoading', true)
       await this.$axios
         .$get('v1/posts')
         .then((res) => {
@@ -54,12 +58,14 @@ export default {
           this.posts = res
           this.postCount = this.posts.length
           this.showPost = true
+          this.$store.commit('setLoading', false)
         })
     },
     async moreLoading () {
       const params = {
         offset: this.postCount
       }
+      this.$store.commit('setLoading', true)
       await this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
@@ -71,6 +77,7 @@ export default {
           if (addPosts.length > 20) {
             this.morePost = true
           }
+          this.$store.commit('setLoading', false)
         })
     }
   }
