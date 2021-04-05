@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-row justify="center">
-        ownユーザの直近の投稿
+      {{ user.name }}さんの投稿
       </v-row>
     </v-card-title>
     <v-card-text>

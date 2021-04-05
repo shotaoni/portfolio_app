@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-row justify="center">
-        <p>いいね！したやつ</p>
+        <p>{{ user.name }}さんがいいねした投稿</p>
       </v-row>
     </v-card-title>
     <v-card-text>

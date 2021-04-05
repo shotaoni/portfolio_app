@@ -47,7 +47,7 @@
           <v-icon>
             mdi-comment-account-outline
           </v-icon>
-          自分のタイムライン
+          {{ user.name }}さんの投稿
         </v-btn>
       </v-row>
     </v-card-text>
