@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="currentUser.id" @checked="checkedNotice">
+  <v-container v-if="currentUser.id">
     <v-row justify="center">
       <v-col xl="4" lg="6" sm="8" cols="12">
         <v-card>
@@ -19,11 +19,10 @@
             <v-row>
               <v-col cols="12">
                 <v-row
-                  v-for="(notice, index) in notices"
-                  :key="index"
+                  v-for="notice in notices"
+                  :key="notice.id"
                   dense
                 >
-                  <v-col cols="12">
                     <v-col cols="2">
                       <nuxt-link
                         :to="`users/${notice.visitor.id}`"
@@ -34,15 +33,16 @@
                             :src="notice.visitor.avatar_url"
                             alt="Avatar"
                           >
-                          <v-else
-                            src="~/assets/image/default_icon.png"
+                          <img
+                            v-else
+                            src="~/assets/image/default-icon.png"
                             alt="Avatar"
                           />
                         </v-avatar>
+                        {{ notice.visitor.name }}
                       </nuxt-link>
                     </v-col>
                     <v-col cols="10">
-                      <v-row>
                         <template
                           v-if="notice.action === 'comment'"
                         >
@@ -51,6 +51,7 @@
                           >
                             あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
+                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
                         </template>
                         <template
                           v-if="notice.action === 'comments'"
@@ -60,6 +61,7 @@
                           >
                             投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
+                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
                         </template>
                         <template
                           v-if="notice.action === 'like'"
@@ -69,6 +71,7 @@
                           >
                             あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
                           </nuxt-link>
+                          <p>投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
                         </template>
                         <template
                           v-if="notice.action === 'follow'"
@@ -78,15 +81,25 @@
                           >
                             あなたを{{ notice.visitor.name }}さんがフォローしました。
                           </nuxt-link>
+                          <p>フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
                         </template>
-                      </v-row>
+                        <v-divider />
                     </v-col>
-                  </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-container>
         </v-card>
+        <v-row justify="center">
+      <v-btn
+        v-if="moreNotice"
+        color="brown lighten-2"
+        class="mt-4 white--text more-loading"
+        @click="moreLoading"
+      >
+        記事読み込み
+      </v-btn>
+    </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -97,7 +110,9 @@ import axios from '@/plugins/axios'
 export default {
   data () {
     return {
-      notices: []
+      notices: [],
+      moreNotice: true,
+      noticeCount: 0
     }
   },
   computed: {
@@ -119,15 +134,45 @@ export default {
         }
       })
       .then((res) => {
+        console.log(res)
         this.notices = res.data
+        this.noticeCount = res.data.length
+        if (res.data.length < 20) {
+          this.moreNotice = false
+        }
       })
   },
   methods: {
-    checkedNotice () {
+    async moreLoading () {
+      const params = {
+        offset: this.noticeCount,
+        user_id: this.$store.state.currentUser.id
+      }
+      this.$store.commit('setLoading', true)
+      await this.$axios
+        .get('/v1/notifications', { params })
+        .then((res) => {
+          console.log(res)
+          console.log(res.data)
+          const addNotices = res.data
+          this.notices = this.notices.concat(addNotices)
+          console.log(addNotices)
+          this.noticeCount = this.notices.length
+          console.log(this.noticeCount)
+          if (addNotices.length < 20) {
+            this.moreNotice = false
+          } else {
+            this.moreNotice = true
+          }
+          this.$store.commit('setLoading', false)
+        })
     }
   }
 }
 </script>
 
 <style>
+.checked {
+  opacity: 0.5;
+}
 </style>

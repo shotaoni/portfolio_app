@@ -37,7 +37,7 @@
               class="mr-2"
               :outlined="true"
             >
-              <v-icon small>
+              <v-icon small class="mr-1">
                 mdi-magnify
               </v-icon>
               検索
@@ -50,21 +50,34 @@
             :outlined="true"
             small
           >
-            <v-icon small>
+            <v-icon small class="mr-1">
               mdi-fountain-pen-tip
             </v-icon>投稿
           </v-btn>
           <v-btn
+            v-if="check"
             to="/noticefeed"
             class="mr-2"
             color="white"
             :outlined="true"
             small
-            @click="$emit('checked')"
           >
-            <v-icon small>
+            <v-icon small class="mr-1">
               mdi-bell-outline
             </v-icon>通知一覧
+          </v-btn>
+          <v-btn
+            v-else
+            to="/noticefeed"
+            class="mr-2"
+            color="white"
+            :outlined="true"
+            small
+            @click="check = true"
+          >
+            <v-icon small color="orange" class="mr-1 pekopeko">
+              mdi-bell-outline
+            </v-icon>通知があります！
           </v-btn>
           <v-menu offset-y dense nav>
             <template #activator="{ on, attrs }">
@@ -114,7 +127,8 @@ export default {
   data () {
     return {
       value: false,
-      user: {}
+      user: {},
+      check: true
     }
   },
   computed: {
@@ -141,6 +155,21 @@ export default {
     loggedIn () {
       return this.$store.state.loggedIn
     }
+  },
+  mounted () {
+    this.$axios.$get('v1/notifications/unchecked', {
+      params: {
+        user_id: this.$store.state.currentUser.id
+      }
+    })
+      .then((res) => {
+        console.log(res)
+        if (res === 0) {
+          this.check = true
+        } else {
+          this.check = false
+        }
+      })
   },
   methods: {
     logOut () {
@@ -197,5 +226,26 @@ export default {
   .header-list {
     margin-right: 0;
   }
+}
+
+.pekopeko {
+    animation: pekopeko 2s infinite;
+}
+@keyframes pekopeko {
+    0% {
+        top: 0px;
+    }
+    10% {
+        top: 3px;
+    }
+    20% {
+        top: 0px;
+    }
+    30% {
+        top: 3px;
+    }
+    40% {
+        top: 0px;
+    }
 }
 </style>
