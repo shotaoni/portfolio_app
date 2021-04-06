@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="currentUser.id" @checked="checkedNotice">
+  <v-container v-if="currentUser.id">
     <v-row justify="center">
       <v-col xl="4" lg="6" sm="8" cols="12">
         <v-card>
@@ -52,12 +52,6 @@
                             あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
                           <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                          <div v-if="notice.checked">
-                            既読
-                          </div>
-                          <div v-else>
-                            未読
-                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'comments'"
@@ -68,12 +62,6 @@
                             投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
                           <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                          <div v-if="notice.checked">
-                            既読
-                          </div>
-                          <div v-else>
-                            未読
-                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'like'"
@@ -84,12 +72,6 @@
                             あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
                           </nuxt-link>
                           <p>投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                          <div v-if="notice.checked">
-                            既読
-                          </div>
-                          <div v-else>
-                            未読
-                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'follow'"
@@ -100,12 +82,6 @@
                             あなたを{{ notice.visitor.name }}さんがフォローしました。
                           </nuxt-link>
                           <p>フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                          <div v-if="notice.checked">
-                            既読
-                          </div>
-                          <div v-else>
-                            未読
-                          </div>
                         </template>
                         <v-divider />
                     </v-col>
@@ -116,7 +92,7 @@
         </v-card>
         <v-row justify="center">
       <v-btn
-        v-if="morePost"
+        v-if="moreNotice"
         color="brown lighten-2"
         class="mt-4 white--text more-loading"
         @click="moreLoading"
@@ -167,8 +143,6 @@ export default {
       })
   },
   methods: {
-    checkedNotice () {
-    },
     async moreLoading () {
       const params = {
         offset: this.noticeCount,
@@ -198,4 +172,7 @@ export default {
 </script>
 
 <style>
+.checked {
+  opacity: 0.5;
+}
 </style>
