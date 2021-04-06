@@ -58,6 +58,7 @@
           :key="link.id"
           :link="link"
         />
+        投稿日時: {{ $moment(created_at).format('YYYY年MM月DD日 HH時mm分') }}
           </div>
         <v-row>
         <LikeButton

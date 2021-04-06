@@ -18,6 +18,7 @@
       </v-img>
       <div class="post-index-point mt-2">
         {{ post.point }}
+        投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}
       </div>
       <v-col v-if="post.links" cols="12">
         <LinkCard
@@ -127,6 +128,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.post.created_at)
     this.likepostcount()
     this.getcreatepost()
     this.isLiked()
