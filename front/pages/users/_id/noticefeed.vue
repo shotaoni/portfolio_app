@@ -53,16 +53,19 @@
                             v-if="notice.action === 'Comment'"
                           >
                             あなたの投稿に{{ notice.noticeVisitor }}さんがコメントしました。
+                            コメント日時: {{ $moment(created_at).format('YYYY年MM月DD日 HH時mm分') }}
                           </template>
                           <template
                             v-if="notice.action === 'post'"
                           >
                             あなたの投稿に{{ notice.noticeVisitor }}さんがいいねしました。
+                            いいね日時: {{ $moment(created_at).format('YYYY年MM月DD日 HH時mm分') }}
                           </template>
                           <template
                             v-if="notice.action === 'follow'"
                           >
                             あなたを{{ notice.noticeVisitor }}さんがフォローしました。
+                            フォロー日時: {{ $moment(created_at).format('YYYY年MM月DD日 HH時mm分') }}
                           </template>
                         </v-row>
                       </nuxt-link>
@@ -83,7 +86,8 @@ import axios from '@/plugins/axios'
 export default {
   data () {
     return {
-      notices: []
+      notices: [],
+      morePost: true
     }
   },
   computed: {
@@ -95,12 +99,16 @@ export default {
     await this.getnotifications()
   },
   methods: {
+    async moreLoading () {},
     async getnotifications () {
       await axios
         .get('v1/notifications', {
           params: {
             user_id: this.$store.state.currentUser.id
           }
+        })
+        .then((res) => {
+          console.log(res)
         })
     }
   }

@@ -1,7 +1,11 @@
 class V1::NotificationsController < ApplicationController
   def index
-    user = User.find(params[:user_id])
-    notifications = user.passive_notifications.includes({visitor: {avatar_attachment: :blob}})
+    if params[:user_id]
+      user = User.find(params[:user_id])
+      notifications = user.passive_notifications.includes({visitor: {avatar_attachment: :blob}})
+    else
+      notifications = Notification.all
+    end
 
     render json: notifications.as_json(include: [{visitor: {methods: :avatar_url}}])
   end

@@ -23,7 +23,6 @@
                   :key="index"
                   dense
                 >
-                  <v-col cols="12">
                     <v-col cols="2">
                       <nuxt-link
                         :to="`users/${notice.visitor.id}`"
@@ -34,15 +33,16 @@
                             :src="notice.visitor.avatar_url"
                             alt="Avatar"
                           >
-                          <v-else
-                            src="~/assets/image/default_icon.png"
+                          <img
+                            v-else
+                            src="~/assets/image/default-icon.png"
                             alt="Avatar"
                           />
                         </v-avatar>
+                        {{ notice.visitor.name }}
                       </nuxt-link>
                     </v-col>
                     <v-col cols="10">
-                      <v-row>
                         <template
                           v-if="notice.action === 'comment'"
                         >
@@ -51,6 +51,13 @@
                           >
                             あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
+                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                          <div v-if="notice.checked">
+                            既読
+                          </div>
+                          <div v-else>
+                            未読
+                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'comments'"
@@ -60,6 +67,13 @@
                           >
                             投稿に{{ notice.visitor.name }}さんがコメントしました。
                           </nuxt-link>
+                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                          <div v-if="notice.checked">
+                            既読
+                          </div>
+                          <div v-else>
+                            未読
+                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'like'"
@@ -69,6 +83,13 @@
                           >
                             あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
                           </nuxt-link>
+                          <p>投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                          <div v-if="notice.checked">
+                            既読
+                          </div>
+                          <div v-else>
+                            未読
+                          </div>
                         </template>
                         <template
                           v-if="notice.action === 'follow'"
@@ -78,15 +99,31 @@
                           >
                             あなたを{{ notice.visitor.name }}さんがフォローしました。
                           </nuxt-link>
+                          <p>フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                          <div v-if="notice.checked">
+                            既読
+                          </div>
+                          <div v-else>
+                            未読
+                          </div>
                         </template>
-                      </v-row>
+                        <v-divider />
                     </v-col>
-                  </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-container>
         </v-card>
+        <v-row justify="center">
+      <v-btn
+        v-if="morePost"
+        color="brown lighten-2"
+        class="mt-4 white--text more-loading"
+        @click="moreLoading"
+      >
+        記事読み込み
+      </v-btn>
+    </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -97,7 +134,8 @@ import axios from '@/plugins/axios'
 export default {
   data () {
     return {
-      notices: []
+      notices: [],
+      morePost: true
     }
   },
   computed: {
@@ -119,6 +157,7 @@ export default {
         }
       })
       .then((res) => {
+        console.log(res)
         this.notices = res.data
       })
   },

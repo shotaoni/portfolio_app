@@ -17,7 +17,7 @@
     <v-row justify="center">
       <v-btn
         v-if="morePost"
-        color="light-blue lighten-2"
+        color="brown lighten-2"
         class="mt-4 white--text more-loading"
         @click="moreLoading"
       >
