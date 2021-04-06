@@ -19,8 +19,8 @@
             <v-row>
               <v-col cols="12">
                 <v-row
-                  v-for="(notice, index) in notices"
-                  :key="index"
+                  v-for="notice in notices"
+                  :key="notice.id"
                   dense
                 >
                     <v-col cols="2">
@@ -135,7 +135,8 @@ export default {
   data () {
     return {
       notices: [],
-      morePost: true
+      moreNotice: true,
+      noticeCount: 0
     }
   },
   computed: {
@@ -159,10 +160,38 @@ export default {
       .then((res) => {
         console.log(res)
         this.notices = res.data
+        this.noticeCount = res.data.length
+        if (res.data.length < 20) {
+          this.moreNotice = false
+        }
       })
   },
   methods: {
     checkedNotice () {
+    },
+    async moreLoading () {
+      const params = {
+        offset: this.noticeCount,
+        user_id: this.$store.state.currentUser.id
+      }
+      this.$store.commit('setLoading', true)
+      await this.$axios
+        .get('/v1/notifications', { params })
+        .then((res) => {
+          console.log(res)
+          console.log(res.data)
+          const addNotices = res.data
+          this.notices = this.notices.concat(addNotices)
+          console.log(addNotices)
+          this.noticeCount = this.notices.length
+          console.log(this.noticeCount)
+          if (addNotices.length < 20) {
+            this.moreNotice = false
+          } else {
+            this.moreNotice = true
+          }
+          this.$store.commit('setLoading', false)
+        })
     }
   }
 }

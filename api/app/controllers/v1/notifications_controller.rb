@@ -1,8 +1,11 @@
 class V1::NotificationsController < ApplicationController
   def index
-    if params[:user_id]
+    if params[:offset] && params[:user_id]
       user = User.find(params[:user_id])
-      notifications = user.passive_notifications.includes({visitor: {avatar_attachment: :blob}})
+      notifications = user.passive_notifications.includes({ visitor: { avatar_attachment: :blob } }).limit(20).offset(params[:offset]).order(created_at: :desc)
+    elsif params[:user_id]
+      user = User.find(params[:user_id])
+      notifications = user.passive_notifications.includes({visitor: {avatar_attachment: :blob}}).limit(20).order(created_at: :desc)
     else
       notifications = Notification.all
     end
