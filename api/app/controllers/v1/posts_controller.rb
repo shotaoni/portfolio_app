@@ -25,12 +25,13 @@ class V1::PostsController < ApplicationController
       @posts.sort! do |a, b|
         b[:created_at] <=> a[:created_at]
       end
+      @posts = Kaminari.paginate_array(@posts).page(params[:page]).per(20)
     elsif params[:title]
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).order(created_at: :desc)
     end
-    render json: @posts
+      render json: @posts
   end
 
   def show

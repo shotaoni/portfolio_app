@@ -72,7 +72,9 @@ export default {
           this.postCount = res.data.length
           console.log(this.postCount)
           if (res.data.length < 20) {
-            this.moreNotice = false
+            this.morePost = false
+          } else {
+            this.morePost = true
           }
           this.$store.commit('setLoading', false)
         })
