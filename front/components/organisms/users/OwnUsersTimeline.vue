@@ -1,17 +1,17 @@
 <template>
   <v-card>
     <v-toolbar
-            color="brown"
-            dark
-            flat
-          >
-            <v-toolbar-title>
-              <v-icon>
-                mdi-note-multiple-outline
-              </v-icon>
-              {{ user.name }}さんの投稿
-            </v-toolbar-title>
-          </v-toolbar>
+      color="brown"
+      dark
+      flat
+    >
+      <v-toolbar-title>
+        <v-icon>
+          mdi-note-multiple-outline
+        </v-icon>
+        {{ user.name }}さんの投稿
+      </v-toolbar-title>
+    </v-toolbar>
     <v-card-text>
       <Post
         v-for="(post, $index) in posts"

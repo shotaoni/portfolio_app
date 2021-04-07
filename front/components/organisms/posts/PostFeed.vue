@@ -4,17 +4,17 @@
   >
     <v-card class="mx-auto" width="400px" elevation="7">
       <v-toolbar
-            color="brown"
-            dark
-            flat
-          >
-            <v-toolbar-title>
-              <v-icon>
-                mdi-note-multiple-outline
-              </v-icon>
-              <span>みんなの投稿</span>
-            </v-toolbar-title>
-          </v-toolbar>
+        color="brown"
+        dark
+        flat
+      >
+        <v-toolbar-title>
+          <v-icon>
+            mdi-note-multiple-outline
+          </v-icon>
+          <span>みんなの投稿</span>
+        </v-toolbar-title>
+      </v-toolbar>
     </v-card>
     <Post
       :user="posts[0].user"

@@ -51,7 +51,9 @@
                       >
                         あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
                       </nuxt-link>
-                      <p class="opacity-time">コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                      <p class="opacity-time">
+                        コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
                     </template>
                     <template
                       v-if="notice.action === 'comments'"
@@ -61,7 +63,9 @@
                       >
                         投稿に{{ notice.visitor.name }}さんがコメントしました。
                       </nuxt-link>
-                      <p class="opacity-time">コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                      <p class="opacity-time">
+                        コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
                     </template>
                     <template
                       v-if="notice.action === 'like'"
@@ -71,7 +75,9 @@
                       >
                         あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
                       </nuxt-link>
-                      <p class="opacity-time">投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                      <p class="opacity-time">
+                        投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
                     </template>
                     <template
                       v-if="notice.action === 'follow'"
@@ -81,7 +87,9 @@
                       >
                         あなたを{{ notice.visitor.name }}さんがフォローしました。
                       </nuxt-link>
-                      <p class="opacity-time">フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
+                      <p class="opacity-time">
+                        フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
                     </template>
                     <v-divider />
                   </v-col>

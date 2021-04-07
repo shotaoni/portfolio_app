@@ -1,17 +1,17 @@
 <template>
   <v-card>
     <v-toolbar
-            color="brown"
-            dark
-            flat
-          >
-            <v-toolbar-title>
-              <v-icon>
-                mdi-clock-time-three-outline
-              </v-icon>
-              フォローしているユーザのタイムライン
-            </v-toolbar-title>
-          </v-toolbar>
+      color="brown"
+      dark
+      flat
+    >
+      <v-toolbar-title>
+        <v-icon>
+          mdi-clock-time-three-outline
+        </v-icon>
+        フォローしているユーザのタイムライン
+      </v-toolbar-title>
+    </v-toolbar>
     <v-card-text>
       <Post
         v-for="(post, $index) in posts"
