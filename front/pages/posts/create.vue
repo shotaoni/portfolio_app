@@ -1,12 +1,15 @@
 <template>
   <v-card class="mx-auto mt-5 pa-5" width="400px">
     <v-card-title>
+      <v-icon class="mr-3">
+        mdi-pencil-plus-outline
+      </v-icon>
       <h2 class="create-post-h2">
         新規投稿
       </h2>
     </v-card-title>
     <ValidationProvider ref="obs" v-slot="ObserverProps">
-    <v-form>
+      <v-form>
         <div class="create-post-box">
           <TextField
             v-model="title"
@@ -19,11 +22,11 @@
             :first-url.sync="firstUrl"
           />
           <FileInput
-          v-model="image"
-          label="画像"
-          accept="image/*"
-          rules="size:5000"
-          @change="onImagePicked"
+            v-model="image"
+            label="画像"
+            accept="image/*"
+            rules="size:5000"
+            @change="onImagePicked"
           />
           <TextArea
             v-model="point"
@@ -33,7 +36,7 @@
           />
           <v-row justify="center">
             <v-btn
-              color="light-blue lighten-3"
+              color="brown lighten-2"
               class="white--text"
               :disabled="ObserverProps.invalid || !ObserverProps.validated"
               @click="createPost"
@@ -42,7 +45,7 @@
             </v-btn>
           </v-row>
         </div>
-    </v-form>
+      </v-form>
     </ValidationProvider>
   </v-card>
 </template>
@@ -116,14 +119,9 @@ export default {
           'content-type': 'multipart/form-data'
         }
       }
-      console.log(this.image)
-      console.log(formData)
-      console.log(config)
       axios
         .post('/v1/posts', formData, config)
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           this.$store.commit('setLoading', false)
           this.$store.commit('setFlash', {
             status: true,

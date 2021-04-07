@@ -163,7 +163,6 @@ export default {
       }
     })
       .then((res) => {
-        console.log(res)
         if (res === 0) {
           this.check = true
         } else {

@@ -23,83 +23,91 @@
                   :key="notice.id"
                   dense
                 >
-                    <v-col cols="2">
+                  <v-col cols="2">
+                    <nuxt-link
+                      :to="`users/${notice.visitor.id}`"
+                    >
+                      <v-avatar size="30">
+                        <img
+                          v-if="notice.visitor.avatar_url"
+                          :src="notice.visitor.avatar_url"
+                          alt="Avatar"
+                        >
+                        <img
+                          v-else
+                          src="~/assets/image/default-icon.png"
+                          alt="Avatar"
+                        >
+                      </v-avatar>
+                      {{ notice.visitor.name }}
+                    </nuxt-link>
+                  </v-col>
+                  <v-col cols="10">
+                    <template
+                      v-if="notice.action === 'comment'"
+                    >
                       <nuxt-link
-                        :to="`users/${notice.visitor.id}`"
+                        :to="`/posts/${notice.post_id}`"
                       >
-                        <v-avatar size="30">
-                          <img
-                            v-if="notice.visitor.avatar_url"
-                            :src="notice.visitor.avatar_url"
-                            alt="Avatar"
-                          >
-                          <img
-                            v-else
-                            src="~/assets/image/default-icon.png"
-                            alt="Avatar"
-                          />
-                        </v-avatar>
-                        {{ notice.visitor.name }}
+                        あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
                       </nuxt-link>
-                    </v-col>
-                    <v-col cols="10">
-                        <template
-                          v-if="notice.action === 'comment'"
-                        >
-                          <nuxt-link
-                            :to="`/posts/${notice.post_id}`"
-                          >
-                            あなたの投稿に{{ notice.visitor.name }}さんがコメントしました。
-                          </nuxt-link>
-                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                        </template>
-                        <template
-                          v-if="notice.action === 'comments'"
-                        >
-                          <nuxt-link
-                            :to="`/posts/${notice.post_id}`"
-                          >
-                            投稿に{{ notice.visitor.name }}さんがコメントしました。
-                          </nuxt-link>
-                          <p>コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                        </template>
-                        <template
-                          v-if="notice.action === 'like'"
-                        >
-                          <nuxt-link
-                            :to="`/posts/${notice.post_id}`"
-                          >
-                            あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
-                          </nuxt-link>
-                          <p>投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                        </template>
-                        <template
-                          v-if="notice.action === 'follow'"
-                        >
-                          <nuxt-link
-                            :to="`/users/${notice.visitor.id}`"
-                          >
-                            あなたを{{ notice.visitor.name }}さんがフォローしました。
-                          </nuxt-link>
-                          <p>フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
-                        </template>
-                        <v-divider />
-                    </v-col>
+                      <p class="opacity-time">
+                        コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
+                    </template>
+                    <template
+                      v-if="notice.action === 'comments'"
+                    >
+                      <nuxt-link
+                        :to="`/posts/${notice.post_id}`"
+                      >
+                        投稿に{{ notice.visitor.name }}さんがコメントしました。
+                      </nuxt-link>
+                      <p class="opacity-time">
+                        コメント日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
+                    </template>
+                    <template
+                      v-if="notice.action === 'like'"
+                    >
+                      <nuxt-link
+                        :to="`/posts/${notice.post_id}`"
+                      >
+                        あなたの投稿に{{ notice.visitor.name }}さんがいいねしました。
+                      </nuxt-link>
+                      <p class="opacity-time">
+                        投稿日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
+                    </template>
+                    <template
+                      v-if="notice.action === 'follow'"
+                    >
+                      <nuxt-link
+                        :to="`/users/${notice.visitor.id}`"
+                      >
+                        あなたを{{ notice.visitor.name }}さんがフォローしました。
+                      </nuxt-link>
+                      <p class="opacity-time">
+                        フォロー日時: {{ $moment(notice.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+                      </p>
+                    </template>
+                    <v-divider />
+                  </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-container>
         </v-card>
         <v-row justify="center">
-      <v-btn
-        v-if="moreNotice"
-        color="brown lighten-2"
-        class="mt-4 white--text more-loading"
-        @click="moreLoading"
-      >
-        記事読み込み
-      </v-btn>
-    </v-row>
+          <v-btn
+            v-if="moreNotice"
+            color="brown lighten-2"
+            class="mt-4 white--text more-loading"
+            @click="moreLoading"
+          >
+            記事読み込み
+          </v-btn>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -134,7 +142,6 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res)
         this.notices = res.data
         this.noticeCount = res.data.length
         if (res.data.length < 20) {
@@ -152,13 +159,9 @@ export default {
       await this.$axios
         .get('/v1/notifications', { params })
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           const addNotices = res.data
           this.notices = this.notices.concat(addNotices)
-          console.log(addNotices)
           this.noticeCount = this.notices.length
-          console.log(this.noticeCount)
           if (addNotices.length < 20) {
             this.moreNotice = false
           } else {
@@ -172,7 +175,7 @@ export default {
 </script>
 
 <style>
-.checked {
-  opacity: 0.5;
+.opacity-time {
+  opacity: 0.7;
 }
 </style>

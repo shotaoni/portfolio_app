@@ -57,7 +57,10 @@
 <script>
 export default {
   props: {
-    user: {}
+    user: {
+      type: Object,
+      default: null
+    }
   },
   computed: {
     currentUser () {

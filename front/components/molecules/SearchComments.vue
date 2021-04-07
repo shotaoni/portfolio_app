@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     search () {
-      console.log(this.commentword)
       axios
         .get('v1/comments', {
           params: {

@@ -2,7 +2,7 @@
   <div class="link-box">
     <v-card
       max-width="400"
-      color="blue lighten-2"
+      color="brown lighten-2"
       style="color:white;"
     >
       <v-img :src="og_image" height="150px" />

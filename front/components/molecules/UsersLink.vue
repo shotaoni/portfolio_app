@@ -5,18 +5,18 @@
       :to="`/users/${user.id}`"
       style="color:#37474F"
     >
-    <v-avatar size="32">
-      <img
-        v-if="user.avatar_url"
-        :src="user.avatar_url"
-        alt="Avatar"
-      >
-      <img
-        v-else
-        src="~/assets/image/default-icon.png"
-        alt="Avatar"
-      >
-    </v-avatar>
+      <v-avatar size="32">
+        <img
+          v-if="user.avatar_url"
+          :src="user.avatar_url"
+          alt="Avatar"
+        >
+        <img
+          v-else
+          src="~/assets/image/default-icon.png"
+          alt="Avatar"
+        >
+      </v-avatar>
     </nuxt-link>
     <nuxt-link
       class="nuxt-link"
@@ -30,11 +30,6 @@
 
 <script>
 export default {
-  computed: {
-    currentUser () {
-      return this.$store.state.currentUser
-    }
-  },
   props: {
     user: {
       type: Object,
@@ -42,7 +37,13 @@ export default {
     },
     post: {
       type: Object,
-      required: false
+      required: false,
+      default: null
+    }
+  },
+  computed: {
+    currentUser () {
+      return this.$store.state.currentUser
     }
   }
 }

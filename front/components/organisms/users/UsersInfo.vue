@@ -39,7 +39,7 @@
           style="color:#37474F"
         >
           フォロー
-          {{ this.followinglength }}人
+          {{ followinglength }}人
         </nuxt-link>
         <nuxt-link
           class="nuxt-link"
@@ -47,7 +47,7 @@
           style="color:#37474F"
         >
           フォロワー
-          {{ this.followerslength }}人
+          {{ followerslength }}人
         </nuxt-link>
         <v-col v-if="!(currentUser.id === user.id)" cols="12">
           <v-row justify="center">
@@ -70,7 +70,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row class="mt-5" justify="center">
         {{ user.profile }}
       </v-row>
     </v-card-text>

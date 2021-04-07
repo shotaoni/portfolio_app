@@ -1,47 +1,61 @@
 <template>
-  <div>
-    <UsersInfo
-      v-for="(user, $index) in users"
-      :key="$index"
-      :user="user"
-      :followinglength="followinglength"
-      :followerslength="followerslength"
-    />
+  <v-card class="mx-auto" width="400px">
+    <v-toolbar
+      color="brown"
+      dark
+      flat
+    >
+      <v-toolbar-title>
+        <v-icon>
+          mdi-account-check-outline
+        </v-icon>
+        <span>フォローされているユーザ</span>
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-card-title v-if="!users.length">
+      <p>だれにもフォローされていません</p>
+    </v-card-title>
+    <v-card-text>
+      <UsersLink
+        v-for="(user, $index) in users"
+        :key="$index"
+        :user="user"
+      />
+    </v-card-text>
     <v-row justify="center">
       <v-btn
         v-if="moreUser"
-        color="light-blue lighten-2"
+        color="brown lighten-2"
         class="mt-4 white--text more-loading"
         @click="moreLoading"
       >
         さらに読み込み
       </v-btn>
     </v-row>
-  </div>
+  </v-card>
 </template>
 
 <script>
 import axios from '@/plugins/axios'
-import UsersInfo from '~/components/organisms/users/UsersInfo.vue'
+import UsersLink from '~/components/molecules/UsersLink.vue'
 export default {
   components: {
-    UsersInfo
+    UsersLink
   },
   data () {
     return {
       userscount: 0,
       users: [],
-      followinglength: Number,
-      followerslength: Number,
       moreUser: false
     }
   },
   mounted () {
+    this.$store.commit('setLoading', true)
     axios
       .get(`v1/users/${this.$route.params.id}/followers`)
       .then((res) => {
         this.users = res.data
-        this.followinglength = this.users.length
+        this.$store.commit('setLoading', false)
       })
   },
   methods: {

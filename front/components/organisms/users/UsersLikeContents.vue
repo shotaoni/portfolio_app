@@ -1,10 +1,17 @@
 <template>
   <v-card>
-    <v-card-title>
-      <v-row justify="center">
-        <p>{{ user.name }}さんがいいねした投稿</p>
-      </v-row>
-    </v-card-title>
+    <v-toolbar
+      color="brown"
+      dark
+      flat
+    >
+      <v-toolbar-title>
+        <v-icon>
+          mdi-table-heart
+        </v-icon>
+        {{ user.name }}さんがいいねした投稿
+      </v-toolbar-title>
+    </v-toolbar>
     <v-card-text>
       <Post
         v-for="(post, $index) in posts"
@@ -25,7 +32,8 @@ export default {
   },
   props: {
     user: {
-      type: Object
+      type: Object,
+      default: null
     }
   },
   data () {
@@ -38,6 +46,7 @@ export default {
   },
   methods: {
     async getlikeposts () {
+      this.$store.commit('setLoading', true)
       await axios
         .get('v1/posts', {
           params: {
@@ -46,6 +55,7 @@ export default {
         })
         .then((res) => {
           this.posts = res.data
+          this.$store.commit('setLoading', false)
         })
     }
   }

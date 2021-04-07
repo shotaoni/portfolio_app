@@ -11,14 +11,12 @@
         :post="post"
       />
       <v-img
-      v-if="post.image_url"
-      :src="post.image_url"
-      alt="Image"
-      >
-      </v-img>
+        v-if="post.image_url"
+        :src="post.image_url"
+        alt="Image"
+      />
       <div class="post-index-point mt-2">
         {{ post.point }}
-        投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}
       </div>
       <v-col v-if="post.links" cols="12">
         <LinkCard
@@ -27,6 +25,7 @@
           :link="link"
         />
       </v-col>
+      <p>投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
       <v-row>
         <LikeButton
           :alreadylike="alreadylike"
@@ -39,13 +38,13 @@
         <v-spacer />
         <Button
           large
-          color="blue darken-2"
+          color="brown darken-2"
           type="mdi-message-text"
           @tap="openComments = !openComments"
         />
         <Button
           large
-          color="blue darken-2"
+          color="brown darken-2"
           type="mdi-comment-eye-outline"
           @click="openCommentslog = !openCommentslog"
         />
@@ -61,7 +60,7 @@
         <v-row>
           <v-spacer />
           <v-btn
-            color="blue darken-1"
+            color="brown darken-1"
             text
             style="margin-top: 10px;"
             :disabled="ObserverProps.invalid || !ObserverProps.validated"
@@ -128,7 +127,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.post.created_at)
     this.likepostcount()
     this.getcreatepost()
     this.isLiked()
@@ -145,9 +143,6 @@ export default {
   },
   methods: {
     async isLiked () {
-      console.log(this.post.image_url)
-      console.log(this.post)
-      console.log('likebutton')
       await this.$axios
         .$get('v1/likes', {
           params: {
@@ -156,7 +151,6 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res)
           if (!res) {
             this.alreadylike = false
           } else {
@@ -165,7 +159,6 @@ export default {
         })
     },
     async likepost () {
-      console.log('post.vue.likepost')
       await this.$axios
         .post('/v1/likes', {
           userid: this.currentUser.id,

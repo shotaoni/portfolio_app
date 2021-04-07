@@ -76,8 +76,6 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((res) => {
-          console.log(res)
-          console.log('name:', this.name)
           const user = {
             email: res.user.email,
             name: this.name,

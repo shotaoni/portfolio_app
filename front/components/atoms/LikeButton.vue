@@ -4,7 +4,7 @@
       v-if="alreadylike && currentUser"
       icon
       outlined
-      color="red"
+      color="red lighten-1"
       @click="$emit('likepostnone')"
     >
       <v-icon>
@@ -29,10 +29,12 @@
 export default {
   props: {
     post: {
-      type: Object
+      type: Object,
+      default: null
     },
     user: {
-      type: Object
+      type: Object,
+      default: null
     },
     alreadylike: {
       type: Boolean

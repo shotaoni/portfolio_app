@@ -22,8 +22,8 @@
             :user="user"
           />
           <OwnUsersTimeline
-          v-if="openusertimeline && !openlikeposts && !openfollowtimeline"
-          :user="user"
+            v-if="openusertimeline && !openlikeposts && !openfollowtimeline"
+            :user="user"
           />
         </v-col>
       </v-row>
@@ -53,8 +53,8 @@ export default {
       user: {},
       openlikeposts: false,
       notFound: false,
-      openusertimeline: false,
-      openfollowtimeline: true
+      openusertimeline: true,
+      openfollowtimeline: false
     }
   },
   computed: {
@@ -63,12 +63,13 @@ export default {
     }
   },
   mounted () {
+    this.$store.commit('setLoading', true)
     axios
       .get(`/v1/users/${this.$route.params.id}`)
       .then((res) => {
         const user = res.data
         this.user = user
-        console.log(this.user)
+        this.$store.commit('setLoading', false)
       })
       .catch((error) => {
         if (error.response.status === 404) {
