@@ -10,8 +10,10 @@ class V1::PostsController < ApplicationController
     elsif params[:user_like_posts]
       user = User.find(params[:user_like_posts])
       @posts = user.liked_posts.limit(20).order(created_at: :desc)
+    elsif params[:my_post] && params[:offset]
+      @posts = Post.where(user_id: params[:my_post]).limit(20).offset(params[:offset]).order(created_at: :desc)
     elsif params[:my_post]
-      @posts = Post.where(user_id: params[:my_post]).order(created_at: :desc)
+      @posts = Post.where(user_id: params[:my_post]).limit(20).order(created_at: :desc)
     elsif params[:following_post]
       user = User.find(params[:following_post])
       following = user.following
