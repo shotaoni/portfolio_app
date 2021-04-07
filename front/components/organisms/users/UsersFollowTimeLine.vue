@@ -1,38 +1,38 @@
 <template>
-<div>
-  <v-card>
-    <v-toolbar
-      color="brown"
-      dark
-      flat
-    >
-      <v-toolbar-title>
-        <v-icon>
-          mdi-clock-time-three-outline
-        </v-icon>
-        フォローしているユーザのタイムライン
-      </v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <Post
-        v-for="(post, $index) in posts"
-        :key="$index"
-        :user="post.user"
-        :post="post"
-      />
-    </v-card-text>
-  </v-card>
-  <v-row justify="center">
-          <v-btn
-            v-if="morePost"
-            color="brown lighten-2"
-            class="mt-4 white--text more-loading"
-            @click="moreLoading"
-          >
-            記事読み込み
-          </v-btn>
-        </v-row>
-</div>
+  <div>
+    <v-card>
+      <v-toolbar
+        color="brown"
+        dark
+        flat
+      >
+        <v-toolbar-title>
+          <v-icon>
+            mdi-clock-time-three-outline
+          </v-icon>
+          フォローしているユーザのタイムライン
+        </v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <Post
+          v-for="(post, $index) in posts"
+          :key="$index"
+          :user="post.user"
+          :post="post"
+        />
+      </v-card-text>
+    </v-card>
+    <v-row justify="center">
+      <v-btn
+        v-if="morePost"
+        color="brown lighten-2"
+        class="mt-4 white--text more-loading"
+        @click="moreLoading"
+      >
+        記事読み込み
+      </v-btn>
+    </v-row>
+  </div>
 </template>
 
 <script>
