@@ -70,7 +70,7 @@
           </v-row>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-row class="mt-5" justify="center">
         {{ user.profile }}
       </v-row>
     </v-card-text>
