@@ -29,10 +29,12 @@
 export default {
   props: {
     post: {
-      type: Object
+      type: Object,
+      default: null
     },
     user: {
-      type: Object
+      type: Object,
+      default: null
     },
     alreadylike: {
       type: Boolean

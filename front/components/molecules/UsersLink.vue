@@ -37,7 +37,8 @@ export default {
     },
     post: {
       type: Object,
-      required: false
+      required: false,
+      default: null
     }
   },
   computed: {

@@ -43,8 +43,14 @@ export default {
     UsersLink
   },
   props: {
-    post: Object,
-    comment: Object
+    post: {
+      type: Object,
+      default: null
+    },
+    comment: {
+      type: Object,
+      default: null
+    }
   },
   data () {
     return {
