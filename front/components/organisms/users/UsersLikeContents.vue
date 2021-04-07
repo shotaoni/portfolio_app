@@ -1,10 +1,17 @@
 <template>
   <v-card>
-    <v-card-title>
-      <v-row justify="center">
-        <p>{{ user.name }}さんがいいねした投稿</p>
-      </v-row>
-    </v-card-title>
+    <v-toolbar
+            color="brown"
+            dark
+            flat
+          >
+            <v-toolbar-title>
+              <v-icon>
+                mdi-table-heart
+              </v-icon>
+              {{ user.name }}さんがいいねした投稿
+            </v-toolbar-title>
+          </v-toolbar>
     <v-card-text>
       <Post
         v-for="(post, $index) in posts"

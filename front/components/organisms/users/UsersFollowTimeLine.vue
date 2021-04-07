@@ -1,10 +1,17 @@
 <template>
   <v-card>
-    <v-card-title>
-      <v-row justify="center">
-        フォローしているユーザのタイムライン
-      </v-row>
-    </v-card-title>
+    <v-toolbar
+            color="brown"
+            dark
+            flat
+          >
+            <v-toolbar-title>
+              <v-icon>
+                mdi-clock-time-three-outline
+              </v-icon>
+              フォローしているユーザのタイムライン
+            </v-toolbar-title>
+          </v-toolbar>
     <v-card-text>
       <Post
         v-for="(post, $index) in posts"
@@ -39,6 +46,7 @@ export default {
   },
   methods: {
     async getfollowingposts () {
+      this.$store.commit('setLoading', true)
       await axios
         .get('v1/posts', {
           params: {
@@ -47,6 +55,7 @@ export default {
         })
         .then((res) => {
           this.posts = res.data
+          this.$store.commit('setLoading', false)
         })
     }
   }
