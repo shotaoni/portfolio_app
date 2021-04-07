@@ -1,6 +1,9 @@
 <template>
   <v-card class="mx-auto mt-5 pa-5" width="400px">
     <v-card-title>
+      <v-icon class="mr-3">
+        mdi-pencil-plus-outline
+      </v-icon>
       <h2 class="create-post-h2">
         新規投稿
       </h2>

@@ -1,6 +1,9 @@
 <template>
   <div class="add-link-box">
     <v-card-title>
+    <v-icon class="mr-3">
+      mdi-open-in-new
+    </v-icon>
       <h3>リンクを追加する</h3>
     </v-card-title>
     <ValidationProvider

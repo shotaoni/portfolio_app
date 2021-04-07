@@ -17,7 +17,6 @@
       />
       <div class="post-index-point mt-2">
         {{ post.point }}
-        投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}
       </div>
       <v-col v-if="post.links" cols="12">
         <LinkCard
@@ -26,6 +25,7 @@
           :link="link"
         />
       </v-col>
+      <p>投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}</p>
       <v-row>
         <LikeButton
           :alreadylike="alreadylike"
