@@ -2,13 +2,18 @@ class V1::PostsController < ApplicationController
     before_action :set_post, only: [:show, :update, :destroy]
   
   def index
-    if params[:offset]
+    if params[:user_like_posts] && params[:offset]
+      user = User.find(params[:user_like_posts])
+      @posts = user.liked_posts.limit(20).offset(params[:offset]).order(created_at: :desc)
+    elsif params[:offset]
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).offset(params[:offset]).order(created_at: :desc)
     elsif params[:user_like_posts]
       user = User.find(params[:user_like_posts])
-      @posts = user.liked_posts.order(created_at: :desc)
+      @posts = user.liked_posts.limit(20).order(created_at: :desc)
+    elsif params[:my_post] && params[:offset]
+      @posts = Post.where(user_id: params[:my_post]).limit(20).offset(params[:offset]).order(created_at: :desc)
     elsif params[:my_post]
-      @posts = Post.where(user_id: params[:my_post]).order(created_at: :desc)
+      @posts = Post.where(user_id: params[:my_post]).limit(20).order(created_at: :desc)
     elsif params[:following_post]
       user = User.find(params[:following_post])
       following = user.following
@@ -22,12 +27,13 @@ class V1::PostsController < ApplicationController
       @posts.sort! do |a, b|
         b[:created_at] <=> a[:created_at]
       end
+      @posts = Kaminari.paginate_array(@posts).page(params[:page]).per(20)
     elsif params[:title]
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).order(created_at: :desc)
     end
-    render json: @posts
+      render json: @posts
   end
 
   def show
