@@ -16,7 +16,7 @@
         </v-btn>
       </v-toolbar>
       <ValidationObserver ref="obs" v-slot="{ invalid }">
-      <v-form>
+        <v-form>
           <div class="post-edit-box mt-2 pa-3">
             <TextField
               v-model="viewTitle"
@@ -30,11 +30,11 @@
               :first-url.sync="firstUrl"
             />
             <FileInput
-            v-model="image"
-            label="画像"
-            accept="image/*"
-            rules="size:5000"
-            @change="onImagePicked"
+              v-model="image"
+              label="画像"
+              accept="image/*"
+              rules="size:5000"
+              @change="onImagePicked"
             />
             <TextArea
               v-model="viewPoint"
@@ -53,7 +53,7 @@
               </v-btn>
             </v-row>
           </div>
-      </v-form>
+        </v-form>
       </ValidationObserver>
     </v-card>
   </v-dialog>
@@ -131,7 +131,6 @@ export default {
     },
     editLinks () {
       const editLinks = [this.firstUrl]
-      console.log(editLinks)
       return editLinks
     }
   },

@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-row justify="center">
-      {{ user.name }}さんの投稿
+        {{ user.name }}さんの投稿
       </v-row>
     </v-card-title>
     <v-card-text>
@@ -45,7 +45,6 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res)
           this.posts = res.data
         })
     }

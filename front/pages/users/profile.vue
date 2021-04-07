@@ -10,7 +10,7 @@
         <v-form>
           <ChangeUsersAvatar
             rules="size:300"
-            :value= "this.currentAvatarUrl"
+            :value="this.currentAvatarUrl"
           />
           <ChangeUsersName
             v-model="name"

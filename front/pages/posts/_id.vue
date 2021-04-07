@@ -46,74 +46,73 @@
         <div class="posts-point" style="white-space: pre-line">
           {{ point }}
         </div>
-          <v-img
-            v-if="image_url"
-            :src="image_url"
-            alt="Image"
-          >
-          </v-img>
-          <div class="link-card">
-        <LinkCard
-          v-for="link in links"
-          :key="link.id"
-          :link="link"
+        <v-img
+          v-if="image_url"
+          :src="image_url"
+          alt="Image"
         />
-        投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}
-          </div>
+        <div class="link-card">
+          <LinkCard
+            v-for="link in links"
+            :key="link.id"
+            :link="link"
+          />
+          投稿日時: {{ $moment(post.created_at).format('YYYY年MM月DD日 HH時mm分') }}
+        </div>
         <v-row>
-        <LikeButton
-          :alreadylike="alreadylike"
-          :user="user"
-          :post="post"
-          @likepostnone="likepostnone"
-          @likepost="likepost"
-        />
-        {{ likeCount }}
-        <v-spacer />
-        <Button
-          large
-          color="blue darken-2"
-          type="mdi-message-text"
-          @tap="openComments = !openComments"
-        />
-        <Button
-          large
-          color="blue darken-2"
-          type="mdi-comment-eye-outline"
-          @click="openCommentslog = !openCommentslog"
-        />
-        {{ comments.length }}
-      </v-row>
-      <ValidationObserver v-if="openComments" ref="obs" v-slot="ObserverProps">
-        <TextArea
-          v-model="content"
-          rules="max:200|required"
-          :counter="200"
-          label="コメント"
-        />
-        <v-row>
+          <LikeButton
+            :alreadylike="alreadylike"
+            :user="user"
+            :post="post"
+            @likepostnone="likepostnone"
+            @likepost="likepost"
+          />
+          {{ likeCount }}
           <v-spacer />
-          <v-btn
-            color="blue darken-1"
-            text
-            style="margin-top: 10px;"
-            :disabled="ObserverProps.invalid || !ObserverProps.validated"
-            @click="createComment"
-          >
-            コメントする
-          </v-btn>
+          <Button
+            large
+            color="blue darken-2"
+            type="mdi-message-text"
+            @tap="openComments = !openComments"
+          />
+          <Button
+            large
+            color="blue darken-2"
+            type="mdi-comment-eye-outline"
+            @click="openCommentslog = !openCommentslog"
+          />
+          {{ comments.length }}
         </v-row>
-      </ValidationObserver>
-      <div v-if="openCommentslog">
-        <Comment
-          v-for="comment in comments"
-          :key="comment.id"
-          :user="user"
-          :post="post"
-          :comment="comment"
-          @getcount="getcreatepost"
-        />
-      </div>
+        <ValidationObserver v-if="openComments" ref="obs" v-slot="ObserverProps">
+          <TextArea
+            v-model="content"
+            rules="max:200|required"
+            :counter="200"
+            label="コメント"
+          />
+          <v-row>
+            <v-spacer />
+            <v-btn
+              color="blue darken-1"
+              text
+              style="margin-top: 10px;"
+              :disabled="ObserverProps.invalid || !ObserverProps.validated"
+              @click="createComment"
+            >
+              コメントする
+            </v-btn>
+          </v-row>
+        </ValidationObserver>
+        <div v-if="openCommentslog">
+          <Comment
+            v-for="comment in comments"
+            :key="comment.id"
+            :user="user"
+            :post="post"
+            :comment="comment"
+            @getcount="getcreatepost"
+          />
+        </div>
       </v-card>
     </div>
   </v-container>
@@ -169,8 +168,6 @@ export default {
     axios
       .get(`/v1/posts/${this.$route.params.id}`)
       .then((res) => {
-        console.log(res)
-        console.log(res.data)
         this.user = res.data.user
         this.post = res.data
         this.point = res.data.point
@@ -212,7 +209,6 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res)
           if (!res) {
             this.alreadylike = false
           } else {
@@ -221,7 +217,6 @@ export default {
         })
     },
     async likepost () {
-      console.log('post.vue.likepost')
       await this.$axios
         .post('/v1/likes', {
           userid: this.currentUser.id,
@@ -273,7 +268,6 @@ export default {
       await this.$axios
         .$get(`v1/posts/${this.$route.params.id}/comments`)
         .then((res) => {
-          console.log(res)
           this.comments = res
         })
     },

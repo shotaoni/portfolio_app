@@ -26,7 +26,7 @@
               />
               <v-row justify="end">
                 <v-btn
-                  color="light-blue lighten-3"
+                  color="brown lighten-2"
                   class="white--text"
                   @click="openDialogForEmail"
                 >
@@ -34,37 +34,37 @@
                 </v-btn>
               </v-row>
             </div>
-              <div class="password-box">
-                <h3 class="edit-h3">
-                  パスワード
-                </h3>
-                <TextField
-            v-model="password"
-            label="パスワード"
-            rules="required|min:6"
-            :type="show1 ? 'text' : 'password'"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            vid="password"
-            @click:append="show1 = !show1"
-          />
-          <TextField
-            v-model="passwordConfirm"
-            label="パスワード（再入力)"
-            rules="required|min:6|confirmed:パスワード"
-            :type="show2 ? 'text' : 'password'"
-            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            @click:append="show2 = !show2"
-          />
-                <v-row justify="end">
-                  <v-btn
-                    color="light-blue lighten-3"
-                    class="white--text"
-                    @click="openDialogForPassword"
-                  >
-                    変更
-                  </v-btn>
-                </v-row>
-              </div>
+            <div class="password-box">
+              <h3 class="edit-h3">
+                パスワード
+              </h3>
+              <TextField
+                v-model="password"
+                label="パスワード"
+                rules="required|min:6"
+                :type="show1 ? 'text' : 'password'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                vid="password"
+                @click:append="show1 = !show1"
+              />
+              <TextField
+                v-model="passwordConfirm"
+                label="パスワード（再入力)"
+                rules="required|min:6|confirmed:パスワード"
+                :type="show2 ? 'text' : 'password'"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show2 = !show2"
+              />
+              <v-row justify="end">
+                <v-btn
+                  color="brown lighten-2"
+                  class="white--text"
+                  @click="openDialogForPassword"
+                >
+                  変更
+                </v-btn>
+              </v-row>
+            </div>
           </v-form>
         </ValidationObserver>
         <h3 class="edit-h3">
@@ -72,7 +72,7 @@
         </h3>
         <v-row justify="center">
           <v-btn
-            color="white--text red accent-3"
+            color="white--text red accent-2"
             @click="openDialogForDeleteAccount"
           >
             削除

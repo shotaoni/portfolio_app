@@ -1,9 +1,12 @@
 <template>
   <div
-  v-if="showPost">
-  <v-card class="mx-auto mt-4 pa-3" width="400px" elevation="7">
-  <v-row justify="center">全ユーザの投稿一覧</v-row>
-  </v-card>
+    v-if="showPost"
+  >
+    <v-card class="mx-auto mt-4 pa-3" width="400px" elevation="7">
+      <v-row justify="center">
+        全ユーザの投稿一覧
+      </v-row>
+    </v-card>
     <Post
       :user="posts[0].user"
       :post="posts[0]"
@@ -25,7 +28,7 @@
       </v-btn>
     </v-row>
   </div>
-  <v-row justify="center" v-else>
+  <v-row v-else justify="center">
     投稿はまだありません
   </v-row>
 </template>
@@ -49,12 +52,10 @@ export default {
   },
   methods: {
     async postsGet () {
-      console.log('postfeed')
       this.$store.commit('setLoading', true)
       await this.$axios
         .$get('v1/posts')
         .then((res) => {
-          console.log(res)
           this.posts = res
           this.postCount = this.posts.length
           this.showPost = true
@@ -69,8 +70,6 @@ export default {
       await this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
-          console.log(res)
-          console.log(res.data)
           const addPosts = res.data
           this.posts = this.posts.concat(addPosts)
           this.postCount = this.posts.length

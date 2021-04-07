@@ -12,7 +12,7 @@
       />
       <v-row justify="end">
         <v-btn
-          color="light-blue lighten-3"
+          color="brown lighten-2"
           class="white--text profile-message-btn"
           :disabled="ObserverProps.invalid || !ObserverProps.validated"
           @click="changeUsersProfile"

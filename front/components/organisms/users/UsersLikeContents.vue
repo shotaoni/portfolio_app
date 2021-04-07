@@ -38,6 +38,7 @@ export default {
   },
   methods: {
     async getlikeposts () {
+      this.$store.commit('setLoading', true)
       await axios
         .get('v1/posts', {
           params: {
@@ -46,6 +47,7 @@ export default {
         })
         .then((res) => {
           this.posts = res.data
+          this.$store.commit('setLoading', false)
         })
     }
   }
