@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     end
     resources :posts do
       resources :comments, only: [:index]
+      collection do
+        get '/ranking', to: 'posts#ranking'
+      end
     end
     resources :comments, only: [:index]
     resources :relationships
