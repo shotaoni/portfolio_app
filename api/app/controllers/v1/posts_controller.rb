@@ -30,6 +30,8 @@ class V1::PostsController < ApplicationController
       @posts = Kaminari.paginate_array(@posts).page(params[:page]).per(20)
     elsif params[:title]
       @posts = Post.where('title LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct. or Post.where('point LIKE ?', "%#{params[:title]}%").order(created_at: :desc).distinct
+    elsif params[:post_id]
+      @posts = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
     else
       @posts = Post.includes({ user: { avatar_attachment: :blob } }, :links).limit(20).order(created_at: :desc)
     end
