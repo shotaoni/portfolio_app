@@ -65,6 +65,11 @@ export default {
           this.posts = res
           this.postCount = this.posts.length
           this.showPost = true
+          if (res.length < 20) {
+            this.morePost = false
+          } else {
+            this.morePost = true
+          }
           this.$store.commit('setLoading', false)
         })
     },
@@ -81,6 +86,8 @@ export default {
           this.postCount = this.posts.length
           if (addPosts.length > 20) {
             this.morePost = true
+          } else {
+            this.morePost = false
           }
           this.$store.commit('setLoading', false)
         })

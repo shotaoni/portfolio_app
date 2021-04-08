@@ -69,7 +69,12 @@ class V1::PostsController < ApplicationController
   end
 
   def ranking
-    @posts = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id))
+    if params[:offset]
+      @posts = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id)).take(20)
+      @posts = Kaminari.paginate_array(@posts).page(params[:offset]).per(20)
+    else
+      @posts = Post.find(Like.group(:post_id).order('count(post_id) desc').pluck(:post_id)).take(20)
+    end
     render json: @posts
   end
 
