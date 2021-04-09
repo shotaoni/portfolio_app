@@ -29,7 +29,7 @@ class Post < ApplicationRecord
     notification.save if notification.valid?
   end
   end
-
+  
   def create_notification_comment!(current_user, comment_id)
     temp_ids = Comment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|

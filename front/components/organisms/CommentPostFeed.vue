@@ -59,7 +59,7 @@ export default {
     async postsGet () {
       this.$store.commit('setLoading', true)
       await this.$axios
-        .$get('v1/posts/ranking')
+        .$get('v1/posts/ranking', { params: { comment: true } })
         .then((res) => {
           console.log(res)
           this.posts = res
