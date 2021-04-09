@@ -50,6 +50,11 @@ export default {
           title: 'いいねが多い投稿',
           name: 'openLikeRankingFeed',
           icon: 'mdi-heart-multiple-outline'
+        },
+        {
+          title: 'コメントが多い投稿',
+          name: 'openCommentPostFeed',
+          icon: 'mdi-comment-text-multiple-outline'
         }
       ]
     }
