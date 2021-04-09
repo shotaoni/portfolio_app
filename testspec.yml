@@ -31,7 +31,5 @@ phases:
   build:
     commands:
       - echo nontest...
-      - docker-compose run api rails db:create
-      - docker-compose run api rails db:migrate
   post_build:
     commands:
