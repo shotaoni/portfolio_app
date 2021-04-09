@@ -1,10 +1,10 @@
-resource "aws_route53_zone" "tante-route53-zone" {
+data "aws_route53_zone" "tante-route53-zone" {
   name = "hellotante.com"
 }
 
 resource "aws_route53_record" "tante-route53-record" {
-  zone_id = aws_route53_zone.tante-route53-zone.zone_id
-  name    = aws_route53_zone.tante-route53-zone.name
+  zone_id = data.aws_route53_zone.tante-route53-zone.zone_id
+  name    = data.aws_route53_zone.tante-route53-zone.name
   type    = "A"
 
   alias {

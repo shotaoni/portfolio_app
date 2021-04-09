@@ -40,6 +40,7 @@ resource "aws_lb_listener" "tante-https-listener" {
   port              = "443"
   protocol          = "HTTPS"
   certificate_arn   = aws_acm_certificate.tante-acm-certificate.arn
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
 
   default_action {
     target_group_arn = aws_lb_target_group.tante-lb-front-tg.arn
@@ -52,6 +53,7 @@ resource "aws_lb_listener" "tante-api-listener" {
   port              = "3000"
   protocol          = "HTTPS"
   certificate_arn   = aws_acm_certificate.tante-acm-certificate.arn
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
 
   default_action {
     target_group_arn = aws_lb_target_group.tante-lb-api-tg.arn

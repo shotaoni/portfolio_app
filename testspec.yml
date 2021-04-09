@@ -1,0 +1,37 @@
+version: 0.2
+
+env:
+  parameter-store:
+    WORKDIR: workdir
+    HOST: host
+    API_PORT: api-port
+    S3_REGION: s3-region
+    S3_BUCKET: s3-bucket
+    RAILS_MASTER_KEY: rails-master-key
+    FRONT_PORT: front-port
+    API_KEY: api-key
+    AUTH_DOMAIN: auth-domain
+    PROJECT_ID: project-id
+    DATABASE_URL: database-url
+    STORAGE_BUCKET: storage-bucket
+    MESSAGE_SENDER_ID: message-sender-id
+    AWS_ACCESS_KEY_ID: access-key-id
+    AWS_SECRET_ACCESS_KEY: secret-access-key
+    DOCKERHUB_USER: dockerhub-user
+    DOCKERHUB_PASS: dockerhub-pass
+
+phases:
+
+  pre_build:
+    commands:
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+      - echo Starting Tests...
+      - docker-compose build
+  build:
+    commands:
+      - echo nontest...
+      - docker-compose run api rails db:create
+      - docker-compose run api rails db:migrate
+  post_build:
+    commands:
