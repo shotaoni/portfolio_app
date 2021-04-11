@@ -28,7 +28,7 @@ resource "aws_db_instance" "tante-db" {
   backup_retention_period    = 30
   maintenance_window         = "mon:10:10-mon:10:40"
   auto_minor_version_upgrade = false
-  deletion_protection        = false
+  deletion_protection        = true
   skip_final_snapshot        = true
   apply_immediately          = false
   vpc_security_group_ids     = [aws_security_group.tante-rds-sg.id]

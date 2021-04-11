@@ -28,7 +28,6 @@ ENV DB_PASSWORD           $DB_PASSWORD
 ENV S3_REGION             $S3_REGION
 ENV S3_BUCKET             $S3_BUCKET
 ENV RAILS_MASTER_KEY      $RAILS_MASTER_KEY
-ENV API_ENDPOINT          $API_ENDPOINT
 
 WORKDIR ${WORKDIR}
 
@@ -48,4 +47,4 @@ COPY . .
 
 EXPOSE ${API_PORT}
 
-CMD ["rails", "server", "-b", ${HOST}]
+CMD ["rails", "server", "-b", "0.0.0.0"]
