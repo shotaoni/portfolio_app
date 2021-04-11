@@ -47,6 +47,4 @@ COPY . .
 
 EXPOSE ${API_PORT}
 
-RUN echo $HOST
-
-CMD ["rails", "server", "-b", $HOST]
+CMD ["rails", "server", "-b", "0.0.0.0"]
