@@ -2,6 +2,9 @@ import colors from 'vuetify/es5/util/colors'
 require('dotenv').config()
 const environment = process.env.NODE_ENV || 'development'
 const envSet = require(`./env.${environment}.js`)
+console.log(environment)
+console.log(process.env.API_ENDPOINT)
+console.log(process.env.API_KEY)
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -57,7 +60,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://hellotante.com:3000' : 'http://localhost:3000'
+    baseURL: process.env.NODE_ENV === 'production' ? process.env.API_ENDPOINT : 'http://localhost:3000'
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

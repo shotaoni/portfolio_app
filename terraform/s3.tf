@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "tante-s3-bucket" {
   bucket        = "tante-s3-bucket"
   force_destroy = true
-  acl = "public-read"
+  acl           = "public-read"
 
   cors_rule {
     allowed_origins = ["*"]

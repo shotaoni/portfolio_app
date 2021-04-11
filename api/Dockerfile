@@ -12,8 +12,6 @@ ARG DB_PASSWORD
 ARG S3_REGION
 ARG S3_BUCKET
 ARG RAILS_MASTER_KEY
-ARG API_ENDPOINT
-ARG CONTAINER_PORT
 
 ENV RUNTIME_PACKAGES      "linux-headers libxml2-dev make gcc libc-dev nodejs tzdata mysql-dev mysql-client yarn"
 ENV DEV_PACKAGES          "build-base curl-dev"
@@ -48,12 +46,6 @@ RUN apk update && \
 
 COPY . .
 
-RUN echo ${API_ENDPOINT}
-RUN echo ${API_PORT}
-RUN echo ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY} ${CONTAINER_PORT} \
-${DB_HOST} ${DB_NAME} ${DB_PASSWORD} ${DB_USERNAME} ${HOST} ${PORT} ${WORKDIR} \
-${RAILS_MASTER_KEY}
+EXPOSE ${API_PORT}
 
-EXPOSE 3000
-
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", ${HOST}]

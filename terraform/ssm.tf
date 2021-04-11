@@ -56,196 +56,196 @@ resource "aws_ssm_parameter" "api-endpoint" {
 }
 
 resource "aws_ssm_parameter" "workdir" {
-  name = "workdir"
-  value = var.WORKDIR
-  type = "SecureString"
+  name        = "workdir"
+  value       = var.WORKDIR
+  type        = "SecureString"
   description = "WORKDIR"
 }
 resource "aws_ssm_parameter" "host" {
-  name = "host"
-  value = var.HOST
-  type = "SecureString"
+  name        = "host"
+  value       = var.HOST
+  type        = "SecureString"
   description = "HOST"
 }
 resource "aws_ssm_parameter" "front-port" {
-  name = "front-port"
-  value = var.FRONT_PORT
-  type = "SecureString"
+  name        = "front-port"
+  value       = var.FRONT_PORT
+  type        = "SecureString"
   description = "FRONT_PORT"
 }
 resource "aws_ssm_parameter" "api-key" {
-  name = "api-key"
-  value = var.API_KEY
-  type = "SecureString"
+  name        = "api-key"
+  value       = var.API_KEY
+  type        = "SecureString"
   description = "API_KEY"
 }
 resource "aws_ssm_parameter" "auth-domain" {
-  name = "auth-domain"
-  value = var.AUTH_DOMAIN
-  type = "SecureString"
+  name        = "auth-domain"
+  value       = var.AUTH_DOMAIN
+  type        = "SecureString"
   description = "AUTH_DOMAIN"
 }
 resource "aws_ssm_parameter" "database-url" {
-  name = "database-url"
-  value = var.DATABASE_URL
-  type = "SecureString"
+  name        = "database-url"
+  value       = var.DATABASE_URL
+  type        = "SecureString"
   description = "DATABASE_URL"
 }
 resource "aws_ssm_parameter" "project-id" {
-  name = "project-id"
-  value = var.PROJECT_ID
-  type = "SecureString"
+  name        = "project-id"
+  value       = var.PROJECT_ID
+  type        = "SecureString"
   description = "PROJECT_ID"
 }
 resource "aws_ssm_parameter" "storage-bucket" {
-  name = "storage-bucket"
-  value = var.STORAGE_BUCKET
-  type = "SecureString"
+  name        = "storage-bucket"
+  value       = var.STORAGE_BUCKET
+  type        = "SecureString"
   description = "STORAGE_BUCKET"
 }
 resource "aws_ssm_parameter" "message-sender-id" {
-  name = "message-sender-id"
-  value = var.MESSAGE_SENDER_ID
-  type = "SecureString"
+  name        = "message-sender-id"
+  value       = var.MESSAGE_SENDER_ID
+  type        = "SecureString"
   description = "MESSAGE_SENDER_ID"
 }
 
 resource "aws_ssm_parameter" "api-port" {
-  name = "api-port"
-  value = var.API_PORT
-  type = "SecureString"
+  name        = "api-port"
+  value       = var.API_PORT
+  type        = "SecureString"
   description = "API_PORT"
 }
 resource "aws_ssm_parameter" "db-host" {
-  name = "db-host"
-  value = var.DB_HOST
-  type = "SecureString"
+  name        = "db-host"
+  value       = var.DB_HOST
+  type        = "SecureString"
   description = "DB_HOST"
 }
 resource "aws_ssm_parameter" "db-name" {
-  name = "db-name"
-  value = var.DB_NAME
-  type = "SecureString"
+  name        = "db-name"
+  value       = var.DB_NAME
+  type        = "SecureString"
   description = "DB_NAME"
 }
 resource "aws_ssm_parameter" "db-username" {
-  name = "db-username"
-  value = var.DB_USERNAME
-  type = "SecureString"
+  name        = "db-username"
+  value       = var.DB_USERNAME
+  type        = "SecureString"
   description = "DB_USERNAME"
 }
 resource "aws_ssm_parameter" "db-password" {
-  name = "db-password"
-  value = var.DB_PASSWORD
-  type = "SecureString"
+  name        = "db-password"
+  value       = var.DB_PASSWORD
+  type        = "SecureString"
   description = "DB_PASSWORD"
 }
 resource "aws_ssm_parameter" "s3-region" {
-  name = "s3-region"
-  value = var.S3_REGION
-  type = "SecureString"
+  name        = "s3-region"
+  value       = var.S3_REGION
+  type        = "SecureString"
   description = "S3_REGION"
 }
 resource "aws_ssm_parameter" "s3-bucket" {
-  name = "s3-bucket"
-  value = var.S3_BUCKET
-  type = "SecureString"
+  name        = "s3-bucket"
+  value       = var.S3_BUCKET
+  type        = "SecureString"
   description = "S3_BUCKET"
 }
 resource "aws_ssm_parameter" "rails-master-key" {
-  name = "rails-master-key"
-  value = var.RAILS_MASTER_KEY
-  type = "SecureString"
+  name        = "rails-master-key"
+  value       = var.RAILS_MASTER_KEY
+  type        = "SecureString"
   description = "RAILS_MASTER_KEY"
 }
 
 resource "aws_ssm_parameter" "default-region" {
-  name = "default-region"
-  value = var.AWS_DEFAULT_REGION
-  type = "SecureString"
+  name        = "default-region"
+  value       = var.AWS_DEFAULT_REGION
+  type        = "SecureString"
   description = "AWS_DEFAULT_REGION"
 }
 
 resource "aws_ssm_parameter" "account-id" {
-  name = "account-id"
-  value = var.AWS_ACCOUNT_ID
-  type = "SecureString"
+  name        = "account-id"
+  value       = var.AWS_ACCOUNT_ID
+  type        = "SecureString"
   description = "AWS_ACCOUNT_ID"
 }
 
 resource "aws_ssm_parameter" "github-token" {
-  name = "github-token"
-  value = var.GITHUB_TOKEN
-  type = "SecureString"
+  name        = "github-token"
+  value       = var.GITHUB_TOKEN
+  type        = "SecureString"
   description = "GITHUB_TOKEN"
 }
 
 resource "aws_ssm_parameter" "github-user" {
-  name = "github-user"
-  value = var.GITHUB_USER
-  type = "SecureString"
+  name        = "github-user"
+  value       = var.GITHUB_USER
+  type        = "SecureString"
   description = "GITHUB_USER"
 }
 
 resource "aws_ssm_parameter" "github-repo" {
-  name = "github-repo"
-  value = var.GITHUB_REPO
-  type = "SecureString"
+  name        = "github-repo"
+  value       = var.GITHUB_REPO
+  type        = "SecureString"
   description = "GITHUB_REPO"
 }
 
 resource "aws_ssm_parameter" "github-branch" {
-  name = "github-branch"
-  value = var.GITHUB_BRANCH
-  type = "SecureString"
+  name        = "github-branch"
+  value       = var.GITHUB_BRANCH
+  type        = "SecureString"
   description = "GITHUB_BRANCH"
 }
 
 resource "aws_ssm_parameter" "webhook-token" {
-  name = "webhook-token"
-  value = var.WEBHOOK_TOKEN
-  type = "SecureString"
+  name        = "webhook-token"
+  value       = var.WEBHOOK_TOKEN
+  type        = "SecureString"
   description = "WEBHOOK_TOKEN"
 }
 
 resource "aws_ssm_parameter" "api-image" {
-  name = "api-image"
-  value = var.API_IMAGE
-  type = "SecureString"
+  name        = "api-image"
+  value       = var.API_IMAGE
+  type        = "SecureString"
   description = "API_IMAGE"
 }
 
 resource "aws_ssm_parameter" "api-image-tag" {
-  name = "api-image-tag"
-  value = var.API_IMAGE_TAG
-  type = "SecureString"
+  name        = "api-image-tag"
+  value       = var.API_IMAGE_TAG
+  type        = "SecureString"
   description = "API_IMAGE_TAG"
 }
 
 resource "aws_ssm_parameter" "front-image" {
-  name = "front-image"
-  value = var.FRONT_IMAGE
-  type = "SecureString"
+  name        = "front-image"
+  value       = var.FRONT_IMAGE
+  type        = "SecureString"
   description = "FRONT_IMAGE"
 }
 
 resource "aws_ssm_parameter" "front-image-tag" {
-  name = "front-image-tag"
-  value = var.FRONT_IMAGE_TAG
-  type = "SecureString"
+  name        = "front-image-tag"
+  value       = var.FRONT_IMAGE_TAG
+  type        = "SecureString"
   description = "FRONT_IMAGE_TAG"
 }
 
 resource "aws_ssm_parameter" "dockerhub-user" {
-  name = "dockerhub-user"
-  value = var.DOCKERHUB_USER
-  type = "SecureString"
+  name        = "dockerhub-user"
+  value       = var.DOCKERHUB_USER
+  type        = "SecureString"
   description = "DOCKERHUB_USER"
 }
 
 resource "aws_ssm_parameter" "dockerhub-pass" {
-  name = "dockerhub-pass"
-  value = var.DOCKERHUB_PASS
-  type = "SecureString"
+  name        = "dockerhub-pass"
+  value       = var.DOCKERHUB_PASS
+  type        = "SecureString"
   description = "DOCKERHUB_PASS"
 }

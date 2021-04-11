@@ -70,7 +70,7 @@ resource "aws_lb_target_group" "tante-lb-front-tg" {
   deregistration_delay = 300
 
   health_check {
-    enabled = true
+    enabled             = true
     path                = "/"
     healthy_threshold   = 2
     unhealthy_threshold = 2

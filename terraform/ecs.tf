@@ -18,7 +18,7 @@ resource "aws_ecs_service" "tante-front-ecs-service" {
   task_definition                   = aws_ecs_task_definition.tante-front-task.arn
   desired_count                     = 1
   launch_type                       = "FARGATE"
-  platform_version                  = "1.3.0"
+  platform_version                  = "1.4.0"
   health_check_grace_period_seconds = 600
 
   network_configuration {
@@ -46,6 +46,7 @@ resource "aws_ecs_task_definition" "tante-api-task" {
   requires_compatibilities = ["FARGATE"]
   container_definitions    = file("./tante_api_definitions.json")
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
+  task_role_arn            = module.ecs_task_execution_role.iam_role_arn
 }
 
 resource "aws_ecs_service" "tante-api-ecs-service" {
@@ -54,7 +55,7 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
   task_definition                   = aws_ecs_task_definition.tante-api-task.arn
   desired_count                     = 1
   launch_type                       = "FARGATE"
-  platform_version                  = "1.3.0"
+  platform_version                  = "1.4.0"
   health_check_grace_period_seconds = 600
 
   network_configuration {
@@ -98,8 +99,13 @@ data "aws_iam_policy_document" "ecs_task_execution" {
   source_json = data.aws_iam_policy.ecs_task_execution_role_policy.policy
 
   statement {
-    effect    = "Allow"
-    actions   = ["ssm:GetParameters", "kms:Decrypt"]
+    effect = "Allow"
+    actions = ["ssm:GetParameters",
+      "kms:Decrypt",
+      "ssmmessages:CreateControlChannel",
+      "ssmmessages:CreateDataChannel",
+      "ssmmessages:OpenControlChannel",
+    "ssmmessages:OpenDataChannel"]
     resources = ["*"]
   }
 }
