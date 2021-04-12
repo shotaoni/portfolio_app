@@ -23,7 +23,7 @@ resource "aws_db_instance" "tante-db" {
   storage_type               = "gp2"
   username                   = var.DB_USERNAME
   password                   = var.DB_PASSWORD
-  publicly_accessible        = true
+  publicly_accessible        = false
   backup_window              = "09:10-09:40"
   backup_retention_period    = 30
   maintenance_window         = "mon:10:10-mon:10:40"

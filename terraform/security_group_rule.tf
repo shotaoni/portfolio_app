@@ -82,15 +82,7 @@ resource "aws_security_group_rule" "tante-ecs-sg-rule4" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.tante-ecs-sg.id
 }
-resource "aws_security_group_rule" "tante-ecs-sg-rule5" {
-  description              = "tante-ecs-sg-rule5"
-  type                     = "ingress"
-  from_port                = 0
-  to_port                  = 0
-  protocol                 = "tcp"
-  source_security_group_id = aws_security_group.tante-alb-sg.id
-  security_group_id        = aws_security_group.tante-ecs-sg.id
-}
+
 resource "aws_security_group_rule" "tante-ecs-sg-rule6" {
   description       = "tante-ecs-sg-rule6"
   type              = "ingress"

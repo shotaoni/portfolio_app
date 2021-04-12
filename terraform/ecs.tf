@@ -59,12 +59,12 @@ resource "aws_ecs_service" "tante-api-ecs-service" {
   health_check_grace_period_seconds = 600
 
   network_configuration {
-    assign_public_ip = true
+    assign_public_ip = false
     security_groups  = [aws_security_group.tante-ecs-sg.id]
 
     subnets = [
-      aws_subnet.public_0.id,
-      aws_subnet.public_1.id
+      aws_subnet.private_0.id,
+      aws_subnet.private_1.id
     ]
   }
 

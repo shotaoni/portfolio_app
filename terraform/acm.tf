@@ -4,7 +4,7 @@ resource "aws_acm_certificate" "tante-acm-certificate" {
   validation_method         = "DNS"
 
   lifecycle {
-    create_before_destroy = true
+    create_before_destroy = false
   }
 }
 
