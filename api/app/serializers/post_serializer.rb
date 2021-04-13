@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostSerializer < ActiveModel::Serializer
   attributes :id, :title, :point, :image_url, :created_at
   belongs_to :user

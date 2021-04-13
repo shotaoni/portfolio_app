@@ -1,43 +1,47 @@
-class V1::LikesController < ApplicationController
-  before_action :set_user, only: %i[create]
+# frozen_string_literal: true
 
-  def index
-    @like = if params[:userid] && params[:post_id]
-              Like.find_by(user_id: params[:userid], post_id: params[:post_id])
-           elsif params[:post_id]
-              Like.where(post_id: params[:post_id])
-           elsif params[:user_id]
-              Like.where(user_id: params[:user_id])
-           else
-            []
-           end
-    render json: @like
-  end
+module V1
+  class LikesController < ApplicationController
+    before_action :set_user, only: %i[create]
 
-  def show
-    @like = Like.all
-    render json: @like
-  end
+    def index
+      @like = if params[:userid] && params[:post_id]
+                Like.find_by(user_id: params[:userid], post_id: params[:post_id])
+              elsif params[:post_id]
+                Like.where(post_id: params[:post_id])
+              elsif params[:user_id]
+                Like.where(user_id: params[:user_id])
+              else
+                []
+              end
+      render json: @like
+    end
 
-  def create
-    like = @current_user.likes.create!(like_params)
-    like.notification_post_like!(like.user_id, like.post_id)
-    render json: like
-  end
+    def show
+      @like = Like.all
+      render json: @like
+    end
 
-  def destroy
-    like = Like.find_by(user_id: params[:user_id], post_id: params[:post_id])
-    like.destroy
-    render json: like
-  end
+    def create
+      like = @current_user.likes.create!(like_params)
+      like.notification_post_like!(like.user_id, like.post_id)
+      render json: like
+    end
 
-  private
+    def destroy
+      like = Like.find_by(user_id: params[:user_id], post_id: params[:post_id])
+      like.destroy
+      render json: like
+    end
 
-  def set_user
-    @current_user = User.find(params[:userid])
-  end
+    private
 
-  def like_params
-    params.require(:like).permit(:post_id)
+    def set_user
+      @current_user = User.find(params[:userid])
+    end
+
+    def like_params
+      params.require(:like).permit(:post_id)
+    end
   end
 end

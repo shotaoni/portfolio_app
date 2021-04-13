@@ -1,6 +1,9 @@
-class V1::TasksController < ApplicationController
+# frozen_string_literal: true
 
-  def index
-    head 200
+module V1
+  class TasksController < ApplicationController
+    def index
+      head 200
+    end
   end
 end

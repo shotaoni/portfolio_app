@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
@@ -14,9 +16,7 @@ class Comment < ApplicationRecord
       post_id: post.id,
       action: 'comment'
     )
-    if visitor_id != post.user.id
-      poster_notice.save
-    end
+    poster_notice.save if visitor_id != post.user.id
 
     users = []
     post.comments.each do |c|
@@ -29,9 +29,7 @@ class Comment < ApplicationRecord
         post_id: post.id,
         action: 'comments'
       )
-      if visitor_id != user.id
-        comment_notice.save
-      end
+      comment_notice.save if visitor_id != user.id
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :posts
   namespace :v1 do
@@ -17,10 +19,10 @@ Rails.application.routes.draw do
     resources :comments, only: [:index]
     resources :relationships
     resources :likes
-      post 'likes/likenone', to: 'likes#destroy'
-    resources :comments, only: [:create, :destroy]
+    post 'likes/likenone', to: 'likes#destroy'
+    resources :comments, only: %i[create destroy]
     resources :tasks, only: :index
-    resources :notifications, only: [:index, :show] do
+    resources :notifications, only: %i[index show] do
       get :unchecked, on: :collection
       get :checked, on: :collection
     end

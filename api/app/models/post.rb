@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Post < ApplicationRecord
   include Rails.application.routes.url_helpers
   has_one_attached :image
@@ -8,7 +10,7 @@ class Post < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   def like_by(user)
-    likes.find{|f| f.user_id == user.id}
+    likes.find { |f| f.user_id == user.id }
   end
 
   def image_url
@@ -16,20 +18,19 @@ class Post < ApplicationRecord
   end
 
   def create_notification_like!(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and post_id = ? amd action = ?", current_user.id, user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? amd action = ?', current_user.id,
+                               user_id, id, 'like'])
     if temp.blank?
       notification = current_user.active_notifications.new(
         post_id: id,
         visited_id: user_id,
         action: like
       )
-      if notification.visitor_id == notification.visited_id
-        notification.checked = true
-      end
-    notification.save if notification.valid?
+      notification.checked = true if notification.visitor_id == notification.visited_id
+      notification.save if notification.valid?
+    end
   end
-  end
-  
+
   def create_notification_comment!(current_user, comment_id)
     temp_ids = Comment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|
@@ -45,10 +46,7 @@ class Post < ApplicationRecord
       visited_id: visited_id,
       action: 'comment'
     )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
+    notification.checked = true if notification.visitor_id == notification.visited_id
     notification.save if notification.valid?
   end
-
 end

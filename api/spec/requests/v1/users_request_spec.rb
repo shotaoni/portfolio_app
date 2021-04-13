@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "V1::Users", type: :request do
-  
+RSpec.describe 'V1::Users', type: :request do
   describe 'User' do
     before(:each) do
       @status_code_ok = 200
@@ -13,5 +14,4 @@ RSpec.describe "V1::Users", type: :request do
       expect(response.status).to eq(@status_code_ok)
     end
   end
-
 end
