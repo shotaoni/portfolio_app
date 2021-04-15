@@ -34,6 +34,7 @@ variable "FRONT_IMAGE" {}
 variable "FRONT_IMAGE_TAG" {}
 variable "DOCKERHUB_USER" {}
 variable "DOCKERHUB_PASS" {}
+variable "TEST_DB_HOST" {}
 
 resource "aws_ssm_parameter" "access-key-id" {
   name        = "access-key-id"
@@ -121,6 +122,12 @@ resource "aws_ssm_parameter" "db-host" {
   value       = var.DB_HOST
   type        = "SecureString"
   description = "DB_HOST"
+}
+resource "aws_ssm_parameter" "test-db-host" {
+  name        = "test-db-host"
+  value       = var.TEST_DB_HOST
+  type        = "SecureString"
+  description = "TEST_DB_HOST"
 }
 resource "aws_ssm_parameter" "db-name" {
   name        = "db-name"
