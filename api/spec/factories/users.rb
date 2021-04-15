@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
-    name { "testuser" }
-    email { "test1@sample.com" }
-    uid { "1" }
-    profile { "sample" }
+    name { 'testuser' }
+    sequence(:email) { |n| "tester#{n}@example.com" }
+    sequence(:uid, &:to_s)
   end
 end

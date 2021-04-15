@@ -1,14 +1,13 @@
+# frozen_string_literal: true
+
 class UpdateLink
-  
   def initialize(post)
     @post = post
   end
 
   def update_links(links)
     if links
-      if @post.links
-        @post.links.destroy_all
-      end
+      @post.links&.destroy_all
       create_link_with_ogp(links)
     end
   end
@@ -24,9 +23,9 @@ class UpdateLink
       og_description = og.description
       og_url = og.url
       link = Link.create(post_id: @post.id, url: l, og_title: og_title,
-                                                    og_image: og_image,
-                                                    og_description: og_description,
-                                                    og_url: og_url)
+                         og_image: og_image,
+                         og_description: og_description,
+                         og_url: og_url)
     end
   end
 end

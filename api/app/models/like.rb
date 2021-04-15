@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Like < ApplicationRecord
   belongs_to :user
   belongs_to :post
@@ -12,8 +14,6 @@ class Like < ApplicationRecord
       post_id: post.id,
       action: 'like'
     )
-    if visitor.id != post.user.id
-      notice.save
-    end
+    notice.save if visitor.id != post.user.id
   end
 end

@@ -1,5 +1,6 @@
-class CreateLink
+# frozen_string_literal: true
 
+class CreateLink
   def initialize(post)
     @post = post
   end
@@ -14,9 +15,9 @@ class CreateLink
         og_description = og.description
         og_url = og.url
         link = Link.create(post_id: @post.id, url: l, og_title: og_title,
-                                                      og_image: og_image,
-                                                      og_description: og_description,
-                                                      og_url: og_url)
+                           og_image: og_image,
+                           og_description: og_description,
+                           og_url: og_url)
       end
     end
   end

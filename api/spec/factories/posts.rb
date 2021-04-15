@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :post do
-    title { "MyString" }
-    user { nil }
+    title { 'MyString' }
+    point { 'test' }
+    association :user
   end
 end
