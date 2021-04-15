@@ -19,7 +19,7 @@ env:
     AWS_SECRET_ACCESS_KEY: secret-access-key
     DOCKERHUB_USER: dockerhub-user
     DOCKERHUB_PASS: dockerhub-pass
-    DB_HOST: "db"
+    DB_HOST: test-db-host
     DB_NAME: db-name
     DB_USERNAME: db-username
     DB_PASSWORD: db-password
