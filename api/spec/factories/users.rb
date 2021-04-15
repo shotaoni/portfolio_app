@@ -3,8 +3,7 @@
 FactoryBot.define do
   factory :user do
     name { 'testuser' }
-    email { 'test1@sample.com' }
-    uid { '1' }
-    profile { 'sample' }
+    sequence(:email) { |n| "tester#{n}@example.com" }
+    sequence(:uid, &:to_s)
   end
 end

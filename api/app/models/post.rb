@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  validates :point, presence: true, length: { maximum: 255 }
 
   def like_by(user)
     likes.find { |f| f.user_id == user.id }
