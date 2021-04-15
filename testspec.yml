@@ -35,9 +35,6 @@ phases:
   build:
     commands:
       - echo rspec test...
-      - docker-compose up -d
-      - sleep 30
-      - docker ps
       - docker-compose run api rails db:create
       - docker-compose run api rails db:migrate
       - docker-compose run api rspec
