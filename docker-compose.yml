@@ -8,6 +8,8 @@ services:
       TZ: UTC
       PGTZ: UTC
       MYSQL_ROOT_PASSWORD: $DB_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
     volumes:
       - mysql_data:/var/lib/mysql
 
