@@ -19,6 +19,10 @@ env:
     AWS_SECRET_ACCESS_KEY: secret-access-key
     DOCKERHUB_USER: dockerhub-user
     DOCKERHUB_PASS: dockerhub-pass
+    DB_HOST: db-host
+    DB_NAME: db-name
+    DB_USERNAME: db-username
+    DB_PASSWORD: db-password
 
 phases:
 
@@ -30,6 +34,9 @@ phases:
       - docker-compose build
   build:
     commands:
-      - echo nontest...
+      - echo rspec test...
+      - docker-compose run api rails db:create
+      - docker-compose run api rails db:migrate
+      - docker-compose run api rspec
   post_build:
     commands:
