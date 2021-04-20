@@ -5,23 +5,23 @@
 
 ## アピールポイント
 
-＊ フロントエンドとバックエンドを分けた完全SPA構成で作成した点。
+* フロントエンドとバックエンドを分けた完全SPA構成で作成した点。
+* dockerを利用した開発でdeploy時の環境の変化による差異を減らしている点。
 * terraformでインフラ環境をコード管理している点。
 * Codepipelineを使用しCI／CD環境を構築している点。
+* UIコンポーネント（Veutify)を利用しレスポンシブな対応をしている点。
 
 ## トップページ
 
 <img src="https://user-images.githubusercontent.com/74387670/115364989-ea52eb80-a1fe-11eb-9a59-20c2ae872e79.png" width="443px">
 
-#### 使用した技術
+## 使用した技術
 
 * 言語
   * Ruby 2.7.1
 * フレームワーク
   * バックエンド Rails 6.0.3.6 (APIモード)
   * フロントエンド Nuxt.js 2.14.12
-* 使用した主なGem
-* 
 * UIコンポーネント @nuxtjs/vuetify 1.11.3
 * データベース
   * MySQL 5.7
