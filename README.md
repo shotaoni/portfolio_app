@@ -6,7 +6,7 @@
 
 ## トップページ
 
-![tante-top](https://user-images.githubusercontent.com/74387670/115364989-ea52eb80-a1fe-11eb-9a59-20c2ae872e79.png)
+<img src="https://user-images.githubusercontent.com/74387670/115364989-ea52eb80-a1fe-11eb-9a59-20c2ae872e79.png" width="443px">
 
 #### 使用した技術
 
