@@ -188,7 +188,7 @@ export default {
         .then(() => {
           this.$store.commit('setFlash', {
             status: true,
-            message: 'ログインしました'
+            message: 'ゲストログインしました'
           })
           this.$store.commit('setLoading', false)
           setTimeout(() => {
