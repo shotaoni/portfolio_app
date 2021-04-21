@@ -28,6 +28,15 @@
         >
           新規登録
         </v-btn>
+        <v-btn
+          text
+          color="white"
+          :outlined="true"
+          @click="guestLogin"
+          small
+        >
+          ゲストログイン
+        </v-btn>
       </div>
       <div v-if="currentUser" class="after-login-box">
         <v-row>
@@ -171,6 +180,26 @@ export default {
       })
   },
   methods: {
+    guestLogin () {
+      this.$store.commit('setLoading', true)
+      firebase
+        .auth()
+        .signInWithEmailAndPassword('guestuser@example.com', 'guestuserpassword')
+        .then(() => {
+          this.$store.commit('setFlash', {
+            status: true,
+            message: 'ゲストログインしました'
+          })
+          this.$store.commit('setLoading', false)
+          setTimeout(() => {
+            this.$store.commit('setFlash', {})
+          }, 2000)
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     logOut () {
       firebase
         .auth()
