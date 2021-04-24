@@ -70,7 +70,6 @@ export default {
         .then((res) => {
           this.posts = res.data
           this.postCount = res.data.length
-          console.log(this.postCount)
           if (res.data.length < 20) {
             this.morePost = false
           } else {

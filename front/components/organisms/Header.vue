@@ -32,8 +32,8 @@
           text
           color="white"
           :outlined="true"
-          @click="guestLogin"
           small
+          @click="guestLogin"
         >
           ゲストログイン
         </v-btn>

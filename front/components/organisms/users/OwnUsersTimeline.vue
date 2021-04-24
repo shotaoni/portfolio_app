@@ -70,7 +70,6 @@ export default {
         .then((res) => {
           this.posts = res.data
           this.postCount = res.data.length
-          console.log(this.postCount)
           if (res.data.length < 20) {
             this.morePost = false
           } else {
@@ -80,7 +79,6 @@ export default {
         })
     },
     async moreLoading () {
-      console.log(this.postCount)
       const params = {
         offset: this.postCount,
         my_post: this.$route.params.id
@@ -89,7 +87,6 @@ export default {
       await this.$axios
         .get('/v1/posts', { params })
         .then((res) => {
-          console.log(res)
           const addPosts = res.data
           this.posts = this.posts.concat(addPosts)
           this.postCount = this.posts.length

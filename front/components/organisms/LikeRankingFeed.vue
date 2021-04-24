@@ -61,7 +61,6 @@ export default {
       await this.$axios
         .$get('v1/posts/ranking')
         .then((res) => {
-          console.log(res)
           this.posts = res
           this.postCount = this.posts.length
           this.showPost = true
