@@ -62,7 +62,6 @@ export default {
   methods: {
     async getfollowingposts () {
       this.$store.commit('setLoading', true)
-      console.log(this.postCount)
       await axios
         .get('v1/posts', {
           params: {
@@ -74,7 +73,6 @@ export default {
           this.count++
           this.posts = res.data
           this.postCount = res.data.length
-          console.log(this.postCount)
           if (res.data.length < 20) {
             this.morePost = false
           } else {
@@ -84,8 +82,6 @@ export default {
         })
     },
     async moreLoading () {
-      console.log(this.postCount)
-      console.log(this.count)
       const params = {
         page: this.count,
         following_post: this.$route.params.id
@@ -95,7 +91,6 @@ export default {
         .get('/v1/posts', { params })
         .then((res) => {
           this.count++
-          console.log(res)
           const addPosts = res.data
           this.posts = this.posts.concat(addPosts)
           this.postCount = this.posts.length

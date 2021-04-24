@@ -1,6 +1,6 @@
 <template>
- <v-container>
-  <v-row justify="center">
+  <v-container>
+    <v-row justify="center">
       <v-col xl="2" lg="3" sm="8" cols="12">
         <Menu
           @openPostFeed="openPostFeed"
@@ -10,17 +10,17 @@
       </v-col>
       <v-col xl="5" lg="7" sm="8" cols="12">
         <PostFeed
-        v-if="openpostFeed && !openlikeRankingFeed && !opencommentPostFeed"
+          v-if="openpostFeed && !openlikeRankingFeed && !opencommentPostFeed"
         />
         <LikeRankingFeed
-        v-if="!openpostFeed && openlikeRankingFeed && !opencommentPostFeed"
+          v-if="!openpostFeed && openlikeRankingFeed && !opencommentPostFeed"
         />
         <CommentPostFeed
-        v-if="!openpostFeed && !openlikeRankingFeed && opencommentPostFeed"
+          v-if="!openpostFeed && !openlikeRankingFeed && opencommentPostFeed"
         />
       </v-col>
     </v-row>
- </v-container>
+  </v-container>
 </template>
 
 <script>
