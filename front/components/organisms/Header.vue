@@ -136,8 +136,7 @@ export default {
   data () {
     return {
       value: false,
-      user: {},
-      check: true
+      user: {}
     }
   },
   computed: {
@@ -165,21 +164,21 @@ export default {
       return this.$store.state.loggedIn
     }
   },
-  mounted () {
-    this.$axios.$get('v1/notifications/unchecked', {
-      params: {
-        user_id: this.$store.state.currentUser.id
-      }
-    })
-      .then((res) => {
-        if (res === 0) {
-          this.check = true
-        } else {
-          this.check = false
+  methods: {
+    check () {
+      this.$axios.$get('v1/notifications/unchecked', {
+        params: {
+          user_id: this.$store.state.currentUser.id
         }
       })
-  },
-  methods: {
+        .then((res) => {
+          if (res === 0) {
+            this.check = true
+          } else {
+            this.check = false
+          }
+        })
+    },
     guestLogin () {
       this.$store.commit('setLoading', true)
       firebase

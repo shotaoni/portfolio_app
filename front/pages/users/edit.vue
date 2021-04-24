@@ -26,11 +26,19 @@
               />
               <v-row justify="end">
                 <v-btn
+                  v-if="guestEmail != currentUser.id"
                   color="brown lighten-2"
                   class="white--text"
                   @click="openDialogForEmail"
                 >
                   変更
+                </v-btn>
+                <v-btn
+                  v-else
+                  color="grey"
+                  class="white--text"
+                >
+                  ゲストユーザは変更できません
                 </v-btn>
               </v-row>
             </div>
@@ -57,11 +65,19 @@
               />
               <v-row justify="end">
                 <v-btn
+                  v-if="guestEmail != currentUser.id"
                   color="brown lighten-2"
                   class="white--text"
                   @click="openDialogForPassword"
                 >
                   変更
+                </v-btn>
+                <v-btn
+                  v-else
+                  color="grey"
+                  class="white--text"
+                >
+                  ゲストユーザは変更できません
                 </v-btn>
               </v-row>
             </div>
@@ -72,10 +88,18 @@
         </h3>
         <v-row justify="center">
           <v-btn
+            v-if="guestEmail != currentUser.id"
             color="white--text red accent-2"
             @click="openDialogForDeleteAccount"
           >
             削除
+          </v-btn>
+          <v-btn
+            v-else
+            color="grey"
+            class="white--text"
+          >
+            ゲストユーザは削除できません
           </v-btn>
         </v-row>
       </v-card-text>
@@ -107,7 +131,8 @@ export default {
       dialog: false,
       isEmail: false,
       isPassword: false,
-      isDeleteAccont: false
+      isDeleteAccont: false,
+      guestEmail: 'guestuser@example.com'
     }
   },
   fetch ({ store, redirect }) {
